@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- в ng-app атрибут указывает с каким модулем работает -->
-<html lang="en" ng-app="todoList">
+<html lang="en" ng-app="todoListApp">
 <head>
   <meta charset="UTF-8">
   <title>AngularJS ToDo</title>
@@ -10,26 +10,32 @@
   <script src="app.js"></script>
 </head>
 <!-- указывает, с каким контроллером работает блок -->
-<body ng-controller="ctrl">
-<div class="container col-md-6 col-md-offset-3">
-  <h2 class="text-center">AngularJS ToDo</h2>
-  <!--<div class="col-md-4">-->
+<body ng-controller="todoListCtrl">
+<div class="container">
+  <div class="col-md-6 col-md-offset-3">
+    <h2 class="text-center">AngularJS ToDo</h2>
     <div class="panel panel-default">
       <div class="panel-body">
-        <form>
+        <!-- директива ng-submit вызывает функцию addTask() по нажатию Enter или по клику на кнопку -->
+        <form ng-submit="addTask()">
           <!-- ng-model связывает input с переменной tempInput в контроллере -->
-          <input type="text" ng-model="tempInput">
+          <label>
+            <input type="text" ng-model="tempInput">
+          </label>
           <!-- ng-click - вызов функции по нажатию -->
-          <button class="btn btn-primary" ng-click="addTask()">Add</button>
+          <button class="btn btn-primary add_btn">Add</button>
         </form>
-        <!-- ng-repeat - повтор элементов массива -->
+        <!-- директива ng-repeat - (повтор элементов массива) расчитана на уникальные значения в массиве -->
         <!-- $index - смещение итератора повторяющегося элемента (0..length-1) -->
-        <p class="task_item" ng-repeat="task in taskArray track by $index">
-          {{task}}
-          <button class="btn btn-danger add_btn" ng-click="deleteItem(task)">Delete</button>
-        </p>
+        <!-- track by $index - использовать $index массива для перебора значений -->
+        <ul class="list-unstyled">
+          <li class="task_item" ng-repeat="task in taskArray track by $index">
+            {{task}}
+            <button class="btn btn-danger del_btn" ng-click="deleteItem(task)">Delete</button>
+          </li>
+        </ul>
       </div>
-    <!--</div>-->
+    </div>
   </div>
 </div>
 </body>

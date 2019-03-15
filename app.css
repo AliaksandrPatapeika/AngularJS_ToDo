@@ -2,6 +2,6 @@
   margin: 1em 0;
 }
 
-.add_btn {
+.add_btn, .del_btn {
   margin-left: 1em;
 }

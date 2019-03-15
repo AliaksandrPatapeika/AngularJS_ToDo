@@ -1,7 +1,7 @@
 // создание модуля
-angular.module('todoList', [])
+angular.module('todoListApp', [])
 // контроллер, где будут обрабатываться все данные. $scope - хранилище
-    .controller('ctrl', function ($scope) {
+    .controller('todoListCtrl', function ($scope) {
       // Создать временную переменную
       $scope.tempInput = 'test task';
 
@@ -11,7 +11,7 @@ angular.module('todoList', [])
       // Создать функцию, которая переносит из временного хранилища в общие задания
       $scope.addTask = function () {
         if ($scope.tempInput) {
-          $scope.taskArray.push($scope.tempInput)
+          $scope.taskArray.push($scope.tempInput);
           $scope.tempInput = '';
         } else {
           console.log('Empty input');
@@ -19,8 +19,10 @@ angular.module('todoList', [])
       };
 
       $scope.deleteItem = function (item) {
-        const index = $scope.taskArray.indexOf(item);
-        $scope.taskArray.splice(index, 1)
+        // const index = $scope.taskArray.indexOf(item);
+        // $scope.taskArray.splice(index, 1)
+        // this содержит атрибут $index, который похоже указывает на индекс текущего элемента
+        $scope.taskArray.splice(this.$index, 1);
       };
 
     });
