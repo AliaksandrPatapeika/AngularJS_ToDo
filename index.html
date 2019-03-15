@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!-- в ng-app атрибут указывает с каким модулем работает -->
+<html lang="en" ng-app="todoList">
+<head>
+  <meta charset="UTF-8">
+  <title>AngularJS ToDo</title>
+  <script src="https://code.angularjs.org/1.6.0/angular.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="app.js"></script>
+</head>
+<!-- указывает, с каким контроллером работает блок -->
+<body ng-controller="ctrl">
+<div class="container col-md-6 col-md-offset-3">
+  <h2 class="text-center">AngularJS ToDo</h2>
+  <!--<div class="col-md-4">-->
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <form>
+          <!-- ng-model связывает input с переменной tempInput в контроллере -->
+          <input type="text" ng-model="tempInput">
+          <!-- ng-click - вызов функции по нажатию -->
+          <button class="btn btn-primary" ng-click="addTask()">Add</button>
+        </form>
+        <!-- ng-repeat - повтор элементов массива -->
+        <!-- $index - смещение итератора повторяющегося элемента (0..length-1) -->
+        <p class="task_item" ng-repeat="task in taskArray track by $index">
+          {{task}}
+          <button class="btn btn-danger add_btn" ng-click="deleteItem(task)">Delete</button>
+        </p>
+      </div>
+    <!--</div>-->
+  </div>
+</div>
+</body>
+</html>
