@@ -3,40 +3,80 @@
 <html lang="en" ng-app="todoListApp">
 <head>
   <meta charset="UTF-8">
+  <!-- для мобильной адаптивности (ширина просмотра = ширине девайса, при первой загрузке масштаб = 1,
+   последнее - для масштаба на iOS_9.1) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script src="js/angular.js"></script>
+  <!-- подключать перед основными стилями, чтобы они перезаписывали стили bootstrap -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+  <link rel="stylesheet" href="css/main.css">
   <title>AngularJS ToDo</title>
-  <script src="https://code.angularjs.org/1.6.0/angular.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="app.css">
-  <script src="app.js"></script>
 </head>
+<body>
+<!-- основной контейнер (container-fluid - ширина всегда 100% - без отступов слева и справа)-->
+<!--<div class="container">-->
+<!-- строка в контейнере (Ctrl+ALt+J - обернуть текст в нужный тег) -->
+<!--<div class="row">-->
+<!-- колонки в строке контейнера (по 1 - 12 шт.) (Alt+J - мультикурсор вниз,
+с зажатым Alt - ставить мультикурсоры где нужно, lorem12 - фраза из 12 слов)
+col-auto - ширина зависит от контента внутри -->
+<!--<div class="col">-->
+<h1>Todo List</h1>
 <!-- указывает, с каким контроллером работает блок -->
-<body ng-controller="todoListCtrl">
-<div class="container">
-  <div class="col-md-6 col-md-offset-3">
-    <h2 class="text-center">AngularJS ToDo</h2>
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <!-- директива ng-submit вызывает функцию addTask() по нажатию Enter или по клику на кнопку -->
-        <form ng-submit="addTask()">
-          <!-- ng-model связывает input с переменной tempInput в контроллере -->
-          <label>
-            <input type="text" ng-model="tempInput">
-          </label>
-          <!-- ng-click - вызов функции по нажатию -->
-          <button class="btn btn-primary add_btn">Add</button>
-        </form>
-        <!-- директива ng-repeat - (повтор элементов массива) расчитана на уникальные значения в массиве -->
-        <!-- $index - смещение итератора повторяющегося элемента (0..length-1) -->
-        <!-- track by $index - использовать $index массива для перебора значений -->
-        <ul class="list-unstyled">
-          <li class="task_item" ng-repeat="task in taskArray track by $index">
-            {{task}}
-            <button class="btn btn-danger del_btn" ng-click="deleteItem(task)">Delete</button>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
+<div ng-controller="todoListCtrl">
+  <h2>{toDo} more to do, {done} done</h2>
+  <span>{{remaining()}} of {{taskList.length}} remaining</span>
+  [ <a href="#" ng-click="archive()">archive</a> ]
+  <ul class="list-group">
+    <!-- директива ng-repeat - (повтор элементов коллекции) расчитана на уникальные значения в массиве.
+    Автоматически добавляет новые элементы <li> в DOM и также удаляет, когда объект удаляется в контроллере.
+    <!-- $index - смещение итератора повторяющегося элемента (0..length-1) -->
+    <!-- track by $index - использовать $index массива для перебора значений -->
+    <li class="list-group-item task_item" ng-repeat="task in taskList">
+      <label>
+        <!-- ng-model двунаправленно связывает checkbox в форме со свойством done в объекте задания массива taskList
+         в контроллере (связывает форму и модель)-->
+        <input type="checkbox" ng-model="task.done">
+        <!-- CSS-класс done-true показывает зачеркивание для выполненных задач.
+         Когда task.done имеет значение true, результирующий селектор CSS становится done-true, который затем
+         применяет зачеркивание-->
+        <span class="done-{{task.done}}">{{task.text}}</span>
+      </label>
+      <button type="button" class="btn btn-outline-success btn-sm" ng-click="">
+        <i class="fas fa-exclamation"></i>
+      </button>
+      <!-- ng-click - вызов метода контроллера по клику -->
+      <button type="button" class="btn btn-outline-danger btn-sm" ng-click="deleteItem(task)">
+        <i class="fas fa-trash-alt"></i>
+      </button>
+    </li>
+  </ul>
+  <!--<div class="panel panel-default">-->
+  <!--<div class="panel-body">-->
+  <!-- директива ng-submit вызывает метод addTask() по нажатию Enter или по клику на кнопку (перехватывает отправку формы).
+   Внутри этого метода мы читаем свойство taskText и вставляем его в коллекцию taskArray-->
+  <form ng-submit="addTask()">
+    <!-- ng-model двунаправленно связывает значение input в форме со свойством text в объекте задания массива taskList
+         в контроллере (связывает форму и модель)-->
+    <input type="text" ng-model="taskText" placeholder="add new todo">
+    <input class="btn btn-primary add_btn" type="submit" value="Add">
+  </form>
+  <!--</div>-->
+  <!--</div>-->
 </div>
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!-- чтобы скрипты bootstrap заработали, нужно подключить jQuery и Popper.js перед bootstrap.min.js -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<!-- подключать перед основными скриптами, чтобы они перезаписывали скрипты bootstrap -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>

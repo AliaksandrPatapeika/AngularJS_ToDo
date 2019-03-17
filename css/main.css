@@ -1,0 +1,17 @@
+/*.task_item {*/
+  /*!*margin: 1em 0;*!*/
+/*}*/
+
+/*.add_btn, .del_btn {*/
+  /*margin-left: 1em;*/
+/*}*/
+
+.task_item button {
+  width: 35px;
+  margin: 3px;
+}
+
+.done-true {
+  text-decoration: line-through;
+  color: lightgray;
+}
