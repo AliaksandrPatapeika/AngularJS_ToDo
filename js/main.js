@@ -4,14 +4,15 @@ angular.module('todoListApp', [])
     .controller('todoListCtrl', function ($scope) {
       // хранилище для всех заданий
       $scope.taskList = [
-        {text: 'learn AngularJS', done: true},
-        {text: 'build an AngularJS app', done: false}
+        {text: 'learn AngularJS', done: true, important: false},
+        {text: 'build an AngularJS app', done: false, important: false},
+        {text: 'Other task', done: false, important: true}
       ];
 
       $scope.addTask = function () {
         // не добавлять пустые задания
         if ($scope.taskText) {
-          $scope.taskList.push({text: $scope.taskText, done: false});
+          $scope.taskList.push({text: $scope.taskText, done: false, important: false});
           $scope.taskText = '';
         } else {
           console.log('Empty input');
@@ -38,11 +39,15 @@ angular.module('todoListApp', [])
         console.log('Old task list: ', oldTaskList);
       };
 
-      $scope.deleteItem = function (item) {
+      $scope.deleteItem = function () {
         // const index = $scope.taskArray.indexOf(item);
         // $scope.taskArray.splice(index, 1)
         // this содержит атрибут $index, который похоже указывает на индекс текущего элемента
         $scope.taskList.splice(this.$index, 1);
+      };
+
+      $scope.importantItem = function (item) {
+        item.important = !item.important;
       };
 
     });

@@ -1,9 +1,9 @@
 /*.task_item {*/
-  /*!*margin: 1em 0;*!*/
+/*!*margin: 1em 0;*!*/
 /*}*/
 
 /*.add_btn, .del_btn {*/
-  /*margin-left: 1em;*/
+/*margin-left: 1em;*/
 /*}*/
 
 .task_item button {
@@ -14,4 +14,9 @@
 .done-true {
   text-decoration: line-through;
   color: lightgray;
+}
+
+.important-true {
+  font-weight: bold;
+  color: steelblue;
 }

@@ -33,7 +33,7 @@ col-auto - ширина зависит от контента внутри -->
     Автоматически добавляет новые элементы <li> в DOM и также удаляет, когда объект удаляется в контроллере.
     <!-- $index - смещение итератора повторяющегося элемента (0..length-1) -->
     <!-- track by $index - использовать $index массива для перебора значений -->
-    <li class="list-group-item task_item" ng-repeat="task in taskList">
+    <li class="list-group-item task_item" ng-repeat="task in taskList track by $index">
       <label>
         <!-- ng-model двунаправленно связывает checkbox в форме со свойством done в объекте задания массива taskList
          в контроллере (связывает форму и модель)-->
@@ -41,13 +41,13 @@ col-auto - ширина зависит от контента внутри -->
         <!-- CSS-класс done-true показывает зачеркивание для выполненных задач.
          Когда task.done имеет значение true, результирующий селектор CSS становится done-true, который затем
          применяет зачеркивание-->
-        <span class="done-{{task.done}}">{{task.text}}</span>
+        <span class="done-{{task.done}} important-{{task.important}}">{{task.text}}</span>
       </label>
-      <button type="button" class="btn btn-outline-success btn-sm" ng-click="">
+      <button type="button" class="btn btn-outline-success btn-sm" ng-click="importantItem(task)">
         <i class="fas fa-exclamation"></i>
       </button>
       <!-- ng-click - вызов метода контроллера по клику -->
-      <button type="button" class="btn btn-outline-danger btn-sm" ng-click="deleteItem(task)">
+      <button type="button" class="btn btn-outline-danger btn-sm" ng-click="deleteItem()">
         <i class="fas fa-trash-alt"></i>
       </button>
     </li>
@@ -69,14 +69,10 @@ col-auto - ширина зависит от контента внутри -->
 <!--</div>-->
 <!--</div>-->
 <!-- чтобы скрипты bootstrap заработали, нужно подключить jQuery и Popper.js перед bootstrap.min.js -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
+<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>-->
 <!-- подключать перед основными скриптами, чтобы они перезаписывали скрипты bootstrap -->
-<script src="js/bootstrap.min.js"></script>
+<!--<script src="js/bootstrap.min.js"></script>-->
 <script src="js/main.js"></script>
 </body>
 </html>
