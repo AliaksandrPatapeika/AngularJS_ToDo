@@ -1,14 +1,97 @@
-/*.task_item {*/
-/*!*margin: 1em 0;*!*/
-/*}*/
+.container {
+  font-family: "Segoe UI", sans-serif;
+  margin: 50px auto;
+  max-width: 600px;
+  border: 2px solid lightgray;
+  border-radius: 20px;
+}
 
-/*.add_btn, .del_btn {*/
-/*margin-left: 1em;*/
-/*}*/
+.container h3 {
+  color: grey;
+}
+
+.container input[type="search"],
+.container input[type="text"] {
+  box-sizing: border-box;
+  padding-left: 8px;
+  border: 2px solid lightblue;
+  border-radius: 5px;
+  height: 30px;
+}
+
+.container input[type="search"]:focus,
+.container input[type="text"]:focus {
+  border-color: cornflowerblue;
+  -webkit-box-shadow: 0 0 2px 0 royalblue;
+  -moz-box-shadow: 0 0 2px 0 royalblue;
+  box-shadow: 0 0 2px 0 royalblue;
+  outline: 0;
+}
+
+.container input[type="search"]::-webkit-search-cancel-button:hover {
+  cursor: pointer;
+}
+
+.task_item_list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.task_item {
+  margin: 5px 0;
+}
 
 .task_item button {
   width: 35px;
-  margin: 3px;
+  margin-left: 2px;
+}
+
+.btn {
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  background-color: #fff;
+  width: 55px;
+  height: 30px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.btn:hover {
+  color: #fff;
+  background-color: dodgerblue;
+  border: 1px solid royalblue;
+}
+
+.btn:focus {
+  outline: 0;
+}
+
+.btn-add, .btn-filter-active {
+  color: #fff;
+  background-color: steelblue;
+  border: 1px solid midnightblue;
+}
+
+.btn-filter {
+  background-color: azure;
+}
+
+.btn-important {
+  border-color: forestgreen;
+  color: forestgreen;
+}
+
+.btn-important:hover {
+  background-color: forestgreen;
+}
+
+.btn-delete {
+  border-color: orangered;
+  color: orangered;
+}
+
+.btn-delete:hover {
+  background-color: orangered;
 }
 
 .done-true {
@@ -18,5 +101,5 @@
 
 .important-true {
   font-weight: bold;
-  color: steelblue;
+  color: royalblue;
 }

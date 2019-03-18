@@ -32,21 +32,21 @@ angular.module('todoListApp', [])
               name: 'all',
               label: 'All',
               classNames: function () {
-                return 'btn ' + ((this.name === $scope.filterTasks) ? 'btn-info' : 'btn-outline-secondary');
+                return 'btn ' + ((this.name === $scope.filterTasks) ? 'btn-filter-active' : 'btn-filter');
               },
             },
             {
               name: 'active',
               label: 'Active',
               classNames: function () {
-                return 'btn ' + ((this.name === $scope.filterTasks) ? 'btn-info' : 'btn-outline-secondary');
+                return 'btn ' + ((this.name === $scope.filterTasks) ? 'btn-filter-active' : 'btn-filter');
               },
             },
             {
               name: 'done',
               label: 'Done',
               classNames: function () {
-                return 'btn ' + ((this.name === $scope.filterTasks) ? 'btn-info' : 'btn-outline-secondary');
+                return 'btn ' + ((this.name === $scope.filterTasks) ? 'btn-filter-active' : 'btn-filter');
               },
             }
           ];
