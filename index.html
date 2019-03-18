@@ -22,58 +22,72 @@
 с зажатым Alt - ставить мультикурсоры где нужно, lorem12 - фраза из 12 слов)
 col-auto - ширина зависит от контента внутри -->
 <!--<div class="col">-->
-<h1>Todo List</h1>
 <!-- указывает, с каким контроллером работает блок -->
 <div ng-controller="todoListCtrl">
-  <h2>{{remaining()}} of {{taskList.length}} remaining, {{taskList.length - remaining()}} done</h2>
-  [ <a href="#" ng-click="archive()">archive</a> ]
-  <!-- директива ng-change вызывает функцию, если изменилось значение поля ввода, требует наличия ng-model -->
-  <input type="search" ng-model="searchTaskInputText" placeholder="type to search">
-  <div class="btn-group">
-    <button type="button"
-            ng-repeat="filterButton in filterButtonsList track by $index"
-            name="{{filterButton.name}}"
-            class="{{filterButton.classNames()}}"
-            ng-click="onFilterChange(filterButton.name)">
-      {{filterButton.label}}
-    </button>
+  <div class="card" style="width: 40rem;">
+    <div class="card-header">
+      <div class="container">
+        <div class="row text-center">
+          <div class="col-sm-7">
+            <h1>Todo List</h1>
+          </div>
+          <div class="col-sm-5">
+            <h6>{{remaining()}} of {{taskList.length}} remaining, {{taskList.length - remaining()}} done</h6>
+            [ <a href="#" ng-click="archive()">archive</a> ]
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <!-- директива ng-change вызывает функцию, если изменилось значение поля ввода, требует наличия ng-model -->
+      <input type="search" ng-model="searchTaskInputText" placeholder="type to search">
+      <div class="btn-group">
+        <button type="button"
+                ng-repeat="filterButton in filterButtonsList track by $index"
+                name="{{filterButton.name}}"
+                class="{{filterButton.classNames()}}"
+                ng-click="onFilterChange(filterButton.name)">
+          {{filterButton.label}}
+        </button>
+      </div>
+      <ul class="list-group">
+        <!-- директива ng-repeat - (повтор элементов коллекции) расчитана на уникальные значения в массиве.
+        Автоматически добавляет новые элементы <li> в DOM и также удаляет, когда объект удаляется в контроллере.
+        $index - смещение итератора повторяющегося элемента (0..length-1)
+        track by $index - использовать $index массива для перебора значений -->
+        <li class="list-group-item task_item" ng-repeat="task in visibleTasks() track by $index">
+          <label>
+            <!-- ng-model двунаправленно связывает checkbox в форме со свойством done в объекте задания массива taskList
+             в контроллере (связывает форму и модель)-->
+            <input type="checkbox" ng-model="task.done">
+            <!-- CSS-класс done-true показывает зачеркивание для выполненных задач.
+             Когда task.done имеет значение true, результирующий селектор CSS становится done-true, который затем
+             применяет зачеркивание-->
+            <span class="done-{{task.done}} important-{{task.important}}">{{task.text}}</span>
+          </label>
+          <button type="button" class="btn btn-outline-success btn-sm" ng-click="importantTask(task)">
+            <i class="fas fa-exclamation"></i>
+          </button>
+          <!-- ng-click - вызов метода контроллера по клику -->
+          <button type="button" class="btn btn-outline-danger btn-sm" ng-click="deleteTask(task)">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </li>
+      </ul>
+      <!--<div class="panel panel-default">-->
+      <!--<div class="panel-body">-->
+      <!-- директива ng-submit вызывает метод addTask() по нажатию Enter или по клику на кнопку (перехватывает отправку формы).
+       Внутри этого метода мы читаем свойство taskText и вставляем его в коллекцию taskArray-->
+      <form ng-submit="addTask()">
+        <!-- ng-model двунаправленно связывает значение input в форме со свойством text в объекте задания массива taskList
+             в контроллере (связывает форму и модель)-->
+        <input type="text" ng-model="addTaskInputText" placeholder="add new todo">
+        <input class="btn btn-primary add_btn" type="submit" value="Add">
+      </form>
+      <!--</div>-->
+      <!--</div>-->
+    </div>
   </div>
-  <ul class="list-group">
-    <!-- директива ng-repeat - (повтор элементов коллекции) расчитана на уникальные значения в массиве.
-    Автоматически добавляет новые элементы <li> в DOM и также удаляет, когда объект удаляется в контроллере.
-    $index - смещение итератора повторяющегося элемента (0..length-1)
-    track by $index - использовать $index массива для перебора значений -->
-    <li class="list-group-item task_item" ng-repeat="task in visibleTasks() track by $index">
-      <label>
-        <!-- ng-model двунаправленно связывает checkbox в форме со свойством done в объекте задания массива taskList
-         в контроллере (связывает форму и модель)-->
-        <input type="checkbox" ng-model="task.done">
-        <!-- CSS-класс done-true показывает зачеркивание для выполненных задач.
-         Когда task.done имеет значение true, результирующий селектор CSS становится done-true, который затем
-         применяет зачеркивание-->
-        <span class="done-{{task.done}} important-{{task.important}}">{{task.text}}</span>
-      </label>
-      <button type="button" class="btn btn-outline-success btn-sm" ng-click="importantTask(task)">
-        <i class="fas fa-exclamation"></i>
-      </button>
-      <!-- ng-click - вызов метода контроллера по клику -->
-      <button type="button" class="btn btn-outline-danger btn-sm" ng-click="deleteTask(task)">
-        <i class="fas fa-trash-alt"></i>
-      </button>
-    </li>
-  </ul>
-  <!--<div class="panel panel-default">-->
-  <!--<div class="panel-body">-->
-  <!-- директива ng-submit вызывает метод addTask() по нажатию Enter или по клику на кнопку (перехватывает отправку формы).
-   Внутри этого метода мы читаем свойство taskText и вставляем его в коллекцию taskArray-->
-  <form ng-submit="addTask()">
-    <!-- ng-model двунаправленно связывает значение input в форме со свойством text в объекте задания массива taskList
-         в контроллере (связывает форму и модель)-->
-    <input type="text" ng-model="addTaskInputText" placeholder="add new todo">
-    <input class="btn btn-primary add_btn" type="submit" value="Add">
-  </form>
-  <!--</div>-->
-  <!--</div>-->
 </div>
 <!--</div>-->
 <!--</div>-->
