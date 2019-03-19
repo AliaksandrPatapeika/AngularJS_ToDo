@@ -116,7 +116,6 @@
   width: 60px;
   height: 35px;
   font-size: 1rem;
-  transition: 0.3s;
   cursor: pointer;
 }
 
@@ -124,6 +123,7 @@
   color: #fff;
   background-color: dodgerblue;
   border: 2px solid royalblue;
+  transition: 0.5s;
 }
 
 .btn:focus {

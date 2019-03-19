@@ -18,7 +18,7 @@
   <div class="container">
     <div class="head_container">
       <h1>Todo List</h1>
-      <div class="info_panel">
+      <div ng-cloak class="info_panel">
         <h3>{{remainingTasks()}} of {{data.taskList.length}} remaining, {{data.taskList.length - remainingTasks()}}
           done</h3>
         <a href="#" ng-click="archiveCompletedTasks()">[ archive ]</a>
@@ -26,11 +26,13 @@
     </div>
     <!-- директива ng-change вызывает функцию, если изменилось значение поля ввода, требует наличия ng-model -->
     <input type="search" ng-model="data.searchTaskInputText" placeholder="type to search">
-    <div class="buttons_group">
+    <div ng-cloak class="buttons_group">
+      <!--ng-class="(filterButton.name === data.filterTasks) ? 'btn btn-filter-active' : 'btn btn-filter'"-->
+      <!--$parent - обращение к родительскому $scope, потому что директива ng-repeat на каждой итерации создает свой локальный $scope-->
       <button type="button"
               ng-repeat="filterButton in data.filterButtonsList track by $index"
               name="{{filterButton.name}}"
-              class="btn {{(filterButton.name === data.filterTasks) ? 'btn-filter-active' : 'btn-filter'}}"
+              class="btn {{(filterButton.name === $parent.data.filterTasks) ? 'btn-filter-active' : 'btn-filter'}}"
               ng-click="onFilterChange(filterButton.name)">
         {{filterButton.label}}
       </button>
@@ -38,9 +40,9 @@
     <ul class="task_item_list">
       <!-- директива ng-repeat - (повтор элементов коллекции) расчитана на уникальные значения в массиве.
       Автоматически добавляет новые элементы <li> в DOM и также удаляет, когда объект удаляется в контроллере.
-      $index - смещение итератора повторяющегося элемента (0..length-1)
+      $index - (встроенноая переменная - номер итерации)смещение итератора повторяющегося элемента (0..length-1)
       track by $index - использовать $index массива для перебора значений -->
-      <li class="task_item" ng-repeat="task in visibleTasks() track by $index">
+      <li ng-cloak class="task_item" ng-repeat="task in visibleTasks() track by $index">
         <label>
           <!-- ng-model двунаправленно связывает checkbox в форме со свойством done в объекте задания массива taskList
            в контроллере (связывает форму и модель)-->
