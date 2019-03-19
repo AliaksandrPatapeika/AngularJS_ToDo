@@ -19,17 +19,18 @@
     <div class="head_container">
       <h1>Todo List</h1>
       <div class="info_panel">
-        <h3>{{remaining()}} of {{taskList.length}} remaining, {{taskList.length - remaining()}} done</h3>
-        <a href="#" ng-click="archive()">[ archive ]</a>
+        <h3>{{remainingTasks()}} of {{data.taskList.length}} remaining, {{data.taskList.length - remainingTasks()}}
+          done</h3>
+        <a href="#" ng-click="archiveCompletedTasks()">[ archive ]</a>
       </div>
     </div>
     <!-- директива ng-change вызывает функцию, если изменилось значение поля ввода, требует наличия ng-model -->
-    <input type="search" ng-model="searchTaskInputText" placeholder="type to search">
+    <input type="search" ng-model="data.searchTaskInputText" placeholder="type to search">
     <div class="buttons_group">
       <button type="button"
-              ng-repeat="filterButton in filterButtonsList track by $index"
+              ng-repeat="filterButton in data.filterButtonsList track by $index"
               name="{{filterButton.name}}"
-              class="{{filterButton.classNames()}}"
+              class="btn {{(filterButton.name === data.filterTasks) ? 'btn-filter-active' : 'btn-filter'}}"
               ng-click="onFilterChange(filterButton.name)">
         {{filterButton.label}}
       </button>
