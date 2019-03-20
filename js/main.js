@@ -58,7 +58,7 @@ angular.module('todoListApp', [])
             } else {
               console.log('Empty input');
             }
-          }
+          };
 
         }
     )
@@ -75,5 +75,5 @@ angular.module('todoListApp', [])
             console.log('default for debug', filterName);
             return taskList;
         }
-      }
+      };
     });

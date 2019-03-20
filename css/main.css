@@ -5,7 +5,7 @@
   margin: 50px auto;
   max-width: 600px;
   min-width: 400px;
-  border: 3px solid lightgray;
+  border: 2px solid lightgray;
   border-radius: 20px;
 }
 
@@ -48,7 +48,7 @@
   border: 1px solid deepskyblue;
   border-radius: 5px;
   height: 35px;
-  width: 350px;
+  width: 355px;
   font-size: 1rem;
 }
 
@@ -74,51 +74,11 @@
   display: none;
 }
 
-.task_item_list {
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
-}
-
-.task_item {
-  display: table;
-  table-layout: fixed;
-  margin-top: 10px;
-  width: 100%;
-  font-size: 1.25rem;
-  word-wrap: break-word;
-}
-
-.task_item label {
-  display: table-cell;
-  padding: 0 10px;
-  vertical-align: middle;
-}
-
-.task_item input[type="checkbox"] {
-  width: 1rem;
-  height: 1rem;
-}
-
-.task_item_buttons_group {
-  display: table-cell;
-  width: 82px;
-}
-
-.task_item_buttons_group button {
-  width: 35px;
-  margin-left: 2px;
-}
-
-.task_item_buttons_group button:hover {
-  border-style: none;
-}
-
 .btn {
   border: 1px solid lightgray;
   border-radius: 4px;
   background-color: #fff;
-  width: 60px;
+  width: 62px;
   height: 35px;
   font-size: 1rem;
   font-family: inherit;
@@ -155,6 +115,58 @@
   user-select: none;
 }
 
+.task_item_list {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.task_item {
+  display: table;
+  margin-top: 10px;
+  width: 100%;
+  font-size: 1.25rem;
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+
+.task_item label {
+  display: table-cell;
+  padding: 0 10px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.task_item input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+}
+
+.done-true {
+  text-decoration: line-through;
+  color: lightgray;
+}
+
+.important-true {
+  font-weight: bold;
+  color: royalblue;
+}
+
+.task_item_buttons_group {
+  display: table-cell;
+  width: 82px;
+}
+
+.task_item_buttons_group button {
+  width: 35px;
+  margin-left: 2px;
+}
+
+.task_item_buttons_group button:hover {
+  border-style: none;
+}
+
 .btn-important {
   border-color: forestgreen;
   color: forestgreen;
@@ -173,12 +185,4 @@
   background-color: orangered;
 }
 
-.done-true {
-  text-decoration: line-through;
-  color: lightgray;
-}
 
-.important-true {
-  font-weight: bold;
-  color: royalblue;
-}
