@@ -17,7 +17,7 @@
   display: inline-block;
   margin: 0 0 10px;
   width: 60%;
-  font-size: 3rem;
+  font-size: 2.5rem;
 }
 
 .info_panel {
@@ -45,7 +45,7 @@
   box-sizing: border-box;
   padding-left: 8px;
   margin: 10px 8px 10px 0;
-  border: 2px solid deepskyblue;
+  border: 1px solid deepskyblue;
   border-radius: 5px;
   height: 35px;
   width: 350px;
@@ -55,9 +55,9 @@
 .container input[type="search"]:focus,
 .container input[type="text"]:focus {
   border-color: cornflowerblue;
-  -webkit-box-shadow: 0 0 3px 0 royalblue;
-  -moz-box-shadow: 0 0 3px 0 royalblue;
-  box-shadow: 0 0 3px 0 royalblue;
+  -webkit-box-shadow: 0 0 2px 0 royalblue;
+  -moz-box-shadow: 0 0 2px 0 royalblue;
+  box-shadow: 0 0 2px 0 royalblue;
   outline: 0;
 }
 
@@ -65,8 +65,13 @@
   cursor: pointer;
 }
 
-.buttons_group {
+.filter_buttons_group {
   display: inline-block;
+  vertical-align: middle;
+}
+
+.filter_buttons_group input[type="radio"] {
+  display: none;
 }
 
 .task_item_list {
@@ -110,19 +115,20 @@
 }
 
 .btn {
-  border: 2px solid lightgray;
+  border: 1px solid lightgray;
   border-radius: 4px;
   background-color: #fff;
   width: 60px;
   height: 35px;
   font-size: 1rem;
+  font-family: inherit;
   cursor: pointer;
 }
 
 .btn:hover {
   color: #fff;
   background-color: dodgerblue;
-  border: 2px solid royalblue;
+  border-color: royalblue;
   transition: 0.5s;
 }
 
@@ -130,14 +136,23 @@
   outline: 0;
 }
 
-.btn-add, .btn-filter-active {
+.btn-add,
+.filter_buttons_group input[type="radio"]:checked + label {
   color: #fff;
   background-color: steelblue;
   border-color: midnightblue;
 }
 
 .btn-filter {
+  display: table-cell;
+  vertical-align: middle;
+  box-sizing: border-box;
   background-color: azure;
+  text-align: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .btn-important {

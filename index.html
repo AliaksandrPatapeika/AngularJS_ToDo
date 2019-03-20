@@ -6,7 +6,6 @@
   <!-- для мобильной адаптивности (ширина просмотра = ширине девайса, при первой загрузке масштаб = 1,
    последнее - для масштаба на iOS_9.1) -->
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <script src="js/angular.js"></script>
   <!-- подключать перед основными стилями, чтобы они перезаписывали стили bootstrap -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
   <link rel="stylesheet" href="css/main.css">
@@ -26,23 +25,25 @@
     </div>
     <!-- директива ng-change вызывает функцию, если изменилось значение поля ввода, требует наличия ng-model -->
     <input type="search" ng-model="data.searchTaskInputText" placeholder="type to search">
-    <div ng-cloak class="buttons_group">
-      <!--ng-class="(filterButton.name === data.filterTasks) ? 'btn btn-filter-active' : 'btn btn-filter'"-->
-      <!--$parent - обращение к родительскому $scope, потому что директива ng-repeat на каждой итерации создает свой локальный $scope-->
-      <button type="button"
-              ng-repeat="filterButton in data.filterButtonsList track by $index"
-              name="{{filterButton.name}}"
-              class="btn {{(filterButton.name === $parent.data.filterTasks) ? 'btn-filter-active' : 'btn-filter'}}"
-              ng-click="onFilterChange(filterButton.name)">
+    <div ng-cloak class="filter_buttons_group">
+      <input type="radio"
+             ng-repeat-start="filterButton in data.filterButtonsList"
+             id="radio{{filterButton.label}}"
+             ng-model="data.filterTasks"
+             value="{{filterButton.name}}">
+      <label for="radio{{filterButton.label}}"
+             class="btn btn-filter"
+             ng-repeat-end>
         {{filterButton.label}}
-      </button>
+      </label>
     </div>
     <ul class="task_item_list">
       <!-- директива ng-repeat - (повтор элементов коллекции) расчитана на уникальные значения в массиве.
       Автоматически добавляет новые элементы <li> в DOM и также удаляет, когда объект удаляется в контроллере.
       $index - (встроенноая переменная - номер итерации)смещение итератора повторяющегося элемента (0..length-1)
       track by $index - использовать $index массива для перебора значений -->
-      <li ng-cloak class="task_item" ng-repeat="task in visibleTasks() track by $index">
+      <li ng-cloak class="task_item"
+          ng-repeat="task in data.taskList | filter:data.searchTaskInputText | myFilter: data.filterTasks">
         <label>
           <!-- ng-model двунаправленно связывает checkbox в форме со свойством done в объекте задания массива taskList
            в контроллере (связывает форму и модель)-->
@@ -73,6 +74,7 @@
     </form>
   </div>
 </div>
+<script src="js/angular.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
