@@ -10,7 +10,7 @@
   <!-- подключать перед основными стилями, чтобы основные стили перезаписывали стили fontawesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
   <link rel="stylesheet" href="css/app.css">
-  <script src="lib/angular/angular.js"></script>
+  <script src="../node_modules/angular/angular.js"></script>
   <script src="js/app.js"></script>
 </head>
 <body>
@@ -43,7 +43,7 @@
     $index - (встроенноая переменная - номер итерации)смещение итератора повторяющегося элемента (0..length-1)
     track by $index - использовать $index массива для перебора значений -->
     <li ng-cloak class="task_item"
-        ng-repeat="task in data.taskList | filter:data.searchTaskInputText | myFilter: data.filterTasks">
+        ng-repeat="task in data.taskList | filter:data.searchTaskInputText | taskFilter: data.filterTasks">
       <label>
         <!-- ng-model двунаправленно связывает checkbox в форме со свойством done в объекте задания массива taskList
          в контроллере (связывает форму и модель)-->

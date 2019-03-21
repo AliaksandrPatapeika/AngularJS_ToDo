@@ -66,7 +66,7 @@ todoListApp.controller('TodoListController', function TodoListController($scope)
     }
 );
 
-todoListApp.filter('myFilter', function () {
+todoListApp.filter('taskFilter', function () {
   return function (taskList, filterName) {
     switch (filterName) {
       case 'all':
