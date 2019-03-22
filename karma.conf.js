@@ -9,9 +9,18 @@ module.exports = function (config) {
     files: [
       '../node_modules/angular/angular.js',
       '../node_modules/angular-mocks/angular-mocks.js',
-      'js/app.js',
-      'js/app.spec.js',
+      // '**/*.module.js',
+      // '*!(.module|.spec).js',
+      // '!(lib)/**/*!(.module|.spec).js',
+      // '**/*.spec.js',
+      'todo-list/todo-list.component.spec.js',
+      'todo-list/todo-list.module.js',
+      'todo-list/todo-list.component.js',
+      'todo-list/todo-list.filter.js'
     ],
+
+    // enable / disable watching file and executing tests whenever any file changes (WebStorm disables autoWatch in Karma configuration)
+    autoWatch: false,
 
     // frameworks to use
     frameworks: ['jasmine'],
@@ -19,8 +28,13 @@ module.exports = function (config) {
     // start these browsers
     browsers: ['Chrome', 'Firefox'],
 
-    // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
+    // list of plugins to load. By default, Karma loads all sibling NPM modules which have a name starting with `karma-*`.
+
+    plugins: [
+      'karma-chrome-launcher',
+      'karma-firefox-launcher',
+      'karma-jasmine'
+    ]
 
   });
 };
