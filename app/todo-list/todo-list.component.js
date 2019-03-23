@@ -11,9 +11,7 @@ const model = {
     {name: 'all', label: 'All'},
     {name: 'active', label: 'Active'},
     {name: 'done', label: 'Done'}
-  ],
-  filterTasks: 'all',
-  searchTaskInputText: ''
+  ]
 };
 
 function TodoListController() {

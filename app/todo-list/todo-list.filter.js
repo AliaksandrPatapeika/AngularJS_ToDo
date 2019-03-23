@@ -13,7 +13,7 @@ angular.module('todoList')
           case 'done':
             return taskList.filter((task) => task.done);
           default:
-            console.log('default for debug', filterName);
+            console.log('Default for debug. FilterName =', filterName);
             return taskList;
         }
       };

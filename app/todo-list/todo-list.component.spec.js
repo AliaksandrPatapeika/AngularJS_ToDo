@@ -1,11 +1,10 @@
 'use strict';
 
-describe('todoList', function () {
+describe('TodoList', function () {
   // Все, что мы хотим протестировать, уже включено в модуль `todoList`
   // Загружаем модуль `todoList` (содержащий компонент `todoList` и фильтр `taskFilter`) перед каждым юнит тестом
   // в каждой группе тестов describe.
-  // При этом Angular добавляет сервисы ($componentController, $filter и др.) в нашу
-  // тестовую функцию.
+  // При этом Angular добавляет сервисы ($componentController, $filter и др.) в нашу тестовую функцию.
   beforeEach(module('todoList'));
 
   // Тестирование контроллера
@@ -53,12 +52,12 @@ describe('todoList', function () {
 
     it('should filter `data.taskList` model by `active` tasks (2 tasks)', function () {
       const result = filterInstance(model.taskList, 'active');
-      expect(Number(result.length)).toBe(2);
+      expect(result.length).toBe(2);
     });
 
     it('should filter `data.taskList` model by `done` tasks (1 task)', function () {
       const result = filterInstance(model.taskList, 'done');
-      expect(Number(result.length)).toBe(1);
+      expect(result.length).toBe(1);
     });
 
   });
