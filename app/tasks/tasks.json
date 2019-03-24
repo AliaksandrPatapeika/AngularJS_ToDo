@@ -1,0 +1,17 @@
+[
+  {
+    "text": "learn AngularJS",
+    "done": true,
+    "important": false
+  },
+  {
+    "text": "build an AngularJS app",
+    "done": false,
+    "important": false
+  },
+  {
+    "text": "Other task",
+    "done": false,
+    "important": true
+  }
+]

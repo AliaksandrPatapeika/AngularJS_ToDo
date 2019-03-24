@@ -1,21 +1,22 @@
 <div class="container">
   <div class="head_container">
     <h1>Todo List</h1>
-    <div ng-cloak class="info_panel">
-      <h3>{{$ctrl.remainingTasks()}} of {{$ctrl.data.taskList.length}} remaining, {{$ctrl.data.taskList.length -
-        $ctrl.remainingTasks()}}
-        done</h3>
+    <div ng-if="$ctrl.tasks.length" class="info_panel">
+      <h3>
+        {{$ctrl.remainingTasks()}} of {{$ctrl.tasks.length}} remaining,
+        {{$ctrl.tasks.length - $ctrl.remainingTasks()}} done
+      </h3>
       <a href="#" ng-click="$ctrl.archiveCompletedTasks()">[ archive ]</a>
     </div>
   </div>
   <!--Когда страница загружается, Angular связывает значение поля ввода с переменной модели данных (`$ctrl.searchTaskInputText`), указанной в
   ngModel, и синхронизирует их.-->
-  <input type="search" ng-model="$ctrl.searchTaskInputText" placeholder="type to search">
-  <div ng-cloak class="filter_buttons_group" ng-init="$ctrl.filterTasks='all'">
+  <input type="search" ng-if="$ctrl.tasks.length" ng-model="$ctrl.searchTaskInputText" placeholder="type to search">
+  <div class="filter_buttons_group" ng-if="$ctrl.tasks.length" ng-init="$ctrl.taskFilter='all'">
     <input type="radio"
-           ng-repeat-start="filterButton in $ctrl.data.filterButtonsList"
+           ng-repeat-start="filterButton in $ctrl.filterButtons"
            id="radio{{filterButton.label}}"
-           ng-model="$ctrl.filterTasks"
+           ng-model="$ctrl.taskFilter"
            value="{{filterButton.name}}">
     <label for="radio{{filterButton.label}}"
            class="btn btn-filter"
@@ -23,15 +24,15 @@
       {{filterButton.label}}
     </label>
   </div>
-  <ul class="task_item_list">
+  <ul class="task_item_list" ng-if="$ctrl.tasks.length">
     <!-- директива ng-repeat - (повтор элементов коллекции) расчитана на уникальные значения в массиве.
     Автоматически добавляет новые элементы <li> в DOM и также удаляет, когда объект удаляется в контроллере.
     $index - (встроенноая переменная - номер итерации)смещение итератора повторяющегося элемента (0..length-1)
 track by $index - использовать $index массива для перебора значений -->
     <!-- директива ngRepeat автоматически обновляет представление (view) в ответ на изменение количества заданий в
     списке, возвращаемых фильтром-->
-    <li ng-cloak class="task_item"
-        ng-repeat="task in $ctrl.data.taskList | filter:$ctrl.searchTaskInputText | taskFilter:$ctrl.filterTasks">
+    <li class="task_item"
+        ng-repeat="task in $ctrl.tasks | filter:$ctrl.searchTaskInputText | taskFilter:$ctrl.taskFilter">
       <label>
         <!-- ng-model двунаправленно связывает checkbox в форме со свойством done в объекте задания массива taskList
     в контроллере (связывает форму и модель)-->
