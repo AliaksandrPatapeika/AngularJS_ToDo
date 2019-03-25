@@ -194,20 +194,33 @@
   background-color: orangered;
 }
 
-.task_detail dt {
-  margin-top: 1rem;
+.task_detail {
+  text-align: center;
+}
+
+.task_detail h1 {
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+.task_detail dl {
   font-size: 1.2rem;
+}
+
+.task_detail dt {
+  float: left;
+  width: 110px;
+  text-align: right;
+  padding-right: 10px;
   font-weight: bold;
 }
 
 .task_detail dd {
-  font-style: italic;
-  /*font-size: 1.2em;*/
-  font-weight: bold;
+  text-align: left;
+  margin: 0 0 1rem 120px;
+  word-wrap: break-word;
 }
 
 .task_detail .todo {
   color: red;
 }
-
-

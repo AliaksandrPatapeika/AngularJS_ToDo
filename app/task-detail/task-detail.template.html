@@ -7,13 +7,16 @@
       <dt>Text:</dt>
       <dd>{{$ctrl.task.text}}</dd>
       <dt>Done:</dt>
-      <dd>{{$ctrl.task.done}}</dd>
+      <dd>{{($ctrl.task.done) ? 'yes' : 'no'}}</dd>
       <dt>Important:</dt>
-      <dd>{{$ctrl.task.important}}</dd>
+      <dd>{{($ctrl.task.important) ? 'yes' : 'no'}}</dd>
       <dt>Date:</dt>
-      <dd><span class="todo">TODO</span></dd>
+      <dd>{{$ctrl.task.date}}</dd>
       <dt>Description:</dt>
-      <dd><span class="todo">TODO</span></dd>
+      <dd>{{$ctrl.task.description}}</dd>
     </dl>
+    <p class="todo">TODO: edit task text and descriotion...</p>
+    <p class="todo">If description is emty (adding new task) - hide it with
+      "ng-if"</p>
   </div>
 </div>

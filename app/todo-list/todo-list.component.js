@@ -55,6 +55,25 @@ function TodoListController($http, $location) {
     return '_' + Math.random().toString(36).substr(2, 9);
   };
 
+  this.getCurrentDate = () => {
+    const currentDate = new Date();
+    const dd = addZero(currentDate.getDate());
+    const mm = addZero(currentDate.getMonth() + 1);
+    const yyyy = currentDate.getFullYear();
+    const hr = addZero(currentDate.getHours());
+    const min = addZero(currentDate.getMinutes());
+
+    // add a zero in front of numbers < 10
+    function addZero(value) {
+      if (value < 10) {
+        value = `0${value}`;
+      }
+      return value;
+    }
+
+    return `${dd}.${mm}.${yyyy} (${hr}:${min})`;
+  };
+
   this.addTask = () => {
     // не добавлять пустые задания
     if (this.addTaskInputText) {
@@ -62,7 +81,9 @@ function TodoListController($http, $location) {
         id: this.IdGenerator(),
         text: this.addTaskInputText,
         done: false,
-        important: false
+        important: false,
+        date: this.getCurrentDate(),
+        description: ""
       });
       this.addTaskInputText = '';
     } else {

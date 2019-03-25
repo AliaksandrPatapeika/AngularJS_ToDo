@@ -3,18 +3,24 @@
     "id": "_0yjrvtjof",
     "text": "learn AngularJS",
     "done": true,
-    "important": false
+    "important": false,
+    "date": "23.03.2019 (21:46)",
+    "description": "learn AngularJS description..."
   },
   {
     "id": "_x0h29fnbi",
     "text": "build an AngularJS app",
     "done": false,
-    "important": false
+    "important": false,
+    "date": "24.03.2019 (16:20)",
+    "description": "build an AngularJS app description..."
   },
   {
     "id": "_4v27mqm1y",
     "text": "Other task",
     "done": false,
-    "important": true
+    "important": true,
+    "date": "25.03.2019 (14:05)",
+    "description": "Other task description..."
   }
 ]

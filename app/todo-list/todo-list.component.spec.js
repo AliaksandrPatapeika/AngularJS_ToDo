@@ -1,6 +1,6 @@
 'use strict';
 
-describe('TodoList Application', function () {
+describe('todoList component', function () {
   // Все, что мы хотим протестировать, уже включено в модуль `todoList`
   // Загружаем модуль `todoList` (содержащий компонент `todoList` и фильтр `taskFilter`) перед каждым юнит тестом
   // в каждой группе тестов describe.
@@ -8,7 +8,7 @@ describe('TodoList Application', function () {
   beforeEach(module('todoList'));
 
   // Тестирование контроллера
-  describe('Todo list controller test', function () {
+  describe('TodoListController test', function () {
     let controllerInstance;
     let $httpBackend;
 
@@ -31,6 +31,7 @@ describe('TodoList Application', function () {
                 {text: 'Other task', done: false, important: true}
               ]
           );
+      // создания экземпляр контроллера компонента `todoList`
       controllerInstance = $componentController('todoList');
     }));
 
@@ -64,7 +65,7 @@ describe('TodoList Application', function () {
   });
 
   // Тестирование фильтра
-  describe('Task filter test', function () {
+  describe('taskFilter test', function () {
     let filterInstance;
     let tasks = [];
 
