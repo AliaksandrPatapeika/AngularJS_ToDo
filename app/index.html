@@ -11,15 +11,22 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
   <link rel="stylesheet" href="app.css">
   <script src="lib/angular/angular.js"></script>
-  <!-- файлы, определяющие модуль (*.module.js), должны быть включены до других файлов, которые добавляют
-  функционал (например, компоненты, контроллеры, сервисы, фильтры) к этому модулю.-->
+  <!-- определяет модуль Angular ngRoute, который предоставляет маршрутизацию -->
+  <script src="lib/angular-route/angular-route.js"></script>
+  <!-- файлы, определяющие модуль (*.module.js), должны быть включены до других файлов, которые добавляют функционал (например, компоненты, контроллеры, сервисы, фильтры) к этому модулю.-->
+  <!-- основной модуль -->
   <script src="app.module.js"></script>
+  <!-- настраивает провайдеров, доступных для основного модуля -->
+  <script src="app.config.js"></script>
   <script src="todo-list/todo-list.module.js"></script>
   <script src="todo-list/todo-list.component.js"></script>
   <script src="todo-list/todo-list.filter.js"></script>
+  <!-- определяет новый модуль, содержащий компонент taskDetail -->
+  <script src="task-detail/task-detail.module.js"></script>
+  <!-- определяет компонент taskDetail -->
+  <script src="task-detail/task-detail.component.js"></script>
 </head>
 <body>
-<!-- Use a custom component to render a todoList application -->
-<todo-list></todo-list>
+  <div ng-view></div>
 </body>
 </html>

@@ -1,6 +1,6 @@
 'use strict';
 
-describe('TodoList', function () {
+describe('TodoList Application', function () {
   // Все, что мы хотим протестировать, уже включено в модуль `todoList`
   // Загружаем модуль `todoList` (содержащий компонент `todoList` и фильтр `taskFilter`) перед каждым юнит тестом
   // в каждой группе тестов describe.

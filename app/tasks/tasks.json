@@ -1,15 +1,18 @@
 [
   {
+    "id": "_0yjrvtjof",
     "text": "learn AngularJS",
     "done": true,
     "important": false
   },
   {
+    "id": "_x0h29fnbi",
     "text": "build an AngularJS app",
     "done": false,
     "important": false
   },
   {
+    "id": "_4v27mqm1y",
     "text": "Other task",
     "done": false,
     "important": true

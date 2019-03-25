@@ -4,7 +4,7 @@
 // аргументов функции конструктора контроллера, следующим образом: function TodoListController($http) {...}
 // Инжектор зависимостей Angular предоставляет сервисы контроллеру при его создании.
 // Префикс `$` служит для пространства имен Angular сервисов.
-function TodoListController($http) {
+function TodoListController($http, $location) {
   // Контроллер, где будут обрабатываться все данные.
   // Чтобы избегать непосредственного использования scope, следует использовать экземпляр контроллера
   // (присваивать данные и методы свойствам контроллера (`this` внутри конструктора контроллера), а не
@@ -48,10 +48,18 @@ function TodoListController($http) {
     this.tasks.splice(index, 1)
   };
 
+  this.IdGenerator = () => {
+    // Math.random should be unique because of its seeding algorithm.
+    // Convert it to base 36 (numbers + letters), and grab the first 9 characters
+    // after the decimal.
+    return '_' + Math.random().toString(36).substr(2, 9);
+  };
+
   this.addTask = () => {
     // не добавлять пустые задания
     if (this.addTaskInputText) {
       this.tasks.push({
+        id: this.IdGenerator(),
         text: this.addTaskInputText,
         done: false,
         important: false
@@ -61,6 +69,11 @@ function TodoListController($http) {
       console.log('Empty input');
     }
   };
+
+  this.goToTaskDetailView = (task) => {
+    $location.path(`/tasks/${task.id}`);
+  };
+
 }
 
 // Зарегистрировать компонент `todoList` в модуле `todoList` вместе со связанным с ним контроллером и шаблоном
@@ -72,6 +85,6 @@ angular.module('todoList')
     .component('todoList', {
       // URL берется относительно файла `index.html`
       templateUrl: 'todo-list/todo-list.template.html',
-      controller: ['$http', TodoListController]
+      controller: ['$http', '$location', TodoListController]
     });
 

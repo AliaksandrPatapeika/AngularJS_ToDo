@@ -43,6 +43,11 @@ track by $index - использовать $index массива для пере
         <span class="done-{{task.done}} important-{{task.important}}">{{task.text}}</span>
       </label>
       <div class="task_item_buttons_group">
+        <!--<a href="#!/tasks/{{task.id}}">-->
+          <button type="button" class="btn btn-info" ng-click="$ctrl.goToTaskDetailView(task)">
+            <i class="fas fa-info"></i>
+          </button>
+        <!--</a>-->
         <button type="button" class="btn btn-important" ng-click="$ctrl.importantTask(task)">
           <i class="fas fa-exclamation"></i>
         </button>
