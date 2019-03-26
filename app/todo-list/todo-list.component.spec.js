@@ -36,8 +36,9 @@ describe('todoList component', function () {
     }));
 
     it('should create a `tasks` property with 3 tasks fetched with `$http`', function () {
+      jasmine.addCustomEqualityTester(angular.equals);
       // Проверяем, что свойство `tasks` не существует в контроллере до получения ответа от сервиса $http
-      expect(controllerInstance.tasks).toBeUndefined();
+      expect(controllerInstance.tasks).toEqual([]);
       // Ответы от сервиса `$httpBackend` не возвращаются, пока не будет вызван метод $httpBackend.flush() (явно
       // сбрасываются ожидающие запросы). Это сохраняет асинхронным API бэкэнда, позволяя тесту выполняться
       // синхронно. При этом очищается очередь запросов в браузере, вследствии чего promise, который возвращает
@@ -65,16 +66,15 @@ describe('todoList component', function () {
   });
 
   // Тестирование фильтра
-  describe('taskFilter test', function () {
+  describe('taskList filter test', function () {
     let filterInstance;
     let tasks = [];
 
-    // инжектим сервис для работы с фильтрами $filter
-    // и с посощью этого сервиса находим фильтр с именем `taskFilter`
-    beforeEach(inject(function ($filter) {
-      // получаем экземляр фильтра (получаем доступ к функции во втором параметре `.filter('taskFilter', function ()
-      // {}` в модкле `todoList`)
-      filterInstance = $filter('taskFilter');
+    // функция inject(function (taskListFilter) {}), предоставляет доступ к фильтру, который мы хотим
+    // протестировать. Нужно добавить суффикс `Filter` к имени фильтра.
+    beforeEach(inject(function (taskListFilter) {
+      // получаем экземляр фильтра (получаем доступ к функции во втором параметре `.filter('taskList', function () {}` в модуле `todoList`)
+      filterInstance = taskListFilter;
       tasks = [
           {text: 'learn AngularJS', done: true, important: false},
           {text: 'build an AngularJS app', done: false, important: false},
@@ -83,18 +83,15 @@ describe('todoList component', function () {
     }));
 
     it('should filter tasks by `active` tasks (2 tasks)', function () {
-      const result = filterInstance(tasks, 'active');
-      expect(result.length).toBe(2);
+      expect(filterInstance(tasks, 'active').length).toBe(2);
     });
 
     it('should filter tasks by `done` tasks (1 task)', function () {
-      const result = filterInstance(tasks, 'done');
-      expect(result.length).toBe(1);
+      expect(filterInstance(tasks, 'done').length).toBe(1);
     });
 
     it('should filter tasks by `all` tasks (3 tasks)', function () {
-      const result = filterInstance(tasks, 'all');
-      expect(result.length).toBe(3);
+      expect(filterInstance(tasks, 'all').length).toBe(3);
     });
 
   });

@@ -3,7 +3,7 @@
 // использование модуля `todoList` для регистрации фильтра
 angular.module('todoList')
 // создание фильтра для списка заданий
-    .filter('taskFilter', function () {
+    .filter('taskList', function () {
       return function (taskList, filterName) {
         switch (filterName) {
           case 'all':

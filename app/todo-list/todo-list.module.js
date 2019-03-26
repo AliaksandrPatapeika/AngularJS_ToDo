@@ -1,4 +1,6 @@
 'use strict';
 
 // Создание модуля `todoList`
-angular.module('todoList', []);
+// Зависит от модуля `core.task`, который предоставляет контроллеру `TodoListController` новый сервис `Task`, вместо
+// низкоуровневого сервиса `$http` чтобы упростить контроллер. Сервис Angular $resource проще в использовании, чем $ http, для взаимодействия с источниками данных, представленными как ресурсы RESTful.
+angular.module('todoList', ['core.task']);

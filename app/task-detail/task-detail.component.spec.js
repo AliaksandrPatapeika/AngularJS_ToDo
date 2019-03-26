@@ -16,9 +16,9 @@ describe('taskDetail component', function () {
       // Настраиваем поддельные ответы на запросы сервера
       $httpBackend.expectGET('tasks/tasks.json').respond(
           [
-            {id: '_01rfgt', text: 'learn AngularJS', done: true, important: false},
-            {is: '_xyzId', text: 'build an AngularJS app', done: false, important: false},
-            {id: '_dh6s5', text: 'Other task', done: false, important: true}
+            {id: '_01rfgt', text: 'learn AngularJS'},
+            {id: '_xyzId', text: 'build an AngularJS app'},
+            {id: '_dh6s5', text: 'Other task'}
           ]
       );
       $routeParams.taskId = '_xyzId';
@@ -27,7 +27,7 @@ describe('taskDetail component', function () {
     }));
 
     it('should fetch the task details', function () {
-
+      jasmine.addCustomEqualityTester(angular.equals);
       // Текущее задание для task detail view
       expect(controllerInstance.task).toBeUndefined();
       // Ответы от сервиса `$httpBackend` не возвращаются, пока не будет вызван метод $httpBackend.flush() (явно
@@ -35,7 +35,7 @@ describe('taskDetail component', function () {
       // синхронно. При этом очищается очередь запросов в браузере, вследствии чего promise, который возвращает
       // сервис $http, будет разрешен с помощью поддельного ответа.
       $httpBackend.flush();
-      expect(controllerInstance.task).toEqual('build an AngularJS app');
+      expect(controllerInstance.task).toEqual({id: '_xyzId', text: 'build an AngularJS app'});
     });
 
   });

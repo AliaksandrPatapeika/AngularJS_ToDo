@@ -4,7 +4,7 @@
 // аргументов функции конструктора контроллера, следующим образом: function TodoListController($http) {...}
 // Инжектор зависимостей Angular предоставляет сервисы контроллеру при его создании.
 // Префикс `$` служит для пространства имен Angular сервисов.
-function TodoListController($http, $location) {
+function TodoListController(Task, $location) {
   // Контроллер, где будут обрабатываться все данные.
   // Чтобы избегать непосредственного использования scope, следует использовать экземпляр контроллера
   // (присваивать данные и методы свойствам контроллера (`this` внутри конструктора контроллера), а не
@@ -19,10 +19,16 @@ function TodoListController($http, $location) {
   // URL берется относительно файла `index.html`
   // Сервис $http возвращает объект promise, который имеет метод then(). Этот метод вызывается для обработки
   // асинхронного ответа для присваивания списка заданий контроллеру как свойство `tasks`
-  $http.get('tasks/tasks.json').then((response) => {
+  // $http.get('tasks/tasks.json').then((response) => {
     // В свойстве `data` объекта ответа, переданного обратному вызову (callback) содержится массив объектов списка заданий из JSON файла
-    this.tasks = response.data;
-  });
+    // this.tasks = response.data;
+  // });
+
+  
+  // Получаем коллекцию с сервера
+  // Синхронно возвращается «будущее» - объект promise, который будет заполнен данными, когда будет получен ответ XHR.
+  // Из-за привязки данных в Angular мы можем использовать это будущее и связать его с нашим шаблоном. Затем, когда данные поступят, представление будет автоматически обновлено.
+  this.tasks = Task.query();
 
   this.remainingTasks = () => {
     return this.tasks.filter((task) => !task.done).length;
@@ -45,7 +51,7 @@ function TodoListController($http, $location) {
 
   this.deleteTask = (task) => {
     const index = this.tasks.indexOf(task);
-    this.tasks.splice(index, 1)
+    this.tasks.splice(index, 1);
   };
 
   this.IdGenerator = () => {
@@ -55,26 +61,7 @@ function TodoListController($http, $location) {
     return '_' + Math.random().toString(36).substr(2, 9);
   };
 
-  this.getCurrentDate = () => {
-    const currentDate = new Date();
-    const dd = addZero(currentDate.getDate());
-    const mm = addZero(currentDate.getMonth() + 1);
-    const yyyy = currentDate.getFullYear();
-    const hr = addZero(currentDate.getHours());
-    const min = addZero(currentDate.getMinutes());
-
-    // add a zero in front of numbers < 10
-    function addZero(value) {
-      if (value < 10) {
-        value = `0${value}`;
-      }
-      return value;
-    }
-
-    return `${dd}.${mm}.${yyyy} (${hr}:${min})`;
-  };
-
-  this.addTask = () => {
+   this.addTask = () => {
     // не добавлять пустые задания
     if (this.addTaskInputText) {
       this.tasks.push({
@@ -82,7 +69,7 @@ function TodoListController($http, $location) {
         text: this.addTaskInputText,
         done: false,
         important: false,
-        date: this.getCurrentDate(),
+        date: Date.now(),
         description: ""
       });
       this.addTaskInputText = '';
@@ -106,6 +93,6 @@ angular.module('todoList')
     .component('todoList', {
       // URL берется относительно файла `index.html`
       templateUrl: 'todo-list/todo-list.template.html',
-      controller: ['$http', '$location', TodoListController]
+      controller: ['Task', '$location', TodoListController]
     });
 

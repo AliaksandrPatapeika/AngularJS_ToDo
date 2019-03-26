@@ -6,17 +6,20 @@
         {{$ctrl.remainingTasks()}} of {{$ctrl.tasks.length}} remaining,
         {{$ctrl.tasks.length - $ctrl.remainingTasks()}} done
       </h3>
-      <a href="#" ng-click="$ctrl.archiveCompletedTasks()">[ archive ]</a>
+      <a href="" ng-click="$ctrl.archiveCompletedTasks()">[ archive ]</a>
     </div>
   </div>
-  <!--Когда страница загружается, Angular связывает значение поля ввода с переменной модели данных (`$ctrl.searchTaskInputText`), указанной в
+  <!--Когда страница загружается, Angular связывает значение поля ввода с переменной модели данных (`$ctrl.searchTask`), указанной в
   ngModel, и синхронизирует их.-->
-  <input type="search" ng-if="$ctrl.tasks.length" ng-model="$ctrl.searchTaskInputText" placeholder="type to search">
-  <div class="filter_buttons_group" ng-if="$ctrl.tasks.length" ng-init="$ctrl.taskFilter='all'">
+  <label>
+<!-- $ctrl.searchTask.text - `text` означает по какому свойству объекта производить поиск (без него поиск идет по всем свойствам объекта)-->
+    <input type="search" ng-if="$ctrl.tasks.length" ng-model="$ctrl.searchTask.text" placeholder="type to search">
+  </label>
+  <div class="filter_buttons_group" ng-if="$ctrl.tasks.length" ng-init="$ctrl.filterName='all'">
     <input type="radio"
            ng-repeat-start="filterButton in $ctrl.filterButtons"
            id="radio{{filterButton.label}}"
-           ng-model="$ctrl.taskFilter"
+           ng-model="$ctrl.filterName"
            value="{{filterButton.name}}">
     <label for="radio{{filterButton.label}}"
            class="btn btn-filter"
@@ -32,7 +35,7 @@ track by $index - использовать $index массива для пере
     <!-- директива ngRepeat автоматически обновляет представление (view) в ответ на изменение количества заданий в
     списке, возвращаемых фильтром-->
     <li class="task_item"
-        ng-repeat="task in $ctrl.tasks | filter:$ctrl.searchTaskInputText | taskFilter:$ctrl.taskFilter">
+        ng-repeat="task in $ctrl.tasks | filter:$ctrl.searchTask | taskList:$ctrl.filterName">
       <label>
         <!-- ng-model двунаправленно связывает checkbox в форме со свойством done в объекте задания массива taskList
     в контроллере (связывает форму и модель)-->
@@ -63,7 +66,9 @@ track by $index - использовать $index массива для пере
   <form ng-submit="$ctrl.addTask()">
     <!-- ng-model двунаправленно связывает значение input в форме со свойством text в объекте задания массива taskList
 в контроллере (связывает форму и модель)-->
-    <input type="text" ng-model="$ctrl.addTaskInputText" placeholder="add new todo">
+    <label>
+      <input type="text" ng-model="$ctrl.addTaskInputText" placeholder="add new todo">
+    </label>
     <button class="btn btn-add">Add</button>
   </form>
 </div>

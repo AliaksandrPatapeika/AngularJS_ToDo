@@ -13,6 +13,7 @@
 // ngRoute в качестве зависимости модуля `todoListApp`.
 angular.module('todoListApp', [
   'ngRoute',
+  'core',
   'taskDetail',
   'todoList'
 ]);

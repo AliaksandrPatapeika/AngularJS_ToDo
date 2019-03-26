@@ -19,8 +19,8 @@ describe('TodoList Application', function () {
     it('should filter the task list as a user types into the search box', function () {
       // Получить массив из элементов `li` внутри ng-repeat
       const taskList = element.all(by.repeater('task in $ctrl.tasks'));
-      // Получить элемент (input) с ng-model="$ctrl.searchTaskInputText"
-      const search = element(by.model('$ctrl.searchTaskInputText'));
+      // Получить элемент (input) с ng-model="$ctrl.searchTask.text"
+      const search = element(by.model('$ctrl.searchTask.text'));
 
       // Проверяем, что в списке задач есть только 3 элемента
       expect(taskList.count()).toBe(3);
@@ -75,8 +75,8 @@ describe('TodoList Application', function () {
     });
 
     it('should render task specific links', function() {
-      // Получить элемент (input) с ng-model="$ctrl.searchTaskInputText"
-      const search = element(by.model('$ctrl.searchTaskInputText'));
+      // Получить элемент (input) с ng-model="$ctrl.searchTask.text"
+      const search = element(by.model('$ctrl.searchTask.text'));
       // Ввод текста в элемент `search`
       search.sendKeys('angular');
 
@@ -89,12 +89,12 @@ describe('TodoList Application', function () {
   describe('View: Task detail', function() {
 
     beforeEach(function() {
-      browser.get('index.html#!/tasks/_4v27mqm1y');
+      browser.get('index.html#!/tasks/_0yjrvtjof');
     });
 
-    it('should display placeholder page with `phoneId`', function() {
-      // найти элемент по текстовой привязке (<span>{{$ctrl.taskId}}</span>) и получить текст элемента
-      expect(element(by.binding('$ctrl.taskId')).getText()).toBe('_4v27mqm1y');
+    it('should display the `learn AngularJS` task detail page', function() {
+      // найти элемент по текстовой привязке (<dd>{{$ctrl.task.text}}</dd>) и получить текст элемента
+      expect(element(by.binding('$ctrl.task.text')).getText()).toBe('learn AngularJS');
     });
 
   });
