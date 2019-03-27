@@ -14,6 +14,8 @@ describe('TodoList Application', function () {
 
     beforeEach(function () {
       browser.get('index.html#!/tasks');
+      // Turns off ng-animate animations for all elements in the
+      element(by.css('body')).allowAnimations(false);
     });
 
     it('should filter the task list as a user types into the search box', function () {
@@ -80,7 +82,7 @@ describe('TodoList Application', function () {
       // Ввод текста в элемент `search`
       search.sendKeys('angular');
 
-      element.all(by.css('.task_item_list .task_item .btn-info')).last().click();
+      element.all(by.css('.task-list .task-list-item .btn-info')).last().click();
       expect(browser.getCurrentUrl()).toContain('index.html#!/tasks/_x0h29fnbi');
     });
 

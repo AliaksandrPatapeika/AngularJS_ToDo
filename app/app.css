@@ -9,34 +9,34 @@
   border-radius: 20px;
 }
 
-.head_container {
+.head-container {
   text-align: center;
 }
 
-.head_container h1 {
+.head-container h1 {
   display: inline-block;
   margin: 0 0 10px;
   width: 50%;
   font-size: 2.5rem;
 }
 
-.info_panel {
+.info-panel {
   display: inline-block;
   margin-bottom: 10px;
 }
 
-.info_panel h3 {
+.info-panel h3 {
   margin: 0;
   color: grey;
 }
 
-.info_panel a {
+.info-panel a {
   color: blue;
   font-size: 1.1rem;
   font-weight: bold;
 }
 
-.info_panel a:visited {
+.info-panel a:visited {
   color: blue;
 }
 
@@ -49,6 +49,7 @@
   border-radius: 5px;
   height: 35px;
   width: 355px;
+  vertical-align: middle;
   font-size: 1rem;
 }
 
@@ -65,12 +66,12 @@
   cursor: pointer;
 }
 
-.filter_buttons_group {
+.filter-buttons-group {
   display: inline-block;
   vertical-align: middle;
 }
 
-.filter_buttons_group input[type="radio"] {
+.filter-buttons-group input[type="radio"] {
   display: none;
 }
 
@@ -82,6 +83,7 @@
   height: 35px;
   font-size: 1rem;
   font-family: inherit;
+  vertical-align: middle;
   cursor: pointer;
 }
 
@@ -97,7 +99,7 @@
 }
 
 .btn-add,
-.filter_buttons_group input[type="radio"]:checked + label {
+.filter-buttons-group input[type="radio"]:checked + label {
   color: #fff;
   background-color: steelblue;
   border-color: midnightblue;
@@ -115,13 +117,13 @@
   user-select: none;
 }
 
-.task_item_list {
+.task-list {
   padding: 0;
   margin: 0;
   list-style-type: none;
 }
 
-.task_item {
+.task-list-item {
   display: table;
   margin-top: 10px;
   width: 100%;
@@ -130,14 +132,14 @@
   word-wrap: break-word;
 }
 
-.task_item label {
+.task-list-item label {
   display: table-cell;
   padding: 0 10px;
   vertical-align: middle;
   cursor: pointer;
 }
 
-.task_item input[type="checkbox"] {
+.task-list-item input[type="checkbox"] {
   width: 1rem;
   height: 1rem;
   cursor: pointer;
@@ -153,17 +155,17 @@
   color: royalblue;
 }
 
-.task_item_buttons_group {
+.task-list-item-buttons-group {
   display: table-cell;
   width: 123px;
 }
 
-.task_item_buttons_group button {
+.task-list-item-buttons-group button {
   width: 35px;
   margin-left: 2px;
 }
 
-.task_item_buttons_group button:hover {
+.task-list-item-buttons-group button:hover {
   border-style: none;
 }
 
@@ -194,20 +196,20 @@
   background-color: orangered;
 }
 
-.task_detail {
+.task-detail {
   text-align: center;
 }
 
-.task_detail h1 {
+.task-detail h1 {
   margin: 0;
   font-size: 2.5rem;
 }
 
-.task_detail dl {
+.task-detail dl {
   font-size: 1.2rem;
 }
 
-.task_detail dt {
+.task-detail dt {
   float: left;
   width: 110px;
   text-align: right;
@@ -215,12 +217,12 @@
   font-weight: bold;
 }
 
-.task_detail dd {
+.task-detail dd {
   text-align: left;
   margin: 0 0 1rem 120px;
   word-wrap: break-word;
 }
 
-.task_detail .todo {
+.task-detail .todo {
   color: red;
 }

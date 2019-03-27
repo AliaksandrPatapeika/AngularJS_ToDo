@@ -12,6 +12,7 @@
 // Чтобы сделать провайдеров, сервисы и директивы, определенные в ngRoute, доступными для приложения, нужно добавить
 // ngRoute в качестве зависимости модуля `todoListApp`.
 angular.module('todoListApp', [
+  `ngAnimate`,
   'ngRoute',
   'core',
   'taskDetail',

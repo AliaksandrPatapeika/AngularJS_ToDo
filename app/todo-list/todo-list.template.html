@@ -1,7 +1,7 @@
 <div class="container">
-  <div class="head_container">
+  <div class="head-container">
     <h1>Todo List</h1>
-    <div ng-if="$ctrl.tasks.length" class="info_panel">
+    <div ng-if="$ctrl.tasks.length" class="info-panel">
       <h3>
         {{$ctrl.remainingTasks()}} of {{$ctrl.tasks.length}} remaining,
         {{$ctrl.tasks.length - $ctrl.remainingTasks()}} done
@@ -12,10 +12,10 @@
   <!--Когда страница загружается, Angular связывает значение поля ввода с переменной модели данных (`$ctrl.searchTask`), указанной в
   ngModel, и синхронизирует их.-->
   <label>
-<!-- $ctrl.searchTask.text - `text` означает по какому свойству объекта производить поиск (без него поиск идет по всем свойствам объекта)-->
+    <!-- $ctrl.searchTask.text - `text` означает по какому свойству объекта производить поиск (без него поиск идет по всем свойствам объекта)-->
     <input type="search" ng-if="$ctrl.tasks.length" ng-model="$ctrl.searchTask.text" placeholder="type to search">
   </label>
-  <div class="filter_buttons_group" ng-if="$ctrl.tasks.length" ng-init="$ctrl.filterName='all'">
+  <div class="filter-buttons-group" ng-if="$ctrl.tasks.length">
     <input type="radio"
            ng-repeat-start="filterButton in $ctrl.filterButtons"
            id="radio{{filterButton.label}}"
@@ -27,14 +27,14 @@
       {{filterButton.label}}
     </label>
   </div>
-  <ul class="task_item_list" ng-if="$ctrl.tasks.length">
+  <ul class="task-list">
     <!-- директива ng-repeat - (повтор элементов коллекции) расчитана на уникальные значения в массиве.
     Автоматически добавляет новые элементы <li> в DOM и также удаляет, когда объект удаляется в контроллере.
     $index - (встроенноая переменная - номер итерации)смещение итератора повторяющегося элемента (0..length-1)
 track by $index - использовать $index массива для перебора значений -->
     <!-- директива ngRepeat автоматически обновляет представление (view) в ответ на изменение количества заданий в
     списке, возвращаемых фильтром-->
-    <li class="task_item"
+    <li class="task-list-item"
         ng-repeat="task in $ctrl.tasks | filter:$ctrl.searchTask | taskList:$ctrl.filterName">
       <label>
         <!-- ng-model двунаправленно связывает checkbox в форме со свойством done в объекте задания массива taskList
@@ -45,11 +45,11 @@ track by $index - использовать $index массива для пере
     применяет зачеркивание-->
         <span class="done-{{task.done}} important-{{task.important}}">{{task.text}}</span>
       </label>
-      <div class="task_item_buttons_group">
+      <div class="task-list-item-buttons-group">
         <!--<a href="#!/tasks/{{task.id}}">-->
-          <button type="button" class="btn btn-info" ng-click="$ctrl.goToTaskDetailView(task)">
-            <i class="fas fa-info"></i>
-          </button>
+        <button type="button" class="btn btn-info" ng-click="$ctrl.goToTaskDetailView(task)">
+          <i class="fas fa-info"></i>
+        </button>
         <!--</a>-->
         <button type="button" class="btn btn-important" ng-click="$ctrl.importantTask(task)">
           <i class="fas fa-exclamation"></i>

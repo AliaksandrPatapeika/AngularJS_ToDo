@@ -1,0 +1,67 @@
+/* Animate `ngRepeat` in `todoList` component */
+/*Класс ng-enter применяется к элементу, когда новое задание добавляется в список и отображается на странице.*/
+.task-list-item.ng-enter,
+  /*Класс ng-leave применяется к элементу, когда задание удаляется из списка.*/
+.task-list-item.ng-leave,
+  /*Класс ng-move применяется к элементу, когда изменяется относительная позиция задания в списке.*/
+.task-list-item.ng-move {
+  transition: 0.3s linear all;
+}
+
+.task-list-item.ng-enter,
+  /* класс `active` представляет стиль в конце анимации.*/
+.task-list-item.ng-leave.ng-leave-active,
+.task-list-item.ng-move {
+  margin-top: 0;
+  font-size: 0;
+  opacity: 0;
+}
+
+.task-list-item.ng-enter.ng-enter-active,
+.task-list-item.ng-leave,
+.task-list-item.ng-move.ng-move-active {
+  margin-top: 10px;
+  font-size: 1.25rem;
+  opacity: 1;
+}
+
+/* Animate view transitions with `ngView` */
+.view-container {
+  position: relative;
+}
+
+.view-frame.ng-enter,
+.view-frame.ng-leave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+.view-frame.ng-enter {
+  animation: 1s fade-in;
+}
+
+.view-frame.ng-leave {
+  animation: 1s fade-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Older browsers might need vendor-prefixes for keyframes and animation! */
