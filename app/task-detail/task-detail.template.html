@@ -3,17 +3,17 @@
     <h1>Task details</h1>
     <dl>
       <dt>Id:</dt>
-      <dd>{{vm.task.id}}</dd>
+      <dd>{{$ctrl.task.id}}</dd>
       <dt>Text:</dt>
-      <dd>{{vm.task.text}}</dd>
+      <dd>{{$ctrl.task.text}}</dd>
       <dt>Done:</dt>
-      <dd>{{vm.task.done ? 'yes' : 'no'}}</dd>
+      <dd>{{$ctrl.task.done ? 'yes' : 'no'}}</dd>
       <dt>Important:</dt>
-      <dd>{{vm.task.important ? 'yes' : 'no'}}</dd>
+      <dd>{{$ctrl.task.important ? 'yes' : 'no'}}</dd>
       <dt>Date:</dt>
-      <dd>{{vm.task.date | date:'dd.MM.yyyy (HH:mm)'}}</dd>
+      <dd>{{$ctrl.task.date | date:'dd.MM.yyyy (HH:mm)'}}</dd>
       <dt>Description:</dt>
-      <dd>{{vm.task.description}}</dd>
+      <dd>{{$ctrl.task.description}}</dd>
     </dl>
     <p class="todo">TODO: edit task text and descriotion...</p>
     <p class="todo">If description is emty (adding new task) - hide it with

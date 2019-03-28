@@ -18,7 +18,7 @@ describe('taskDetail component', function () {
           [
             {id: '_01rfgt', text: 'learn AngularJS'},
             {id: '_xyzId', text: 'build an AngularJS app'},
-            {id: '_dh6s5', text: 'Other task'}
+            {id: '_dh6s5', text: 'Other todo'}
           ]
       );
       $routeParams.taskId = '_xyzId';
@@ -26,9 +26,9 @@ describe('taskDetail component', function () {
       controllerInstance = $componentController('taskDetail');
     }));
 
-    it('should fetch the task details', function () {
+    it('should fetch the todo details', function () {
       jasmine.addCustomEqualityTester(angular.equals);
-      // Текущее задание для task detail view
+      // Текущее задание для todo detail view
       expect(controllerInstance.task).toBeUndefined();
       // Ответы от сервиса `$httpBackend` не возвращаются, пока не будет вызван метод $httpBackend.flush() (явно
       // сбрасываются ожидающие запросы). Это сохраняет асинхронным API бэкэнда, позволяя тесту выполняться

@@ -28,7 +28,7 @@ describe('todoList component', function () {
               [
                 {text: 'learn AngularJS', done: true, important: false},
                 {text: 'build an AngularJS app', done: false, important: false},
-                {text: 'Other task', done: false, important: true}
+                {text: 'Other todo', done: false, important: true}
               ]
           );
       // создания экземпляр контроллера компонента `todoList`
@@ -50,7 +50,7 @@ describe('todoList component', function () {
       expect(controllerInstance.tasks).toEqual([
         {text: 'learn AngularJS', done: true, important: false},
         {text: 'build an AngularJS app', done: false, important: false},
-        {text: 'Other task', done: false, important: true}
+        {text: 'Other todo', done: false, important: true}
       ]);
     });
 
@@ -78,7 +78,7 @@ describe('todoList component', function () {
       tasks = [
           {text: 'learn AngularJS', done: true, important: false},
           {text: 'build an AngularJS app', done: false, important: false},
-          {text: 'Other task', done: false, important: true}
+          {text: 'Other todo', done: false, important: true}
         ]
     }));
 
@@ -86,7 +86,7 @@ describe('todoList component', function () {
       expect(filterInstance(tasks, 'active').length).toBe(2);
     });
 
-    it('should filter tasks by `done` tasks (1 task)', function () {
+    it('should filter tasks by `done` tasks (1 todo)', function () {
       expect(filterInstance(tasks, 'done').length).toBe(1);
     });
 

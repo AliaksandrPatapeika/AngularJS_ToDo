@@ -4,7 +4,7 @@
 // аргументов функции конструктора контроллера, следующим образом: function TodoListController($http) {...}
 // Инжектор зависимостей Angular предоставляет сервисы контроллеру при его создании.
 // Префикс `$` служит для пространства имен Angular сервисов.
-function TodoListController(Task, $location) {
+function TodoListController(todoService, $location) {
   // TODO BEST PRACTICE !!!!!
   //
   // const vm = this;
@@ -57,7 +57,7 @@ function TodoListController(Task, $location) {
   // Получаем коллекцию с сервера
   // Синхронно возвращается «будущее» - объект promise, который будет заполнен данными, когда будет получен ответ XHR.
   // Из-за привязки данных в Angular мы можем использовать это будущее и связать его с нашим шаблоном. Затем, когда данные поступят, представление будет автоматически обновлено.
-  this.tasks = Task.query();
+  this.tasks = todoService.getTaskList().query();
 
   this.remainingTasks = () => {
     return this.tasks.filter((task) => !task.done).length;
@@ -71,7 +71,7 @@ function TodoListController(Task, $location) {
         this.tasks.push(task);
       }
     });
-    console.log('Old task list: ', oldTasks);
+    console.log('Old todo list: ', oldTasks);
   };
 
   this.importantTask = (task) => {
@@ -83,18 +83,11 @@ function TodoListController(Task, $location) {
     this.tasks.splice(index, 1);
   };
 
-  this.IdGenerator = () => {
-    // Math.random should be unique because of its seeding algorithm.
-    // Convert it to base 36 (numbers + letters), and grab the first 9 characters
-    // after the decimal.
-    return '_' + Math.random().toString(36).substr(2, 9);
-  };
-
   this.addTask = () => {
     // не добавлять пустые задания
     if (this.addTaskInputText) {
       this.tasks.push({
-        id: this.IdGenerator(),
+        id: todoService.generateId(),
         text: this.addTaskInputText,
         done: false,
         important: false,
@@ -122,6 +115,6 @@ angular.module('todoList')
     .component('todoList', {
       // URL берется относительно файла `index.html`
       templateUrl: 'todo-list/todo-list.template.html',
-      controller: ['Task', '$location', TodoListController]
+      controller: ['todoService', '$location', TodoListController]
     });
 

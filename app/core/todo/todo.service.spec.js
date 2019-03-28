@@ -1,8 +1,8 @@
 'use strict';
 // убеждаемся, что наш новый сервис выдает HTTP-запросы и возвращает ожидаемые «будущие» объекты / массивы.
-describe('Task service', function () {
+describe('todoService', function () {
   let $httpBackend;
-  let Task;
+  let todoService;
   const tasksData = [
     {text: 'Task 1'},
     {text: 'Task 2'},
@@ -19,16 +19,16 @@ describe('Task service', function () {
   });
 
   // Загружаем модуль, который содержит сервис `Task` перед каждым тестом
-  beforeEach(module('core.task'));
+  beforeEach(module('core.todo'));
 
   // Создаем сервис и "обучаем" `$httpBackend` перед каждым тестом
-  beforeEach(inject(function (_$httpBackend_, _Task_) {
+  beforeEach(inject(function (_$httpBackend_, _todoService_) {
     // Фиктивный $http сервис для юнит тестов
     $httpBackend = _$httpBackend_;
     // Настраиваем поддельные ответы на запросы сервера
     $httpBackend.expectGET('data/tasks.json').respond(tasksData);
 
-    Task = _Task_;
+    todoService = _todoService_;
   }));
 
 // Проверяем, что нет невыполненых ожиданий или запросов после каждого теста.
@@ -38,8 +38,8 @@ describe('Task service', function () {
     $httpBackend.verifyNoOutstandingRequest();
   });
 
-  it('should fetch the data data from `/data/tasks.json`', function() {
-    const tasks = Task.query();
+  it('should fetch the data data from `/data/tasks.json`', function () {
+    const tasks = todoService.getTaskList().query();
 
     expect(tasks).toEqual([]);
 
