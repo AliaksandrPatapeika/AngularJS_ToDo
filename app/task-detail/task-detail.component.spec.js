@@ -14,7 +14,7 @@ describe('taskDetail component', function () {
       // Фиктивный $http сервис для юнит тестов
       $httpBackend = _$httpBackend_;
       // Настраиваем поддельные ответы на запросы сервера
-      $httpBackend.expectGET('tasks/tasks.json').respond(
+      $httpBackend.expectGET('data/tasks.json').respond(
           [
             {id: '_01rfgt', text: 'learn AngularJS'},
             {id: '_xyzId', text: 'build an AngularJS app'},

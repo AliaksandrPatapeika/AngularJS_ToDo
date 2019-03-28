@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- ng-app  указывает с каким модулем работает блок -->
-<html lang="en" ng-app="todoListApp">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <!-- для мобильной адаптивности (ширина просмотра = ширине девайса, при первой загрузке масштаб = 1,
@@ -26,6 +26,8 @@
   <script src="app.module.js"></script>
   <!-- настраивает провайдеров, доступных для основного модуля -->
   <script src="app.config.js"></script>
+  <!-- Запуск приложения в ручную без дерективы ngApp-->
+  <script src="app.run.js"></script>
   <script src="core/core.module.js"></script>
   <!-- Определяет JavaScript анимацию -->
   <script src="core/task/task.module.js"></script>

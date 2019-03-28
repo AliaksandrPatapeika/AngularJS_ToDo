@@ -1,7 +1,9 @@
 // Мы создаем собственный сервис для предоставления доступа к данным задач на сервере. Мы поместим сервис в его
 // собственный модуль `core.task`, под модуль `core`, чтобы мы могли явно объявить его зависимость от `ngResource`.
 
-'use strict';
+(function () {
+  'use strict';
 
 // создание модуля `core.phone`, который зависит от модуля `ngResource`
-angular.module('core.task', ['ngResource']);
+  angular.module('core.task', ['ngResource']);
+})();

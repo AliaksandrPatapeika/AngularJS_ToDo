@@ -26,7 +26,7 @@ describe('Task service', function () {
     // Фиктивный $http сервис для юнит тестов
     $httpBackend = _$httpBackend_;
     // Настраиваем поддельные ответы на запросы сервера
-    $httpBackend.expectGET('tasks/tasks.json').respond(tasksData);
+    $httpBackend.expectGET('data/tasks.json').respond(tasksData);
 
     Task = _Task_;
   }));
@@ -38,7 +38,7 @@ describe('Task service', function () {
     $httpBackend.verifyNoOutstandingRequest();
   });
 
-  it('should fetch the tasks data from `/tasks/tasks.json`', function() {
+  it('should fetch the data data from `/data/tasks.json`', function() {
     const tasks = Task.query();
 
     expect(tasks).toEqual([]);

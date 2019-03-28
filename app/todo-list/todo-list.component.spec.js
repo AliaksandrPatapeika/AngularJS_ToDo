@@ -23,7 +23,7 @@ describe('todoList component', function () {
       // Фиктивный $http сервис для юнит тестов
       $httpBackend = _$httpBackend_;
       // Настраиваем поддельные ответы на запросы сервера
-      $httpBackend.expectGET('tasks/tasks.json')
+      $httpBackend.expectGET('data/tasks.json')
           .respond(
               [
                 {text: 'learn AngularJS', done: true, important: false},
