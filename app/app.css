@@ -1,10 +1,10 @@
 .container {
   box-sizing: border-box;
-  padding: 20px;
-  font-family: "Segoe UI", sans-serif;
-  margin: 50px auto;
   max-width: 600px;
   min-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  font-family: "Segoe UI", sans-serif;
   border: 2px solid lightgray;
   border-radius: 20px;
 }
@@ -15,8 +15,8 @@
 
 .head-container h1 {
   display: inline-block;
-  margin: 0 0 10px;
   width: 50%;
+  margin: 0 0 10px;
   font-size: 2.5rem;
 }
 
@@ -31,9 +31,9 @@
 }
 
 .info-panel a {
-  color: blue;
   font-size: 1.1rem;
   font-weight: bold;
+  color: blue;
 }
 
 .info-panel a:visited {
@@ -43,14 +43,14 @@
 .container input[type="search"],
 .container input[type="text"] {
   box-sizing: border-box;
-  padding-left: 8px;
+  width: 355px;
+  height: 35px;
   margin: 10px 8px 10px 0;
+  padding-left: 8px;
+  font-size: 1rem;
+  vertical-align: middle;
   border: 1px solid deepskyblue;
   border-radius: 5px;
-  height: 35px;
-  width: 355px;
-  vertical-align: middle;
-  font-size: 1rem;
 }
 
 .container input[type="search"]:focus,
@@ -76,14 +76,14 @@
 }
 
 .btn {
-  border: 1px solid lightgray;
-  border-radius: 4px;
-  background-color: #fff;
   width: 62px;
   height: 35px;
-  font-size: 1rem;
   font-family: inherit;
+  font-size: 1rem;
   vertical-align: middle;
+  background-color: #fff;
+  border: 1px solid lightgray;
+  border-radius: 4px;
   cursor: pointer;
 }
 
@@ -106,11 +106,11 @@
 }
 
 .btn-filter {
+  box-sizing: border-box;
   display: table-cell;
   vertical-align: middle;
-  box-sizing: border-box;
-  background-color: azure;
   text-align: center;
+  background-color: azure;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -118,17 +118,17 @@
 }
 
 .task-list {
-  padding: 0;
   margin: 0;
+  padding: 0;
   list-style-type: none;
 }
 
 .task-list-item {
   display: table;
-  margin-top: 10px;
-  width: 100%;
-  font-size: 1.25rem;
   table-layout: fixed;
+  width: 100%;
+  margin-top: 10px;
+  font-size: 1.25rem;
   word-wrap: break-word;
 }
 
@@ -170,8 +170,8 @@
 }
 
 .btn-info {
-  border-color: deepskyblue;
   color: deepskyblue;
+  border-color: deepskyblue;
 }
 
 .btn-info:hover {
@@ -179,8 +179,8 @@
 }
 
 .btn-important {
-  border-color: forestgreen;
   color: forestgreen;
+  border-color: forestgreen;
 }
 
 .btn-important:hover {
@@ -188,8 +188,8 @@
 }
 
 .btn-delete {
-  border-color: orangered;
   color: orangered;
+  border-color: orangered;
 }
 
 .btn-delete:hover {
@@ -212,14 +212,14 @@
 .task-detail dt {
   float: left;
   width: 110px;
-  text-align: right;
   padding-right: 10px;
   font-weight: bold;
+  text-align: right;
 }
 
 .task-detail dd {
-  text-align: left;
   margin: 0 0 1rem 120px;
+  text-align: left;
   word-wrap: break-word;
 }
 

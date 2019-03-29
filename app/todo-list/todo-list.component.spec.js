@@ -76,10 +76,10 @@ describe('todoList component', function () {
       // получаем экземляр фильтра (получаем доступ к функции во втором параметре `.filter('taskList', function () {}` в модуле `todoList`)
       filterInstance = taskListFilter;
       tasks = [
-          {text: 'learn AngularJS', done: true, important: false},
-          {text: 'build an AngularJS app', done: false, important: false},
-          {text: 'Other todo', done: false, important: true}
-        ]
+        {text: 'learn AngularJS', done: true, important: false},
+        {text: 'build an AngularJS app', done: false, important: false},
+        {text: 'Other todo', done: false, important: true}
+      ]
     }));
 
     it('should filter tasks by `active` tasks (2 tasks)', function () {

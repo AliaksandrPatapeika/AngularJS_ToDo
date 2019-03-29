@@ -1,7 +1,7 @@
 <div class="container">
   <div class="head-container">
     <h1>Todo List</h1>
-    <div ng-if="$ctrl.tasks.length" class="info-panel">
+    <div class="info-panel" ng-if="$ctrl.tasks.length">
       <h3>
         {{$ctrl.remainingTasks()}} of {{$ctrl.tasks.length}} remaining,
         {{$ctrl.tasks.length - $ctrl.remainingTasks()}} done
@@ -13,16 +13,16 @@
   ngModel, и синхронизирует их.-->
   <label>
     <!-- $ctrl.searchTask.text - `text` означает по какому свойству объекта производить поиск (без него поиск идет по всем свойствам объекта)-->
-    <input type="search" ng-if="$ctrl.tasks.length" ng-model="$ctrl.searchTask.text" placeholder="type to search">
+    <input type="search" placeholder="type to search" ng-if="$ctrl.tasks.length" ng-model="$ctrl.searchTask.text">
   </label>
   <div class="filter-buttons-group" ng-if="$ctrl.tasks.length">
-    <input type="radio"
-           ng-repeat-start="filterButton in $ctrl.filterButtons"
-           id="radio{{filterButton.label}}"
+    <input id="radio{{filterButton.label}}"
+           type="radio"
+           value="{{filterButton.name}}"
            ng-model="$ctrl.filterName"
-           value="{{filterButton.name}}">
-    <label for="radio{{filterButton.label}}"
-           class="btn btn-filter"
+           ng-repeat-start="filterButton in $ctrl.filterButtons">
+    <label class="btn btn-filter"
+           for="radio{{filterButton.label}}"
            ng-repeat-end>
       {{filterButton.label}}
     </label>
@@ -47,15 +47,15 @@ track by $index - использовать $index массива для пере
       </label>
       <div class="task-list-item-buttons-group">
         <!--<a href="#!/tasks/{{task.id}}">-->
-        <button type="button" class="btn btn-info" ng-click="$ctrl.goToTaskDetailView(task)">
+        <button class="btn btn-info" type="button" ng-click="$ctrl.goToTaskDetailView(task)">
           <i class="fas fa-info"></i>
         </button>
         <!--</a>-->
-        <button type="button" class="btn btn-important" ng-click="$ctrl.importantTask(task)">
+        <button class="btn btn-important" type="button" ng-click="$ctrl.importantTask(task)">
           <i class="fas fa-exclamation"></i>
         </button>
         <!-- ng-click - вызов метода контроллера по клику -->
-        <button type="button" class="btn btn-delete" ng-click="$ctrl.deleteTask(task)">
+        <button class="btn btn-delete" type="button" ng-click="$ctrl.deleteTask(task)">
           <i class="fas fa-trash-alt"></i>
         </button>
       </div>
@@ -67,7 +67,7 @@ track by $index - использовать $index массива для пере
     <!-- ng-model двунаправленно связывает значение input в форме со свойством text в объекте задания массива taskList
 в контроллере (связывает форму и модель)-->
     <label>
-      <input type="text" ng-model="$ctrl.addTaskInputText" placeholder="add new task">
+      <input type="text" placeholder="add new task" ng-model="$ctrl.addTaskInputText">
     </label>
     <button class="btn btn-add">Add</button>
   </form>

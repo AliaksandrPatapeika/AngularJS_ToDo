@@ -12,12 +12,13 @@
 // это копирование каталога компонентов и добавление модуля компонентов в качестве зависимости в основной модуль нового проекта.
 // Чтобы сделать провайдеров, сервисы и директивы, определенные в ngRoute, доступными для приложения, нужно добавить
 // ngRoute в качестве зависимости модуля `todoListApp`.
-  angular.module('todoListApp', [
-    `ngAnimate`,
-    'ngRoute',
-    'core',
-    'taskDetail',
-    'todoList'
-  ]);
+  angular
+      .module('todoListApp', [
+        `ngAnimate`,
+        'ngRoute',
+        'core',
+        'taskDetail',
+        'todoList'
+      ]);
 
 })();
