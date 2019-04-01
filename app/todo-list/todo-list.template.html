@@ -35,7 +35,7 @@ track by $index - использовать $index массива для пере
     <!-- директива ngRepeat автоматически обновляет представление (view) в ответ на изменение количества заданий в
     списке, возвращаемых фильтром-->
     <li class="task-list-item"
-        ng-repeat="task in $ctrl.tasks | filter:$ctrl.searchTask | taskList:$ctrl.filterName">
+        ng-repeat="task in $ctrl.tasks | filter: $ctrl.searchTask | taskList: $ctrl.filterName">
       <label>
         <!-- ng-model двунаправленно связывает checkbox в форме со свойством done в объекте задания массива taskList
     в контроллере (связывает форму и модель)-->

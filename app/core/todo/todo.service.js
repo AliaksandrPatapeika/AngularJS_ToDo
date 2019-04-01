@@ -14,8 +14,11 @@
   /* @ngInject */
   function todoService($resource) {
     return {
-      getTaskList: getTaskList,
-      generateId: generateId
+      // сокращенно от:
+      // getTaskList: getTaskList,
+      // generateId: generateId
+      getTaskList,
+      generateId
     };
 
     ////////////////
