@@ -6,7 +6,9 @@
 // низкоуровневого сервиса `$http` чтобы упростить контроллер. Сервис Angular $resource проще в использовании, чем $http, для взаимодействия с источниками данных, представленными как ресурсы RESTful.
   angular
       .module('todoList', [
-        'core.todo'
+        'core.todo',
+        'headContainer',
+        'addTask'
       ]);
 
 })();

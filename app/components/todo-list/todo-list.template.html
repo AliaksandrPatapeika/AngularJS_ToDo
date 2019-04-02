@@ -1,14 +1,5 @@
 <div class="container">
-  <div class="head-container">
-    <h1>Todo List</h1>
-    <div class="info-panel" ng-if="$ctrl.tasks.length">
-      <h3>
-        {{$ctrl.remainingTasks()}} of {{$ctrl.tasks.length}} remaining,
-        {{$ctrl.tasks.length - $ctrl.remainingTasks()}} done
-      </h3>
-      <a href="" ng-click="$ctrl.archiveCompletedTasks()">[ archive ]</a>
-    </div>
-  </div>
+  <head-container></head-container>
   <!--Когда страница загружается, Angular связывает значение поля ввода с переменной модели данных (`$ctrl.searchTask`), указанной в
   ngModel, и синхронизирует их.-->
   <label>
@@ -61,14 +52,5 @@ track by $index - использовать $index массива для пере
       </div>
     </li>
   </ul>
-  <!-- директива ng-submit вызывает метод addTask() по нажатию Enter или по клику на кнопку (перехватывает отправку формы).
-   Внутри этого метода мы читаем свойство taskText и вставляем его в коллекцию taskArray-->
-  <form ng-submit="$ctrl.addTask()">
-    <!-- ng-model двунаправленно связывает значение input в форме со свойством text в объекте задания массива taskList
-в контроллере (связывает форму и модель)-->
-    <label>
-      <input type="text" placeholder="add new task" ng-model="$ctrl.addTaskInputText">
-    </label>
-    <button class="btn btn-add">Add</button>
-  </form>
+  <add-task></add-task>
 </div>

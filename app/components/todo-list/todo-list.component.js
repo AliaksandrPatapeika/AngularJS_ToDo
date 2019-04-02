@@ -42,32 +42,14 @@
 
     activate();
 
-    $ctrl.remainingTasks = remainingTasks;
-    $ctrl.archiveCompletedTasks = archiveCompletedTasks;
     $ctrl.importantTask = importantTask;
     $ctrl.deleteTask = deleteTask;
-    $ctrl.addTask = addTask;
     $ctrl.goToTaskDetailView = goToTaskDetailView;
 
     ////////////
 
     function activate() {
       $ctrl.tasks = todoService.getTaskList().query();
-    }
-
-    function remainingTasks() {
-      return $ctrl.tasks.filter((task) => !task.done).length;
-    }
-
-    function archiveCompletedTasks() {
-      const oldTasks = $ctrl.tasks;
-      $ctrl.tasks = [];
-      oldTasks.forEach((task) => {
-        if (!task.done) {
-          $ctrl.tasks.push(task);
-        }
-      });
-      console.log('Old todo list: ', oldTasks);
     }
 
     function importantTask(task) {
@@ -77,23 +59,6 @@
     function deleteTask(task) {
       const index = $ctrl.tasks.indexOf(task);
       $ctrl.tasks.splice(index, 1);
-    }
-
-    function addTask() {
-      // не добавлять пустые задания
-      if ($ctrl.addTaskInputText) {
-        $ctrl.tasks.push({
-          id: todoService.generateId(),
-          text: $ctrl.addTaskInputText,
-          done: false,
-          important: false,
-          date: Date.now(),
-          description: ""
-        });
-        $ctrl.addTaskInputText = '';
-      } else {
-        console.log('Empty input');
-      }
     }
 
     function goToTaskDetailView(task) {

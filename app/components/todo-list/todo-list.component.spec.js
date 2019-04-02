@@ -53,15 +53,15 @@ describe('todoList component', function () {
         {text: 'Other todo', done: false, important: true}
       ]);
     });
-
-    it('should add new two tasks to `tasks` property (5 tasks)', function () {
-      $httpBackend.flush();
-      controllerInstance.addTaskInputText = 'test task1';
-      controllerInstance.addTask();
-      controllerInstance.addTaskInputText = 'test task2';
-      controllerInstance.addTask();
-      expect(controllerInstance.tasks.length).toBe(5);
-    });
+    //
+    // it('should add new two tasks to `tasks` property (5 tasks)', function () {
+    //   $httpBackend.flush();
+    //   controllerInstance.addTaskInputText = 'test task1';
+    //   controllerInstance.addTask();
+    //   controllerInstance.addTaskInputText = 'test task2';
+    //   controllerInstance.addTask();
+    //   expect(controllerInstance.tasks.length).toBe(5);
+    // });
 
   });
 
