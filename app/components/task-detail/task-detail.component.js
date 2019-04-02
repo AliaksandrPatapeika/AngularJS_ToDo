@@ -5,7 +5,7 @@
   angular
       .module('taskDetail')
       .component('taskDetail', {
-        templateUrl: 'task-detail/task-detail.template.html',
+        templateUrl: 'components/task-detail/task-detail.template.html',
         controller: TaskDetailController
       });
 

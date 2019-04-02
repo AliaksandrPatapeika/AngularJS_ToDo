@@ -10,7 +10,7 @@
       .module('todoList')
       .component('todoList', {
         // URL берется относительно файла `index.html`
-        templateUrl: 'todo-list/todo-list.template.html',
+        templateUrl: 'components/todo-list/todo-list.template.html',
         controller: TodoListController
       });
 
