@@ -8,12 +8,12 @@
 // Чтобы можно было быстро найти код конфигурации, мы поместили его в отдельный файл и использовали суффикс `.config`.
   angular
       .module('todoListApp')
-      .config(configure);
+      .config(configAppRouter);
 
-  configure.$inject = ['$locationProvider', '$routeProvider'];
+  configAppRouter.$inject = ['$locationProvider', '$routeProvider'];
 
   /* @ngInject */
-  function configure($locationProvider, $routeProvider) {
+  function configAppRouter($locationProvider, $routeProvider) {
     // Мы также использовали $locationProvider.hashPrefix(), чтобы установить хеш-префикс `!`. Этот префикс
     // появится в ссылках на клиентские маршруты, сразу после символа хеша (#) и перед фактическим путем (например, index.html#!/some/path).
     // Установка префикса не обязательна, но считается хорошей практикой. `!` это наиболее часто используемый префикс.

@@ -8,7 +8,11 @@
       .module('todoList', [
         'core.todo',
         'headContainer',
-        'addTask'
+        'addTask',
+        'search',
+        'filterButtonsGroup',
+        'taskItemList',
+        'taskItem'
       ]);
 
 })();

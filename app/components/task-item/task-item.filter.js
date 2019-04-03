@@ -1,16 +1,14 @@
 (function () {
   'use strict';
 
-// использование модуля `todoList` для регистрации фильтра
+// использование модуля `taskItem` для регистрации фильтра
   angular
-      .module('todoList')
+      .module('taskItem')
       // создание фильтра для списка заданий
       .filter('taskList', taskList);
 
   function taskList() {
     return taskListFilter;
-
-    ////////////////
 
     function taskListFilter(taskList, filterName) {
       // проверка что на вход фильтра пришел массив
@@ -23,7 +21,7 @@
           case 'done':
             return taskList.filter((task) => task.done);
           default:
-            console.log('Default for debug. FilterName =', filterName);
+            // console.log('Default for debug. FilterName =', filterName);
             return taskList;
         }
       } else {

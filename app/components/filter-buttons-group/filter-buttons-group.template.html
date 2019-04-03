@@ -1,0 +1,12 @@
+<div class="filter-buttons-group">
+  <input id="radio{{filterButton.label}}"
+         type="radio"
+         value="{{filterButton.name}}"
+         ng-model="$ctrl.filterName"
+         ng-repeat-start="filterButton in $ctrl.filterButtons">
+  <label class="btn btn-filter"
+         for="radio{{filterButton.label}}"
+         ng-repeat-end>
+    {{filterButton.label}}
+  </label>
+</div>

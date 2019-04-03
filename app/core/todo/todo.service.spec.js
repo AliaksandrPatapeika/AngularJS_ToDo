@@ -18,7 +18,7 @@ describe('todoService', function () {
     jasmine.addCustomEqualityTester(angular.equals);
   });
 
-  // Загружаем модуль, который содержит сервис `Task` перед каждым тестом
+  // Загружаем модуль, который содержит сервис `todoService` перед каждым тестом
   beforeEach(module('core.todo'));
 
   // Создаем сервис и "обучаем" `$httpBackend` перед каждым тестом

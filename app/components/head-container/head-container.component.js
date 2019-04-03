@@ -6,8 +6,8 @@
       .component('headContainer', {
         templateUrl: 'components/head-container/head-container.template.html',
         controller: HeadContainerController,
-        require: {
-          parent: '^^todoList'
+        bindings: {
+          tasks: '='
         }
       });
 
@@ -18,15 +18,15 @@
     $ctrl.archiveCompletedTasks = archiveCompletedTasks;
 
     function remainingTasks() {
-      return $ctrl.parent.tasks.filter((task) => !task.done).length;
+      return $ctrl.tasks.filter((task) => !task.done).length;
     }
 
     function archiveCompletedTasks() {
-      const oldTasks = $ctrl.parent.tasks;
-      $ctrl.parent.tasks = [];
+      const oldTasks = $ctrl.tasks;
+      $ctrl.tasks = [];
       oldTasks.forEach((task) => {
         if (!task.done) {
-          $ctrl.parent.tasks.push(task);
+          $ctrl.tasks.push(task);
         }
       });
       console.log('Old todo list: ', oldTasks);

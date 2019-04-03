@@ -6,8 +6,8 @@
       .component('addTask', {
         templateUrl: 'components/add-task/add-task.template.html',
         controller: AddTaskController,
-        require: {
-          parent: '^^todoList'
+        bindings: {
+          tasks: '<'
         }
       });
 
@@ -21,7 +21,7 @@
     function addTask() {
       // не добавлять пустые задания
       if ($ctrl.addTaskInputText) {
-        $ctrl.parent.tasks.push({
+        $ctrl.tasks.push({
           id: todoService.generateId(),
           text: $ctrl.addTaskInputText,
           done: false,

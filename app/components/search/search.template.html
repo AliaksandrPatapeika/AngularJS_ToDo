@@ -1,0 +1,6 @@
+<!--Когда страница загружается, Angular связывает значение поля ввода с переменной модели данных (`$ctrl.searchTask`), указанной в
+ ngModel, и синхронизирует их.-->
+<label>
+  <!-- $ctrl.searchTask.text - `text` означает по какому свойству объекта производить поиск (без него поиск идет по всем свойствам объекта)-->
+  <input type="search" placeholder="type to search" ng-model="$ctrl.searchTask.text">
+</label>

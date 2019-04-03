@@ -31,7 +31,7 @@
         $ctrl.task = findTask(tasks, $routeParams.taskId);
 
         ////////////
-
+        // TODO: вынеси этот метод в todoService как в видео AngularJS 1.X: Part IX. Routing на 51 минуте
         function findTask(tasks, taskId) {
           return tasks.find((task) => task.id === taskId);
         }
