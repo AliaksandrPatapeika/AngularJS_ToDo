@@ -11,16 +11,19 @@
       .component('todoList', {
         // URL берется относительно файла `index.html`
         templateUrl: 'components/todo-list/todo-list.template.html',
-        controller: TodoListController
+        controller: TodoListController,
+        bindings: {
+          tasks: '<'
+        }
       });
 
-  TodoListController.$inject = ['todoService'];
+  // TodoListController.$inject = ['todoService'];
 
   // Чтобы использовать сервис в Angular, нужно объявить имена необходимых зависимостей в качестве
 // аргументов функции конструктора контроллера, следующим образом: function TodoListController($http) {...}
 // Инжектор зависимостей Angular предоставляет сервисы контроллеру при его создании.
 // Префикс `$` служит для пространства имен Angular сервисов.
-  function TodoListController(todoService) {
+  function TodoListController() {
     // Контроллер, где будут обрабатываться все данные.
     // Чтобы избегать непосредственного использования scope, следует использовать экземпляр контроллера
     // (присваивать данные и методы свойствам контроллера (`this` внутри конструктора контроллера), а не
@@ -32,12 +35,14 @@
     // Синхронно возвращается «будущее» - объект promise, который будет заполнен данными, когда будет получен ответ XHR.
     // Из-за привязки данных в Angular мы можем использовать это будущее и связать его с нашим шаблоном. Затем, когда данные поступят, представление будет автоматически обновлено.
 
-    activate();
+    // activate();
 
-    function activate() {
-      $ctrl.tasks = todoService.getTaskList().query();
-    }
+    // $ctrl.tasks здесь получается из метода resolve в app.config.js в $routeProvider
 
+    // function activate() {
+    //   console.log($ctrl.tasks);
+      // $ctrl.tasks = todoService.getAllTasks().query();
+    // }
   }
 
 })();

@@ -21,12 +21,34 @@
 
     $routeProvider
         .when('/tasks', {
-          template: '<todo-list></todo-list>'
+          template: '<todo-list tasks="$resolve.tasks"></todo-list>',
+          resolve: {
+            // пока свойство 'tasks' не получит данные от промиса, template не откроется (не создастся экземпляр контроллера)
+            tasks: function (todoService) {
+              return todoService.getAllTasks().query();
+            }
+          }
         })
         // <taskId> является переменной частью URL
         // Все переменные, определенные с префиксом `:` извлекаются в (injectable) объект $routeParams.
         .when('/tasks/:taskId', {
-          template: '<task-detail></task-detail>'
+          template: '<task-detail task="$resolve.task"></task-detail>',
+          resolve: {
+            // пока свойство 'task' не получит данные от промиса, template не откроется (не создастся экземпляр контроллера)
+            task: function ($routeParams, todoService) {
+              let id = $routeParams;
+              // id.test = "test";
+              // for (let key in id) {
+                console.log(id);
+              // }
+
+              console.log(Object.keys($routeParams));
+              console.log(typeof id);
+              // console.log('taskId1 = ', id);
+              // return todoService.getTaskById($routeParams.taskId);
+              todoService.getTaskById(id);
+            }
+          }
         })
         .otherwise('/tasks');
   }

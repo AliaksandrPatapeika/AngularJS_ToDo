@@ -1,4 +1,4 @@
- (function () {
+(function () {
   'use strict';
 
   angular
@@ -17,19 +17,27 @@
       // сокращенно от:
       // getTaskList: getTaskList,
       // generateId: generateId
-      getTaskList,
+      getAllTasks,
+      getTaskById,
       generateId
     };
 
     ////////////////
 
-    function getTaskList() {
+    function getAllTasks() {
       return $resource('data/tasks.json', {}, {
         query: {
           method: 'GET',
           isArray: true
         }
       });
+    }
+
+    function getTaskById(taskId) {
+      console.log('taskId222 = ', taskId);
+      // return getAllTasks().query((tasks) => {
+      //   return tasks.find((task) => task.id === taskId);
+      // })
     }
 
     function generateId() {
