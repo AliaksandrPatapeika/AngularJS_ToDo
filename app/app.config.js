@@ -32,10 +32,10 @@
         // <taskId> является переменной частью URL
         // Все переменные, определенные с префиксом `:` извлекаются в (injectable) объект $routeParams.
         .when('/tasks/:taskId', {
-          template: '<task-detail task="$resolve.task"></task-detail>',
+          template: '<task-detail task-promise="$resolve.taskPromise"></task-detail>',
           resolve: {
-            // пока свойство 'task' не получит данные от промиса, template не откроется (не создастся экземпляр контроллера)
-            task: function ($route, todoService) {
+            // пока свойство 'taskPromise' не получит данные от промиса, template не откроется (не создастся экземпляр контроллера)
+            taskPromise: function ($route, todoService) {
               // You need to use $route.current.params.key instead $routeParams. The $routeParams is updated only after a route is changed.
               return todoService.getTaskById($route.current.params.taskId);
             }

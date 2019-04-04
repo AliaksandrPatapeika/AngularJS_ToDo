@@ -1,5 +1,10 @@
 <div class="container">
-  <div class="task-detail">
+  <error-container
+      ng-if="$ctrl.error"
+      error="$ctrl.error">
+  </error-container>
+  <div class="task-detail"
+       ng-if="$ctrl.task">
     <h1>Task details</h1>
     <dl>
       <dt>Id:</dt>

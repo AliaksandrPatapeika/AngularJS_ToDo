@@ -24,7 +24,7 @@
 
     ////////////////
     function getData() {
-      return $resource('data/tassks.json', {}, {
+      return $resource('data/tasks.json', {}, {
         query: {
           method: 'GET',
           isArray: true
@@ -32,9 +32,8 @@
       });
     }
 
-    function printError(error) {
-      let err = 'Promise rejectedkh gkdhf gkh bsdkj hfkdhsb fkjsh fkhsb dkjhbsdkj hfbkjs hfkjsdh bfkjhs kfhs' +
-          ' hfbsdkhfbsk hfkjsh fkdhsb fkshb fkhs bfkjbhsdkf   d!\n';
+    function printError(error, label) {
+      let err = `${label}`;
       // Если левый аргумент – false, оператор И(&&) возвращает его и заканчивает вычисления. Иначе – вычисляет и возвращает правый аргумент.
       error.name && (err += `\nName: "${error.name}"`);
       error.message && (err += `\nMessage: "${error.message}"`);
@@ -43,18 +42,20 @@
       error.config && error.config.url && (err += `\nURL: "${error.config.url}"`);
       error.status && (err += `\nStatus: "${error.status}"`);
       error.statusText && (err += `\nStatus text: "${error.statusText}"`);
+      console.log(err);
       return err;
     }
 
     function getAllTasks() {
       return getData().query().$promise
-          .then((tasks) => tasks)
-          .catch((reason) => {
-            // console.log(reason);
-            // console.log(printError(reason));
-            return new Error(printError(reason));
+          .then((tasks) => {
+            console.log('Promise getAllTasks() resolve.');
+            return tasks;
           })
-          .finally(() => console.log('getAllTasks() complete.'));
+          .catch((error) => {
+            return new Error(printError(error, 'Promise getAllTasks() rejected!'));
+          })
+          .finally(() => console.log('Promise getAllTasks() complete.'));
     }
 
     function getTaskById(taskId) {
@@ -62,16 +63,16 @@
           .then((tasks) => {
             const task = tasks.find((task) => task.id === taskId);
             if (task) {
+              console.log('Promise getTaskById() resolve.');
               return task;
             } else {
               throw new Error(`Task with id = "${taskId}" not found.`);
             }
           })
-          .catch((reason) => {
-            // console.log(reason);
-            console.log(printError(reason));
+          .catch((error) => {
+            return new Error(printError(error, 'Promise getTaskById() rejected!'));
           })
-          .finally(() => console.log('getTaskById() complete.'));
+          .finally(() => console.log('Promise getTaskById() complete.'));
     }
 
     function generateId() {

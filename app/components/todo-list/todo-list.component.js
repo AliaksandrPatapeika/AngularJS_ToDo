@@ -39,21 +39,24 @@
 
     // function activate() {
     // $ctrl.tasks = todoService.getAllTasks().query();
+    // $ctrl.tasks = todoService.getData().query();
     // }
 
+    // console.log('Получили массив 1: ', $ctrl.tasksPromise instanceof Array);
+    // console.log('Получили массив 2: ', angular.isArray($ctrl.tasksPromise));
+    // console.log('Получили ошибку: ', $ctrl.tasksPromise instanceof Error);
+    // console.log('Ошибка: ', $ctrl.tasksPromise.message.split('\n'));
 
     // $ctrl.tasksPromise здесь получается из метода resolve в app.config.js в $routeProvider
-    console.log('Получили массив: ', $ctrl.tasksPromise instanceof Array);
-    console.log('Получили ошибку: ', $ctrl.tasksPromise instanceof Error);
-    console.log('Ошибка: ', $ctrl.tasksPromise.message);
 
-    if ($ctrl.tasksPromise instanceof Array) {
+    if ($ctrl.tasksPromise instanceof Error) {
+      $ctrl.error = $ctrl.tasksPromise.message.split('\n');
+    } else if (angular.isArray($ctrl.tasksPromise)) {
       $ctrl.tasks = $ctrl.tasksPromise;
     }
 
-    if ($ctrl.tasksPromise instanceof Error) {
-      $ctrl.error = $ctrl.tasksPromise.message;
-    }
+    // console.log('$ctrl.tasks = ', $ctrl.tasks);
+    // console.log('$ctrl.error = ', $ctrl.error);
 
   }
 

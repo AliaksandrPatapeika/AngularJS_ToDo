@@ -8,7 +8,7 @@
         templateUrl: 'components/task-detail/task-detail.template.html',
         controller: TaskDetailController,
         bindings: {
-          task: '<'
+          taskPromise: '<'
         }
       });
 
@@ -36,7 +36,23 @@
     // });
     // }
 
-    // $ctrl.task здесь получается из метода resolve в app.config.js в $routeProvider
+    // console.log('$ctrl.taskPromise: ', $ctrl.taskPromise);
+    // console.log('Что получили: ', typeof $ctrl.taskPromise);
+    // console.log('Получили объект 1: ', $ctrl.taskPromise instanceof Object);
+    // console.log('Получили объект 2: ', angular.isObject($ctrl.taskPromise));
+    // console.log('Получили ошибку: ', $ctrl.taskPromise instanceof Error);
+    // console.log('Ошибка: ', $ctrl.taskPromise.message.split('\n'));
+
+    // $ctrl.taskPromise здесь получается из метода resolve в app.config.js в $routeProvider
+
+    if ($ctrl.taskPromise instanceof Error) {
+      $ctrl.error = $ctrl.taskPromise.message.split('\n');
+    } else if (angular.isObject($ctrl.taskPromise)) {
+      $ctrl.task = $ctrl.taskPromise;
+    }
+
+    // console.log('$ctrl.task = ', $ctrl.task);
+    // console.log('$ctrl.error = ', $ctrl.error);
 
   }
 

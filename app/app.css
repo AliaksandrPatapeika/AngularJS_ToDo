@@ -9,18 +9,24 @@
   border-radius: 20px;
 }
 
-.error-container {
-  text-align: center;
-  outline: 1px solid red;
+.error-container ul {
+  padding-left: 20px;
 }
 
-.error-container .error {
-  display: inline-block;
+.error-container li {
+  margin-top: 10px;
   font-size: 1.1rem;
   font-weight: bold;
   color: red;
-  text-align: left;
-  outline: 1px solid blue;
+  word-wrap: break-word;
+}
+
+.error-container li:first-child {
+  margin: 10px 0 20px -20px;
+  list-style-type: none;
+  font-size: 1.3rem;
+  font-style: italic;
+  text-align: center;
 }
 
 .head-container {
