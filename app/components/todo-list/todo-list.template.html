@@ -1,5 +1,12 @@
 <div class="container">
+  <div class="error-container">
+    <pre class="error"
+         ng-if="$ctrl.error">
+    {{$ctrl.error}}
+    </pre>
+  </div>
   <head-container
+      ng-if="$ctrl.tasks"
       tasks="$ctrl.tasks">
   </head-container>
   <search
@@ -16,6 +23,7 @@
       filter-name="$ctrl.filterName">
   </task-item-list>
   <add-task
+      ng-if="$ctrl.tasks"
       tasks="$ctrl.tasks">
   </add-task>
 </div>

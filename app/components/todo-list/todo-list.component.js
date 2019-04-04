@@ -13,7 +13,7 @@
         templateUrl: 'components/todo-list/todo-list.template.html',
         controller: TodoListController,
         bindings: {
-          tasks: '<'
+          tasksPromise: '<'
         }
       });
 
@@ -37,12 +37,24 @@
 
     // activate();
 
-    // $ctrl.tasks здесь получается из метода resolve в app.config.js в $routeProvider
-
     // function activate() {
-    //   console.log($ctrl.tasks);
-      // $ctrl.tasks = todoService.getAllTasks().query();
+    // $ctrl.tasks = todoService.getAllTasks().query();
     // }
+
+
+    // $ctrl.tasksPromise здесь получается из метода resolve в app.config.js в $routeProvider
+    console.log('Получили массив: ', $ctrl.tasksPromise instanceof Array);
+    console.log('Получили ошибку: ', $ctrl.tasksPromise instanceof Error);
+    console.log('Ошибка: ', $ctrl.tasksPromise.message);
+
+    if ($ctrl.tasksPromise instanceof Array) {
+      $ctrl.tasks = $ctrl.tasksPromise;
+    }
+
+    if ($ctrl.tasksPromise instanceof Error) {
+      $ctrl.error = $ctrl.tasksPromise.message;
+    }
+
   }
 
 })();

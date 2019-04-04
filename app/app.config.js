@@ -21,11 +21,11 @@
 
     $routeProvider
         .when('/tasks', {
-          template: '<todo-list tasks="$resolve.tasks"></todo-list>',
+          template: '<todo-list tasks-promise="$resolve.tasksPromise"></todo-list>',
           resolve: {
-            // пока свойство 'tasks' не получит данные от промиса, template не откроется (не создастся экземпляр контроллера)
-            tasks: function (todoService) {
-              return todoService.getAllTasks().query();
+            // пока свойство 'tasksPromise' не получит данные от промиса, template не откроется (не создастся экземпляр контроллера)
+            tasksPromise: function (todoService) {
+              return todoService.getAllTasks();
             }
           }
         })
@@ -35,18 +35,9 @@
           template: '<task-detail task="$resolve.task"></task-detail>',
           resolve: {
             // пока свойство 'task' не получит данные от промиса, template не откроется (не создастся экземпляр контроллера)
-            task: function ($routeParams, todoService) {
-              let id = $routeParams;
-              // id.test = "test";
-              // for (let key in id) {
-                console.log(id);
-              // }
-
-              console.log(Object.keys($routeParams));
-              console.log(typeof id);
-              // console.log('taskId1 = ', id);
-              // return todoService.getTaskById($routeParams.taskId);
-              todoService.getTaskById(id);
+            task: function ($route, todoService) {
+              // You need to use $route.current.params.key instead $routeParams. The $routeParams is updated only after a route is changed.
+              return todoService.getTaskById($route.current.params.taskId);
             }
           }
         })

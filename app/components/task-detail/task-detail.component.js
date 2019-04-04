@@ -27,12 +27,17 @@
     //
     // function activate() {
     //   // Получаем коллекцию с сервера
-    //   todoService.getAllTasks().query((tasks) => {
-    //     // После загрузки данных, получаем текущее задание для task detail view, полученное по id текущего задания из $routeParams
-    //     $ctrl.task = todoService.getTaskById(tasks, $routeParams.taskId);
-    //   });
+    // const tasks = todoService.getAllTasks().query(() => {
+    //   // После загрузки данных, получаем текущее задание для task detail view, полученное по id текущего задания из $routeParams
+    //   $ctrl.task = findTask(tasks, $routeParams.taskId);
+    //   function findTask(tasks, taskId) {
+    //     return tasks.find((task) => task.id === taskId);
+    //   }
+    // });
     // }
-    console.log('TASK = ', $ctrl.task)
+
+    // $ctrl.task здесь получается из метода resolve в app.config.js в $routeProvider
+
   }
 
 })();

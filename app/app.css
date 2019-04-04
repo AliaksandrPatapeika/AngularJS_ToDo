@@ -9,6 +9,20 @@
   border-radius: 20px;
 }
 
+.error-container {
+  text-align: center;
+  outline: 1px solid red;
+}
+
+.error-container .error {
+  display: inline-block;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: red;
+  text-align: left;
+  outline: 1px solid blue;
+}
+
 .head-container {
   text-align: center;
 }
