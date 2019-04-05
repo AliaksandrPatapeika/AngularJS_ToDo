@@ -7,35 +7,43 @@ describe('taskDetail component', function () {
 
   // Тестирование контроллера
   describe('TaskDetailController test', function () {
-    let controllerInstance;
-    let $httpBackend;
+    let controllerInstanceResolve;
+    let controllerInstanceReject;
+    const mockTaskDataResolve = {id: '_xyzId', text: 'build an AngularJS app'};
+    const mockTaskDataReject = new Error('Error \nPromise rejected!');
 
-    beforeEach(inject(function ($componentController, _$httpBackend_, $routeParams) {
-      // Фиктивный $http сервис для юнит тестов
-      $httpBackend = _$httpBackend_;
-      // Настраиваем поддельные ответы на запросы сервера
-      $httpBackend.expectGET('data/tasks.json').respond(
-          [
-            {id: '_01rfgt', text: 'learn AngularJS'},
-            {id: '_xyzId', text: 'build an AngularJS app'},
-            {id: '_dh6s5', text: 'Other todo'}
-          ]
-      );
-      $routeParams.taskId = '_xyzId';
+    beforeEach(inject(function ($componentController) {
       // создания экземпляр контроллера компонента `taskDetail`
-      controllerInstance = $componentController('taskDetail');
+      controllerInstanceResolve = $componentController('taskDetail', null, {taskPromise: mockTaskDataResolve});
+      controllerInstanceReject = $componentController('taskDetail', null, {taskPromise: mockTaskDataReject});
     }));
 
-    it('should fetch the todo details', function () {
-      jasmine.addCustomEqualityTester(angular.equals);
-      // Текущее задание для todo detail view
-      expect(controllerInstance.task).toBeUndefined();
-      // Ответы от сервиса `$httpBackend` не возвращаются, пока не будет вызван метод $httpBackend.flush() (явно
-      // сбрасываются ожидающие запросы). Это сохраняет асинхронным API бэкэнда, позволяя тесту выполняться
-      // синхронно. При этом очищается очередь запросов в браузере, вследствии чего promise, который возвращает
-      // сервис $http, будет разрешен с помощью поддельного ответа.
-      $httpBackend.flush();
-      expect(controllerInstance.task).toEqual({id: '_xyzId', text: 'build an AngularJS app'});
+    it('should create a `task` property when task data resolved from $resource promise', function () {
+      // Проверяем, что свойство `task` существует в контроллере после получения контроллером привязки к
+      // свойству `taskPromise` от сервиса $routeProvider в resolve в app.config.js
+      expect(controllerInstanceResolve.taskPromise).toBeDefined();
+      expect(controllerInstanceResolve.task).toBeDefined();
+      expect(controllerInstanceResolve.error).toBeUndefined();
+
+      // Проверяем, что свойство `taskPromise` это не ошибка
+      expect(controllerInstanceResolve.taskPromise instanceof Error).toBe(false);
+      // Проверяем, что свойство `task` это объект
+      expect(angular.isObject(controllerInstanceResolve.task)).toBe(true);
+      expect(controllerInstanceResolve.task).toBe(mockTaskDataResolve);
+      expect(controllerInstanceResolve.task).toEqual({id: '_xyzId', text: 'build an AngularJS app'});
+    });
+
+    it('should create a `error` property when task data rejected from $resource promise', function () {
+      // Проверяем, что свойство `error` существует в контроллере после получения ошибки контроллером при
+      // выполнении привязки к свойству `taskPromise` от сервиса $routeProvider в resolve в app.config.js
+      expect(controllerInstanceReject.taskPromise).toBeDefined();
+      expect(controllerInstanceReject.task).toBeUndefined();
+      expect(controllerInstanceReject.error).toBeDefined();
+
+      // Проверяем, что свойство `taskPromise` это ошибка
+      expect(controllerInstanceReject.taskPromise instanceof Error).toBe(true);
+      // Проверяем, что свойство `error` это массив из строки сообщения объекта ошибки
+      expect(controllerInstanceReject.error).toEqual(controllerInstanceReject.taskPromise.message.split('\n'));
     });
 
   });

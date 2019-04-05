@@ -24,9 +24,7 @@
           template: '<todo-list tasks-promise="$resolve.tasksPromise"></todo-list>',
           resolve: {
             // пока свойство 'tasksPromise' не получит данные от промиса, template не откроется (не создастся экземпляр контроллера)
-            tasksPromise: function (todoService) {
-              return todoService.getAllTasks();
-            }
+            tasksPromise: tasksPromise
           }
         })
         // <taskId> является переменной частью URL
@@ -35,13 +33,24 @@
           template: '<task-detail task-promise="$resolve.taskPromise"></task-detail>',
           resolve: {
             // пока свойство 'taskPromise' не получит данные от промиса, template не откроется (не создастся экземпляр контроллера)
-            taskPromise: function ($route, todoService) {
-              // You need to use $route.current.params.key instead $routeParams. The $routeParams is updated only after a route is changed.
-              return todoService.getTaskById($route.current.params.taskId);
-            }
+            taskPromise: taskPromise
           }
         })
         .otherwise('/tasks');
+
+    tasksPromise.$inject = ['todoService'];
+
+    function tasksPromise(todoService) {
+      return todoService.getAllTasks();
+    }
+
+    taskPromise.$inject = ['$route', 'todoService'];
+
+    function taskPromise($route, todoService) {
+      // You need to use $route.current.params.key instead $routeParams. The $routeParams is updated only after a route is changed.
+      return todoService.getTaskById($route.current.params.taskId);
+    }
+
   }
 
 })();
