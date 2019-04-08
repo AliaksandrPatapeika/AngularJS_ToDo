@@ -16,7 +16,8 @@
 </head>
 <body>
 <div class="view-container">
-  <div class="view-frame" ng-view></div>
+<!--  <div class="view-frame" ng-view></div>-->
+  <div class="view-frame" ui-view></div>
 </div>
 <!-- libs and frameworks -->
 <script src="lib/angular/angular.js"></script>
@@ -25,7 +26,8 @@
 <!-- нам также нужно загрузить файл angular-resource.js, который содержит модуль ngResource -->
 <script src="lib/angular-resource/angular-resource.js"></script>
 <!-- определяет модуль Angular ngRoute, который предоставляет маршрутизацию -->
-<script src="lib/angular-route/angular-route.js"></script>
+<!--<script src="lib/angular-route/angular-route.js"></script>-->
+<script src="lib/angular-ui-router/release/angular-ui-router.min.js"></script>
 <!-- файлы, определяющие модуль (*.module.js), должны быть включены до других файлов, которые добавляют функционал (например, компоненты, контроллеры, сервисы, фильтры) к этому модулю.-->
 <!-- основной модуль -->
 <!-- app -->

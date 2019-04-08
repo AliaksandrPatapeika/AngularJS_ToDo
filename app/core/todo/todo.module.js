@@ -3,10 +3,11 @@
 (function () {
   'use strict';
 
-  // создание модуля, который зависит от модуля `ngResource`
+  // создание модуля, который зависит от модуля `ngResource` и `ui.router`
   angular
       .module('core.todo', [
-        'ngResource'
+        'ngResource',
+        'ui.router'
       ]);
 
 })();

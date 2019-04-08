@@ -3,7 +3,7 @@
 
   angular
       .module('taskItemList', [
-        `taskItem`
+        'taskItem'
       ]);
 
 })();

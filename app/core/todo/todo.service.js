@@ -9,17 +9,28 @@
       // может затем использоваться в нашем приложении вместо низкоуровневой службы `$http`.
       .factory('todoService', todoService);
 
-  todoService.$inject = ['$resource'];
+  // todoService.$inject = ['$resource', '$state'];
+  todoService.$inject = ['$http', '$q'];
 
   /* @ngInject */
-  function todoService($resource) {
+
+  // function todoService($resource, $state) {
+  function todoService($http, $q) {
+    // Connection URL
+    const taskUrl = 'mongodb+srv://todoListUser:todoListPassword@todo-list-2angk.mongodb.net/test?retryWrites=true';
+
     return {
       // сокращенно от:
       // getTaskList: getTaskList,
       // generateId: generateId
       getAllTasks,
       getTaskById,
-      generateId
+      // addTask,
+      // deleteTask,
+      // updateTask,
+      // importantTask,
+      generateId,
+      navigate
     };
 
     ////////////////
@@ -46,17 +57,43 @@
       return err;
     }
 
-    function getAllTasks() {
-      return getData().query().$promise
-          .then((tasks) => {
-            console.log('Promise getAllTasks() resolve.');
-            return tasks;
-          })
-          .catch((error) => {
-            return new Error(printError(error, 'Promise getAllTasks() rejected!'));
-          })
-          .finally(() => console.log('Promise getAllTasks() complete.'));
+
+    // --------------------------------------------------
+    function sendResponseData(response) {
+      console.log(response);
+      return response.data;
     }
+
+    function getAllTasks() {
+      return $http({
+        url: 'https://todolist-f2d4.restdb.io/rest/tasks',
+        method: 'GET',
+        headers:
+            {
+              'cache-control': 'no-cache',
+              'x-apikey': '63fae906273edca8d9556ecacda418e4c2a4f'
+            }
+      })
+          .then(sendResponseData)
+          .catch((response) => {
+            return $q.reject('Error: can not retrieve data from restdb.')
+          })
+    }
+
+
+    // --------------------------------------------------
+
+    // function getAllTasks() {
+    //   return getData().query().$promise
+    //       .then((tasks) => {
+    //         console.log('Promise getAllTasks() resolve.');
+    //         return tasks;
+    //       })
+    //       .catch((error) => {
+    //         return new Error(printError(error, 'Promise getAllTasks() rejected!'));
+    //       })
+    //       .finally(() => console.log('Promise getAllTasks() complete.'));
+    // }
 
     function getTaskById(taskId) {
       return getData().query().$promise
@@ -80,6 +117,10 @@
       // Convert it to base 36 (numbers + letters), and grab the first 9 characters
       // after the decimal.
       return '_' + Math.random().toString(36).substr(2, 9);
+    }
+
+    function navigate(toState, params) {
+      $state.go(toState, params);
     }
   }
 

@@ -14,8 +14,9 @@
 // ngRoute в качестве зависимости модуля `todoListApp`.
   angular
       .module('todoListApp', [
-        `ngAnimate`,
-        'ngRoute',
+        'ngAnimate',
+        // 'ngRoute',
+        'ui.router',
         'core',
         'taskDetail',
         'todoList'

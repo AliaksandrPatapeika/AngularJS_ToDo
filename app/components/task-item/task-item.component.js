@@ -13,14 +13,21 @@
         }
       });
 
-  TaskItemController.$inject = ['$location'];
+  // TaskItemController.$inject = ['$location'];
+  TaskItemController.$inject = ['todoService'];
 
-  function TaskItemController($location) {
+  // function TaskItemController($location) {
+  function TaskItemController(todoService) {
     let $ctrl = this;
 
-    $ctrl.importantTask = importantTask;
-    $ctrl.deleteTask = deleteTask;
-    $ctrl.goToTaskDetailView = goToTaskDetailView;
+    init();
+
+    function init() {
+      $ctrl.importantTask = importantTask;
+      $ctrl.deleteTask = deleteTask;
+      // $ctrl.goToTaskDetailView = goToTaskDetailView;
+      $ctrl.navigate = todoService.navigate;
+    }
 
     function importantTask(task) {
       task.important = !task.important;
@@ -31,9 +38,10 @@
       $ctrl.tasks.splice(index, 1);
     }
 
-    function goToTaskDetailView(task) {
-      $location.path(`/tasks/${task.id}`);
-    }
+    // function goToTaskDetailView(task) {
+      // $location.path(`/tasks/${task.id}`);
+      // $state.go("taskDetail", {taskId: task.id});
+    // }
 
   }
 

@@ -17,7 +17,8 @@ track by $index - использовать $index массива для пере
   </label>
   <div class="task-list-item-buttons-group">
     <!--<a href="#!/tasks/{{task.id}}">-->
-    <button class="btn btn-info" type="button" ng-click="$ctrl.goToTaskDetailView(task)">
+<!--    <button class="btn btn-info" type="button" ng-click="$ctrl.goToTaskDetailView(task)">-->
+    <button class="btn btn-info" type="button" ng-click="$ctrl.navigate('taskDetail', {taskId: task.id})">
       <i class="fas fa-info"></i>
     </button>
     <!--</a>-->

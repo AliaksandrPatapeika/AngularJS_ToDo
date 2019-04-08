@@ -13,6 +13,7 @@
         templateUrl: 'components/todo-list/todo-list.template.html',
         controller: TodoListController,
         bindings: {
+          // получаем свойство контроллера tasksPromise из атрибута tasks-promise компонента в
           tasksPromise: '<'
         }
       });
