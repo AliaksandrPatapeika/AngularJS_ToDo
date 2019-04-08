@@ -10,14 +10,14 @@
       .factory('todoService', todoService);
 
   // todoService.$inject = ['$resource', '$state'];
-  todoService.$inject = ['$http', '$q'];
+  todoService.$inject = ['$http', '$q', '$state', 'restdb'];
 
   /* @ngInject */
 
   // function todoService($resource, $state) {
-  function todoService($http, $q) {
+  function todoService($http, $q, $state, restdb) {
     // Connection URL
-    const taskUrl = 'mongodb+srv://todoListUser:todoListPassword@todo-list-2angk.mongodb.net/test?retryWrites=true';
+    const taskUrl = `https://${restdb.databaseName}.restdb.io/rest/${restdb.collectionName}`;
 
     return {
       // сокращенно от:
@@ -25,7 +25,7 @@
       // generateId: generateId
       getAllTasks,
       getTaskById,
-      // addTask,
+      addTask,
       // deleteTask,
       // updateTask,
       // importantTask,
@@ -66,19 +66,47 @@
 
     function getAllTasks() {
       return $http({
-        url: 'https://todolist-f2d4.restdb.io/rest/tasks',
+        url: taskUrl,
         method: 'GET',
-        headers:
-            {
-              'cache-control': 'no-cache',
-              'x-apikey': '63fae906273edca8d9556ecacda418e4c2a4f'
-            }
+        params: {
+          apikey: restdb.apikey
+        }
       })
-          .then(sendResponseData)
+          .then((response) => sendResponseData(response))
           .catch((response) => {
             return $q.reject('Error: can not retrieve data from restdb.')
-          })
+          });
     }
+
+    function addTask(newTask) {
+      console.log(newTask);
+      return $http({
+        url: taskUrl,
+        method: 'POST',
+        params: {
+          apikey: restdb.apikey
+        },
+        data: newTask
+        // transformRequest: testNormalize
+      })
+          .then((response) => {
+            sendResponseData(response);
+            $state.reload();
+            console.log('state is reloaded');
+          })
+          .catch((response) => {
+            return $q.reject('Error: can not retrieve data from restdb.')
+          });
+
+      // function testNormalize(data) {
+      //   data.done = true;
+      //
+      //   return angular.toJson(data);
+      //
+      // }
+
+    }
+
 
 
     // --------------------------------------------------

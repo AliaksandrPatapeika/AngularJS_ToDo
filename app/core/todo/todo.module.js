@@ -7,7 +7,8 @@
   angular
       .module('core.todo', [
         'ngResource',
-        'ui.router'
+        'ui.router',
+        'core.todo.constants'
       ]);
 
 })();
