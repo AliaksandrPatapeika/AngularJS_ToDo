@@ -1,8 +1,8 @@
-(function() {
+(function () {
   'use strict';
 
   angular
-      .module('core.todo.constants', [])
+      .module('core.todo')
       .constant('constants', {
         APP_VERSION: '0.0.1'
       })

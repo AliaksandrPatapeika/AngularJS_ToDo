@@ -51,6 +51,12 @@
       $ctrl.task = $ctrl.taskPromise;
     }
 
+    $ctrl.edit = edit;
+
+    function edit(text) {
+      console.log(text);
+    }
+
     // console.log('$ctrl.task = ', $ctrl.task);
     // console.log('$ctrl.error = ', $ctrl.error);
 

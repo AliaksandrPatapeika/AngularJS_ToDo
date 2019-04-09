@@ -8,9 +8,20 @@
     <h1>Task details</h1>
     <dl>
       <dt>Id:</dt>
-      <dd>{{$ctrl.task.id}}</dd>
+      <dd>{{$ctrl.task._id}}</dd>
       <dt>Text:</dt>
-      <dd>{{$ctrl.task.text}}</dd>
+      <dd class="clear-bottom">
+        <div class="textarea">
+          {{$ctrl.task.text}}
+        </div>
+        <div class="edit">
+          <i class="fas fa-edit" ng-click="$ctrl.edit($ctrl.task.text)"></i>
+        </div>
+
+        <!--        <label>-->
+        <!--          <textarea auto-resize name="text">{{$ctrl.task.text}}</textarea>-->
+        <!--        </label>-->
+      </dd>
       <dt>Done:</dt>
       <dd>{{$ctrl.task.done ? 'yes' : 'no'}}</dd>
       <dt>Important:</dt>
@@ -18,10 +29,14 @@
       <dt>Date:</dt>
       <dd>{{$ctrl.task.date | date: 'dd.MM.yyyy (HH:mm)'}}</dd>
       <dt>Description:</dt>
-      <dd>{{$ctrl.task.description}}</dd>
+      <dd>
+        <div class="textarea" ng-if="$ctrl.task.description">
+          {{$ctrl.task.description}}
+        </div>
+        <div class="edit clear-bottom">
+          <i class="fas fa-edit" ng-click="$ctrl.edit($ctrl.task.description)"></i>
+        </div>
+      </dd>
     </dl>
-    <p class="todo">TODO: edit task text and descriotion...</p>
-    <p class="todo">If description is emty (adding new task) - hide it with
-      "ng-if"</p>
   </div>
 </div>

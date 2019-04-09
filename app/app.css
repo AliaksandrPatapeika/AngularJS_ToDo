@@ -221,11 +221,12 @@
 }
 
 .task-detail h1 {
-  margin: 0;
+  margin-top: 0;
   font-size: 2.5rem;
 }
 
 .task-detail dl {
+  margin: 0;
   font-size: 1.2rem;
 }
 
@@ -235,14 +236,44 @@
   padding-right: 10px;
   font-weight: bold;
   text-align: right;
+  outline: 1px solid pink;
 }
 
 .task-detail dd {
-  margin: 0 0 1rem 120px;
+  margin-left: 120px;
+  margin-bottom: 1rem;
   text-align: left;
   word-wrap: break-word;
+  outline: 1px solid green;
 }
 
-.task-detail .todo {
-  color: red;
+.task-detail .edit {
+  display: inline-block;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  outline: 1px solid blue;
 }
+
+.task-detail .edit:hover  {
+  color: royalblue;
+  cursor: pointer;
+}
+
+.task-detail .textarea {
+  display: inline-block;
+  width: 90%;
+  margin-right: 15px;
+  margin-bottom: 1rem;
+  outline: 2px solid red;
+}
+
+.task-detail textarea {
+  width: 90%;
+  margin-right: 10px;
+  resize: none;
+}
+
+.task-detail .clear-bottom {
+  margin-bottom: 0;
+}
+

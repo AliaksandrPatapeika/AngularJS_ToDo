@@ -26,10 +26,8 @@
       getAllTasks,
       getTaskById,
       addTask,
-      // deleteTask,
-      // updateTask,
-      // importantTask,
-      generateId,
+      deleteTask,
+      updateTask,
       navigate
     };
 
@@ -57,11 +55,14 @@
       return err;
     }
 
-
     // --------------------------------------------------
     function sendResponseData(response) {
-      console.log(response);
+      console.log('Response: ', response.data);
       return response.data;
+    }
+
+    function getId(data) {
+      return data._id;
     }
 
     function getAllTasks() {
@@ -95,19 +96,66 @@
             console.log('state is reloaded');
           })
           .catch((response) => {
-            return $q.reject('Error: can not retrieve data from restdb.')
+            return $q.reject('Error: can not create data in restdb.')
           });
 
       // function testNormalize(data) {
       //   data.done = true;
-      //
+      // // отправляем данные используя утилиту toJson
       //   return angular.toJson(data);
-      //
       // }
 
     }
 
+    function deleteTask(taskToDelete) {
+      console.log(taskToDelete);
+      return $http({
+        url: `${taskUrl}/${getId(taskToDelete)}`,
+        method: 'DELETE',
+        params: {
+          apikey: restdb.apikey
+        }
+      })
+          .then((response) => {
+            sendResponseData(response);
+            $state.reload();
+            console.log('state is reloaded');
+          })
+          .catch((response) => {
+            return $q.reject('Error: can not delete data in restdb.')
+          });
+    }
 
+    function updateTask(taskToUpdate) {
+      console.log(taskToUpdate);
+      return $http({
+        url: `${taskUrl}/${getId(taskToUpdate)}`,
+        method: 'PUT',
+        params: {
+          apikey: restdb.apikey
+        },
+        data: taskToUpdate
+      })
+          .then((response) => sendResponseData(response))
+          .catch((response) => {
+            return $q.reject('Error: can not update data in restdb.')
+          });
+    }
+
+    function getTaskById(taskId) {
+      console.log(taskId);
+      return $http({
+        url: `${taskUrl}/${taskId}`,
+        method: 'GET',
+        params: {
+          apikey: restdb.apikey
+        }
+      })
+          .then((response) => sendResponseData(response))
+          .catch((response) => {
+            return $q.reject('Error: can not retrieve data from restdb.')
+          });
+    }
 
     // --------------------------------------------------
 
@@ -123,29 +171,22 @@
     //       .finally(() => console.log('Promise getAllTasks() complete.'));
     // }
 
-    function getTaskById(taskId) {
-      return getData().query().$promise
-          .then((tasks) => {
-            const task = tasks.find((task) => task.id === taskId);
-            if (task) {
-              console.log('Promise getTaskById() resolve.');
-              return task;
-            } else {
-              throw new Error(`Task with id = "${taskId}" not found.`);
-            }
-          })
-          .catch((error) => {
-            return new Error(printError(error, 'Promise getTaskById() rejected!'));
-          })
-          .finally(() => console.log('Promise getTaskById() complete.'));
-    }
-
-    function generateId() {
-      // Math.random should be unique because of its seeding algorithm.
-      // Convert it to base 36 (numbers + letters), and grab the first 9 characters
-      // after the decimal.
-      return '_' + Math.random().toString(36).substr(2, 9);
-    }
+    // function getTaskById(taskId) {
+    //   return getData().query().$promise
+    //       .then((tasks) => {
+    //         const task = tasks.find((task) => task.id === taskId);
+    //         if (task) {
+    //           console.log('Promise getTaskById() resolve.');
+    //           return task;
+    //         } else {
+    //           throw new Error(`Task with id = "${taskId}" not found.`);
+    //         }
+    //       })
+    //       .catch((error) => {
+    //         return new Error(printError(error, 'Promise getTaskById() rejected!'));
+    //       })
+    //       .finally(() => console.log('Promise getTaskById() complete.'));
+    // }
 
     function navigate(toState, params) {
       $state.go(toState, params);

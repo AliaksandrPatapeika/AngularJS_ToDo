@@ -19,16 +19,15 @@
     $ctrl.addTask = addTask;
 
     function addTask(taskText) {
-      let newTask = {
-              id: todoService.generateId(),
-              text: taskText,
-              done: false,
-              important: false,
-              date: Date.now(),
-              description: ""
-            };
       // не добавлять пустые задания
       if ($ctrl.addTaskInputText) {
+        let newTask = {
+          text: taskText,
+          done: false,
+          important: false,
+          date: Date.now(),
+          description: ""
+        };
         todoService.addTask(newTask);
         $ctrl.addTaskInputText = '';
       } else {

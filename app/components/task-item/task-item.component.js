@@ -24,6 +24,7 @@
 
     function init() {
       $ctrl.importantTask = importantTask;
+      $ctrl.taskDoneChange = taskDoneChange;
       $ctrl.deleteTask = deleteTask;
       // $ctrl.goToTaskDetailView = goToTaskDetailView;
       $ctrl.navigate = todoService.navigate;
@@ -31,11 +32,17 @@
 
     function importantTask(task) {
       task.important = !task.important;
+      todoService.updateTask(task);
+    }
+
+    function taskDoneChange(task) {
+      todoService.updateTask(task);
     }
 
     function deleteTask(task) {
-      const index = $ctrl.tasks.indexOf(task);
-      $ctrl.tasks.splice(index, 1);
+      // const index = $ctrl.tasks.indexOf(task);
+      // $ctrl.tasks.splice(index, 1);
+      todoService.deleteTask(task);
     }
 
     // function goToTaskDetailView(task) {
