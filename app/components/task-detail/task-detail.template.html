@@ -11,16 +11,34 @@
       <dd>{{$ctrl.task._id}}</dd>
       <dt>Text:</dt>
       <dd class="clear-bottom">
-        <div class="textarea">
-          {{$ctrl.task.text}}
+        <!--через привязку ng-model="data.mode" значение объекта data.mode.-->
+        <div ng-switch="$ctrl.mode">
+          <div ng-switch-when="viewText">
+            <!--код, если $ctrl.mode = viewText -->
+            <div class="view-text">
+              {{$ctrl.task.text}}
+            </div>
+            <div class="btn-edit">
+              <i class="fas fa-edit" ng-click="$ctrl.edit()"></i>
+            </div>
+          </div>
+          <div ng-switch-when="editText">
+            <!--код, если $ctrl.mode = editText -->
+            <div class="edit-text">
+              <label>
+                <textarea auto-resize ng-model="$ctrl.editTaskText"></textarea>
+              </label>
+            </div>
+            <div class="edit-buttons-group">
+              <div class="btn-save">
+                <i class="fas fa-save" ng-click="$ctrl.save($ctrl.editTaskText)"></i>
+              </div>
+              <div class="btn-cancel">
+                <i class="fas fa-undo" ng-click="$ctrl.cancel()"></i>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="edit">
-          <i class="fas fa-edit" ng-click="$ctrl.edit($ctrl.task.text)"></i>
-        </div>
-
-        <!--        <label>-->
-        <!--          <textarea auto-resize name="text">{{$ctrl.task.text}}</textarea>-->
-        <!--        </label>-->
       </dd>
       <dt>Done:</dt>
       <dd>{{$ctrl.task.done ? 'yes' : 'no'}}</dd>
@@ -38,5 +56,6 @@
         </div>
       </dd>
     </dl>
+    TODO: BACK BUTTON
   </div>
 </div>

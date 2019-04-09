@@ -16,7 +16,11 @@
   function AddTaskController(todoService) {
     let $ctrl = this;
 
-    $ctrl.addTask = addTask;
+    init();
+
+    function init() {
+      $ctrl.addTask = addTask;
+    }
 
     function addTask(taskText) {
       // не добавлять пустые задания

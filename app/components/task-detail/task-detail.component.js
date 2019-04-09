@@ -12,9 +12,9 @@
         }
       });
 
-  // TaskDetailController.$inject = ['$routeParams', 'todoService'];
+  TaskDetailController.$inject = ['todoService'];
 
-  function TaskDetailController() {
+  function TaskDetailController(todoService) {
     // Синхронно возвращается «будущее» - объект promise, который будет заполнен данными, когда будет получен ответ XHR.
     // Из-за привязки данных в Angular мы можем использовать это будущее и связать его с нашим шаблоном. Затем, когда данные поступят, представление будет автоматически обновлено.
 
@@ -23,38 +23,37 @@
 
     let $ctrl = this;
 
-    // activate();
-    //
-    // function activate() {
-    //   // Получаем коллекцию с сервера
-    // const tasks = todoService.getAllTasks().query(() => {
-    //   // После загрузки данных, получаем текущее задание для task detail view, полученное по id текущего задания из $routeParams
-    //   $ctrl.task = findTask(tasks, $routeParams.taskId);
-    //   function findTask(tasks, taskId) {
-    //     return tasks.find((task) => task.id === taskId);
-    //   }
-    // });
-    // }
+    init();
 
-    // console.log('$ctrl.taskPromise: ', $ctrl.taskPromise);
-    // console.log('Что получили: ', typeof $ctrl.taskPromise);
-    // console.log('Получили объект 1: ', $ctrl.taskPromise instanceof Object);
-    // console.log('Получили объект 2: ', angular.isObject($ctrl.taskPromise));
-    // console.log('Получили ошибку: ', $ctrl.taskPromise instanceof Error);
-    // console.log('Ошибка: ', $ctrl.taskPromise.message.split('\n'));
+    function init() {
+      // $ctrl.taskPromise здесь получается из метода resolve в app.config.js в $routeProvider
+      if ($ctrl.taskPromise instanceof Error) {
+        $ctrl.error = $ctrl.taskPromise.message.split('\n');
+      } else if (angular.isObject($ctrl.taskPromise)) {
+        $ctrl.task = $ctrl.taskPromise;
+      }
 
-    // $ctrl.taskPromise здесь получается из метода resolve в app.config.js в $routeProvider
+      $ctrl.editTaskText = $ctrl.task.text;
+      $ctrl.mode = 'editText';
+      $ctrl.edit = edit;
+      $ctrl.save = save;
+      $ctrl.cancel = cancel;
 
-    if ($ctrl.taskPromise instanceof Error) {
-      $ctrl.error = $ctrl.taskPromise.message.split('\n');
-    } else if (angular.isObject($ctrl.taskPromise)) {
-      $ctrl.task = $ctrl.taskPromise;
     }
 
-    $ctrl.edit = edit;
+    function edit() {
+      $ctrl.editTaskText = $ctrl.task.text;
+      $ctrl.mode = 'editText';
+    }
 
-    function edit(text) {
-      console.log(text);
+    function save(editTaskText) {
+      $ctrl.task.text = editTaskText;
+      todoService.updateTask($ctrl.task);
+      $ctrl.mode = 'viewText';
+    }
+
+    function cancel() {
+      $ctrl.mode = 'viewText';
     }
 
     // console.log('$ctrl.task = ', $ctrl.task);

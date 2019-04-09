@@ -9,7 +9,7 @@
   angular
       .module('taskDetail', [
         // 'ngRoute',
-        // 'core.todo',
+        // TODO - добавь для дириктивы!!! 'core.todo',
         'errorContainer'
       ]);
 

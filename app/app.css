@@ -29,43 +29,43 @@
   text-align: center;
 }
 
-.head-container {
+.todo-list .head-container {
   text-align: center;
 }
 
-.head-container h1 {
+.todo-list .head-container h1 {
   display: inline-block;
   width: 50%;
   margin: 0 0 10px;
   font-size: 2.5rem;
 }
 
-.info-panel {
+.todo-list .info-panel {
   display: inline-block;
   margin-bottom: 10px;
 }
 
-.info-panel h3 {
+.todo-list .info-panel h3 {
   margin: 0;
   color: grey;
 }
 
-.info-panel a {
+.todo-list .info-panel a {
   font-size: 1.1rem;
   font-weight: bold;
   color: blue;
 }
 
-.info-panel a:visited {
+.todo-list .info-panel a:visited {
   color: blue;
 }
 
-.container input[type="search"],
-.container input[type="text"] {
+.todo-list input[type="search"],
+.todo-list input[type="text"] {
   box-sizing: border-box;
   width: 355px;
   height: 35px;
-  margin: 10px 8px 10px 0;
+  margin: 20px 8px 20px 0;
   padding-left: 8px;
   font-size: 1rem;
   vertical-align: middle;
@@ -73,8 +73,8 @@
   border-radius: 5px;
 }
 
-.container input[type="search"]:focus,
-.container input[type="text"]:focus {
+.todo-list input[type="search"]:focus,
+.todo-list input[type="text"]:focus {
   border-color: cornflowerblue;
   -webkit-box-shadow: 0 0 2px 0 royalblue;
   -moz-box-shadow: 0 0 2px 0 royalblue;
@@ -82,20 +82,20 @@
   outline: 0;
 }
 
-.container input[type="search"]::-webkit-search-cancel-button:hover {
+.todo-list input[type="search"]::-webkit-search-cancel-button:hover {
   cursor: pointer;
 }
 
-.filter-buttons-group {
+.todo-list .filter-buttons-group {
   display: inline-block;
   vertical-align: middle;
 }
 
-.filter-buttons-group input[type="radio"] {
+.todo-list .filter-buttons-group input[type="radio"] {
   display: none;
 }
 
-.btn {
+.todo-list .btn {
   width: 62px;
   height: 35px;
   font-family: inherit;
@@ -107,25 +107,25 @@
   cursor: pointer;
 }
 
-.btn:hover {
+.todo-list .btn:hover {
   color: #fff;
   background-color: dodgerblue;
   border-color: royalblue;
   transition: 0.5s;
 }
 
-.btn:focus {
+.todo-list .btn:focus {
   outline: 0;
 }
 
-.btn-add,
-.filter-buttons-group input[type="radio"]:checked + label {
+.todo-list .btn-add,
+.todo-list .filter-buttons-group input[type="radio"]:checked + label {
   color: #fff;
   background-color: steelblue;
   border-color: midnightblue;
 }
 
-.btn-filter {
+.todo-list .btn-filter {
   box-sizing: border-box;
   display: table-cell;
   vertical-align: middle;
@@ -137,13 +137,13 @@
   user-select: none;
 }
 
-.task-list {
+.todo-list .task-list {
   margin: 0;
   padding: 0;
   list-style-type: none;
 }
 
-.task-list-item {
+.todo-list .task-list-item {
   display: table;
   table-layout: fixed;
   width: 100%;
@@ -152,67 +152,67 @@
   word-wrap: break-word;
 }
 
-.task-list-item label {
+.todo-list .task-list-item label {
   display: table-cell;
   padding: 0 10px;
   vertical-align: middle;
   cursor: pointer;
 }
 
-.task-list-item input[type="checkbox"] {
+.todo-list .task-list-item input[type="checkbox"] {
   width: 1rem;
   height: 1rem;
   cursor: pointer;
 }
 
-.done-true {
+.todo-list .done-true {
   text-decoration: line-through;
   color: lightgray;
 }
 
-.important-true {
+.todo-list .important-true {
   font-weight: bold;
   color: royalblue;
 }
 
-.task-list-item-buttons-group {
+.todo-list .task-list-item-buttons-group {
   display: table-cell;
   width: 123px;
 }
 
-.task-list-item-buttons-group button {
+.todo-list .task-list-item-buttons-group button {
   width: 35px;
   margin-left: 2px;
 }
 
-.task-list-item-buttons-group button:hover {
+.todo-list .task-list-item-buttons-group button:hover {
   border-style: none;
 }
 
-.btn-info {
+.todo-list .btn-info {
   color: deepskyblue;
   border-color: deepskyblue;
 }
 
-.btn-info:hover {
+.todo-list .btn-info:hover {
   background-color: deepskyblue;
 }
 
-.btn-important {
+.todo-list .btn-important {
   color: forestgreen;
   border-color: forestgreen;
 }
 
-.btn-important:hover {
+.todo-list .btn-important:hover {
   background-color: forestgreen;
 }
 
-.btn-delete {
+.todo-list .btn-delete {
   color: orangered;
   border-color: orangered;
 }
 
-.btn-delete:hover {
+.todo-list .btn-delete:hover {
   background-color: orangered;
 }
 
@@ -247,29 +247,54 @@
   outline: 1px solid green;
 }
 
-.task-detail .edit {
-  display: inline-block;
+.task-detail .edit-buttons-group,
+.task-detail .btn-edit {
   margin-bottom: 1rem;
+}
+
+.task-detail .edit-buttons-group {
+  display: inline-block;
+}
+
+.task-detail .btn-edit,
+.task-detail .btn-cancel,
+.task-detail .btn-save {
+  display: inline-block;
   cursor: pointer;
   outline: 1px solid blue;
 }
 
-.task-detail .edit:hover  {
-  color: royalblue;
-  cursor: pointer;
+.task-detail .btn-cancel {
+  margin-left: 15px;
 }
 
-.task-detail .textarea {
+.task-detail .btn-edit:hover,
+.task-detail .btn-save:hover {
+  color: royalblue;
+}
+
+.task-detail .btn-cancel:hover {
+  color: green;
+}
+
+.task-detail .view-text,
+.task-detail .edit-text {
   display: inline-block;
-  width: 90%;
-  margin-right: 15px;
-  margin-bottom: 1rem;
+  margin: 0 15px 1rem 0;
   outline: 2px solid red;
 }
 
-.task-detail textarea {
+.task-detail .view-text {
   width: 90%;
-  margin-right: 10px;
+}
+
+.task-detail .edit-text {
+  width: 82%;
+}
+
+.task-detail .edit-text textarea {
+  padding: 0;
+  width: 100%;
   resize: none;
 }
 

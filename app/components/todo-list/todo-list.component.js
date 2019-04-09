@@ -31,29 +31,15 @@
     // непосредственно в scope)
     let $ctrl = this;
 
-    // Хранилище для всех заданий
-    // Получаем коллекцию с сервера
-    // Синхронно возвращается «будущее» - объект promise, который будет заполнен данными, когда будет получен ответ XHR.
-    // Из-за привязки данных в Angular мы можем использовать это будущее и связать его с нашим шаблоном. Затем, когда данные поступят, представление будет автоматически обновлено.
+    init();
 
-    // activate();
-
-    // function activate() {
-    // $ctrl.tasks = todoService.getAllTasks().query();
-    // $ctrl.tasks = todoService.getData().query();
-    // }
-
-    // console.log('Получили массив 1: ', $ctrl.tasksPromise instanceof Array);
-    // console.log('Получили массив 2: ', angular.isArray($ctrl.tasksPromise));
-    // console.log('Получили ошибку: ', $ctrl.tasksPromise instanceof Error);
-    // console.log('Ошибка: ', $ctrl.tasksPromise.message.split('\n'));
-
-    // $ctrl.tasksPromise здесь получается из метода resolve в app.config.js в $routeProvider
-
-    if ($ctrl.tasksPromise instanceof Error) {
-      $ctrl.error = $ctrl.tasksPromise.message.split('\n');
-    } else if (angular.isArray($ctrl.tasksPromise)) {
-      $ctrl.tasks = $ctrl.tasksPromise;
+    function init() {
+      // $ctrl.tasksPromise здесь получается из метода resolve в app.config.js в $routeProvider
+      if ($ctrl.tasksPromise instanceof Error) {
+        $ctrl.error = $ctrl.tasksPromise.message.split('\n');
+      } else if (angular.isArray($ctrl.tasksPromise)) {
+        $ctrl.tasks = $ctrl.tasksPromise;
+      }
     }
 
     // console.log('$ctrl.tasks = ', $ctrl.tasks);

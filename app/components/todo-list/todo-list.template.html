@@ -3,26 +3,28 @@
       ng-if="$ctrl.error"
       error="$ctrl.error">
   </error-container>
-  <head-container
-      ng-if="$ctrl.tasks"
-      tasks="$ctrl.tasks">
-  </head-container>
-  <search
-      ng-if="$ctrl.tasks.length"
-      search-task="$ctrl.searchTask">
-  </search>
-  <filter-buttons-group
-      ng-if="$ctrl.tasks.length"
-      filter-name="$ctrl.filterName">
-  </filter-buttons-group>
-  <task-item-list
-      ng-if="$ctrl.tasks.length"
-      tasks="$ctrl.tasks"
-      search-task="$ctrl.searchTask"
-      filter-name="$ctrl.filterName">
-  </task-item-list>
-  <add-task
-      ng-if="$ctrl.tasks"
-      tasks="$ctrl.tasks">
-  </add-task>
+  <div class="todo-list">
+    <head-container
+        ng-if="$ctrl.tasks"
+        tasks="$ctrl.tasks">
+    </head-container>
+    <search
+        ng-if="$ctrl.tasks.length"
+        search-task="$ctrl.searchTask">
+    </search>
+    <filter-buttons-group
+        ng-if="$ctrl.tasks.length"
+        filter-name="$ctrl.filterName">
+    </filter-buttons-group>
+    <task-item-list
+        ng-if="$ctrl.tasks.length"
+        tasks="$ctrl.tasks"
+        search-task="$ctrl.searchTask"
+        filter-name="$ctrl.filterName">
+    </task-item-list>
+    <add-task
+        ng-if="$ctrl.tasks"
+        tasks="$ctrl.tasks">
+    </add-task>
+  </div>
 </div>
