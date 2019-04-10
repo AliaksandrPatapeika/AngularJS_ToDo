@@ -257,6 +257,7 @@
 
 .task-detail .edit-buttons-group {
   display: inline-block;
+  vertical-align: middle;
 }
 
 .task-detail .btn-edit,

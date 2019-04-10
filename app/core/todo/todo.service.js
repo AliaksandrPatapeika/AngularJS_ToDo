@@ -65,11 +65,6 @@
     }
 
     // --------------------------------------------------
-    function sendResponseData(response) {
-      console.log('Response: ', response.data);
-      return response.data;
-    }
-
     function getId(data) {
       return data._id;
     }
@@ -82,7 +77,10 @@
           apikey: restdb.apikey
         }
       })
-          .then((response) => sendResponseData(response))
+          .then((response) => {
+            console.log('Response = ', response.data);
+            return response.data;
+          })
           .catch((response) => {
             return $q.reject('Error: can not retrieve data from restdb.')
           });
@@ -99,7 +97,8 @@
         data: newTask
       })
           .then((response) => {
-            sendResponseData(response);
+            console.log('Response = ', response.data);
+            return response.data;
           })
           .catch((response) => {
             return $q.reject('Error: can not create data in restdb.')
@@ -122,7 +121,8 @@
         data: taskArray
       })
           .then((response) => {
-            sendResponseData(response);
+            console.log('Response = ', response.data);
+            return response.data;
           })
           .catch((response) => {
             return $q.reject('Error: can not create data in restdb.')
@@ -140,7 +140,8 @@
         }
       })
           .then((response) => {
-            sendResponseData(response);
+            console.log('Response = ', response.data);
+            return response.data;
           })
           .catch((response) => {
             return $q.reject('Error: can not delete data in restdb.')
@@ -162,7 +163,8 @@
         data: taskIdArrayToDelete
       })
           .then((response) => {
-            sendResponseData(response);
+            console.log('Response = ', response.data.result);
+            return response.data.result;
           })
           .catch((response) => {
             return $q.reject('Error: can not delete data in restdb.')
@@ -179,7 +181,10 @@
         },
         data: taskToUpdate
       })
-          .then((response) => sendResponseData(response))
+          .then((response) => {
+            console.log('Response = ', response.data);
+            return response.data;
+          })
           .catch((response) => {
             return $q.reject('Error: can not update data in restdb.')
           });
@@ -194,7 +199,10 @@
           apikey: restdb.apikey
         }
       })
-          .then((response) => sendResponseData(response))
+          .then((response) => {
+            console.log('Response = ', response.data);
+            return response.data;
+          })
           .catch((response) => {
             return $q.reject('Error: can not retrieve data from restdb.')
           });

@@ -32,8 +32,10 @@
     }
 
     function save() {
-      todoService.updateTask($ctrl.task);
-      $ctrl.mode = 'viewText';
+      todoService.updateTask($ctrl.task)
+          .then(() => {
+            $ctrl.mode = 'viewText';
+          });
     }
 
     function cancel() {

@@ -27,52 +27,28 @@
     }
 
     function archiveCompletedTasks() {
-      const oldTasks = $ctrl.tasks;
       let doneTasksIdList = [];
+      let archiveTask = [];
+      let remainingTasks = [];
 
       $ctrl.tasks.forEach((task) => {
         if (task.done) {
+          archiveTask.push(task);
           doneTasksIdList.push(task._id);
+        } else {
+          remainingTasks.push(task);
         }
       });
 
       if (doneTasksIdList.length) {
-        $ctrl.tasks = $ctrl.tasks.filter((task) => {
-          return !task.done;
-        });
-        todoService.deleteTaskArray(doneTasksIdList);
-
-        // TEST!!!!!
-      //   let test = [{
-      //     text: '111',
-      //     done: false,
-      //     important: false,
-      //     date: new Date().toISOString(),
-      //     description: "1111111"
-      //   },
-      //     {
-      //       text: '222',
-      //       done: false,
-      //       important: false,
-      //       date: new Date().toISOString(),
-      //       description: "2222222"
-      //     },
-      //     {
-      //       text: '333',
-      //       done: false,
-      //       important: false,
-      //       date: new Date().toISOString(),
-      //       description: "3333333"
-      //     }];
-      //
-      // todoService.addTaskArray(test);
-
+        todoService.deleteTaskArray(doneTasksIdList)
+            .then(() => {
+              $ctrl.tasks = remainingTasks;
+              console.log('Archive tasks: ', archiveTask);
+            });
       } else {
         console.log('Nothing to archive');
       }
-
-      console.log('Old todo list: ', oldTasks);
-      console.log('$ctrl.tasks: ', $ctrl.tasks);
 
     }
 

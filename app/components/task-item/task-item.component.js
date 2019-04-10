@@ -28,6 +28,7 @@
     }
 
     function importantTask(task) {
+      // TODO TODO TODO
       task.important = !task.important;
       todoService.updateTask(task);
     }
@@ -37,9 +38,12 @@
     }
 
     function deleteTask(task) {
-      const index = $ctrl.tasks.indexOf(task);
-      $ctrl.tasks.splice(index, 1);
-      todoService.deleteTask(task);
+      todoService.deleteTask(task)
+          .then(() => {
+            const index = $ctrl.tasks.indexOf(task);
+            $ctrl.tasks.splice(index, 1);
+          });
+
     }
 
   }
