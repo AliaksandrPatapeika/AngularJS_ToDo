@@ -11,34 +11,10 @@
       <dd>{{$ctrl.task._id}}</dd>
       <dt>Text:</dt>
       <dd class="clear-bottom">
-        <!--через привязку ng-model="data.mode" значение объекта data.mode.-->
-        <div ng-switch="$ctrl.mode">
-          <div ng-switch-when="viewText">
-            <!--код, если $ctrl.mode = viewText -->
-            <div class="view-text">
-              {{$ctrl.task.text}}
-            </div>
-            <div class="btn-edit">
-              <i class="fas fa-edit" ng-click="$ctrl.edit()"></i>
-            </div>
-          </div>
-          <div ng-switch-when="editText">
-            <!--код, если $ctrl.mode = editText -->
-            <div class="edit-text">
-              <label>
-                <textarea auto-resize ng-model="$ctrl.editTaskText"></textarea>
-              </label>
-            </div>
-            <div class="edit-buttons-group">
-              <div class="btn-save">
-                <i class="fas fa-save" ng-click="$ctrl.save($ctrl.editTaskText)"></i>
-              </div>
-              <div class="btn-cancel">
-                <i class="fas fa-undo" ng-click="$ctrl.cancel()"></i>
-              </div>
-            </div>
-          </div>
-        </div>
+        <edit-text
+            task="$ctrl.task"
+            text="$ctrl.task.text">
+        </edit-text>
       </dd>
       <dt>Done:</dt>
       <dd>{{$ctrl.task.done ? 'yes' : 'no'}}</dd>
@@ -47,15 +23,13 @@
       <dt>Date:</dt>
       <dd>{{$ctrl.task.date | date: 'dd.MM.yyyy (HH:mm)'}}</dd>
       <dt>Description:</dt>
-      <dd>
-        <div class="textarea" ng-if="$ctrl.task.description">
-          {{$ctrl.task.description}}
-        </div>
-        <div class="edit clear-bottom">
-          <i class="fas fa-edit" ng-click="$ctrl.edit($ctrl.task.description)"></i>
-        </div>
+      <dd class="clear-bottom">
+        <edit-text
+            task="$ctrl.task"
+            text="$ctrl.task.description">
+        </edit-text>
       </dd>
     </dl>
-    TODO: BACK BUTTON
+    <button class="btn btn-back" ng-click="$ctrl.navigate('todoList')">Back</button>
   </div>
 </div>

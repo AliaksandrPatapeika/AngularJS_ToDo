@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-      .module('headContainer', [
+      .module('editText', [
         'core.todo'
       ]);
 

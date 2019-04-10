@@ -19,6 +19,8 @@
       element.css({'height': '0', 'overflow-y': 'hidden'});
       $timeout(function () {
         element.css('height', element[0].scrollHeight + 'px');
+        // set focus on init
+        element[0].focus();
       });
 
       // on input text

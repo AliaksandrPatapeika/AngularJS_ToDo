@@ -1,0 +1,28 @@
+<!--через привязку ng-model="data.mode" значение объекта data.mode.-->
+<div ng-switch="$ctrl.mode">
+  <div ng-switch-when="viewText">
+    <!--код, если $ctrl.mode = viewText -->
+    <div class="view-text" ng-if="$ctrl.text">
+      {{$ctrl.text}}
+    </div>
+    <div class="btn-edit">
+      <i class="fas fa-edit" ng-click="$ctrl.edit($ctrl.text)"></i>
+    </div>
+  </div>
+  <div ng-switch-when="editText">
+    <!--код, если $ctrl.mode = editText -->
+    <div class="edit-text">
+      <label>
+        <textarea auto-resize ng-model="$ctrl.text"></textarea>
+      </label>
+    </div>
+    <div class="edit-buttons-group">
+      <div class="btn-save">
+        <i class="fas fa-save" ng-click="$ctrl.save()"></i>
+      </div>
+      <div class="btn-cancel">
+        <i class="fas fa-undo" ng-click="$ctrl.cancel()"></i>
+      </div>
+    </div>
+  </div>
+</div>

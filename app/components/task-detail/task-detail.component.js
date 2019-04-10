@@ -33,27 +33,8 @@
         $ctrl.task = $ctrl.taskPromise;
       }
 
-      $ctrl.editTaskText = $ctrl.task.text;
-      $ctrl.mode = 'editText';
-      $ctrl.edit = edit;
-      $ctrl.save = save;
-      $ctrl.cancel = cancel;
+      $ctrl.navigate = todoService.navigate;
 
-    }
-
-    function edit() {
-      $ctrl.editTaskText = $ctrl.task.text;
-      $ctrl.mode = 'editText';
-    }
-
-    function save(editTaskText) {
-      $ctrl.task.text = editTaskText;
-      todoService.updateTask($ctrl.task);
-      $ctrl.mode = 'viewText';
-    }
-
-    function cancel() {
-      $ctrl.mode = 'viewText';
     }
 
     // console.log('$ctrl.task = ', $ctrl.task);

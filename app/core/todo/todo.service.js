@@ -23,12 +23,16 @@
       // сокращенно от:
       // getTaskList: getTaskList,
       // generateId: generateId
+      reloadState,
       getAllTasks,
       getTaskById,
       addTask,
+      addTaskArray,
       deleteTask,
+      deleteTaskArray,
       updateTask,
       navigate
+
     };
 
     ////////////////
@@ -39,6 +43,11 @@
           isArray: true
         }
       });
+    }
+
+    function reloadState() {
+      $state.reload();
+      console.log('state is reloaded');
     }
 
     function printError(error, label) {
@@ -88,22 +97,36 @@
           apikey: restdb.apikey
         },
         data: newTask
-        // transformRequest: testNormalize
       })
           .then((response) => {
             sendResponseData(response);
-            $state.reload();
-            console.log('state is reloaded');
           })
           .catch((response) => {
             return $q.reject('Error: can not create data in restdb.')
           });
 
-      // function testNormalize(data) {
-      //   data.done = true;
-      // // отправляем данные используя утилиту toJson
-      //   return angular.toJson(data);
-      // }
+    }
+
+    // Post array data. Request body is an array of JSON documents.
+    function addTaskArray(taskArray) {
+      console.log(taskArray);
+      return $http({
+        url: taskUrl,
+        method: 'POST',
+        params: {
+          apikey: restdb.apikey
+        },
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: taskArray
+      })
+          .then((response) => {
+            sendResponseData(response);
+          })
+          .catch((response) => {
+            return $q.reject('Error: can not create data in restdb.')
+          });
 
     }
 
@@ -118,8 +141,28 @@
       })
           .then((response) => {
             sendResponseData(response);
-            $state.reload();
-            console.log('state is reloaded');
+          })
+          .catch((response) => {
+            return $q.reject('Error: can not delete data in restdb.')
+          });
+    }
+
+    // Delete an array of documents in a collection. Request body must be an array of ID's.
+    function deleteTaskArray(taskIdArrayToDelete) {
+      console.log('taskIdArrayToDelete: ', taskIdArrayToDelete);
+      return $http({
+        url: `${taskUrl}/*`,
+        method: 'DELETE',
+        params: {
+          apikey: restdb.apikey
+        },
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        data: taskIdArrayToDelete
+      })
+          .then((response) => {
+            sendResponseData(response);
           })
           .catch((response) => {
             return $q.reject('Error: can not delete data in restdb.')

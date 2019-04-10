@@ -74,7 +74,8 @@
 }
 
 .todo-list input[type="search"]:focus,
-.todo-list input[type="text"]:focus {
+.todo-list input[type="text"]:focus,
+.task-detail textarea:focus {
   border-color: cornflowerblue;
   -webkit-box-shadow: 0 0 2px 0 royalblue;
   -moz-box-shadow: 0 0 2px 0 royalblue;
@@ -95,7 +96,8 @@
   display: none;
 }
 
-.todo-list .btn {
+.todo-list .btn,
+.task-detail .btn {
   width: 62px;
   height: 35px;
   font-family: inherit;
@@ -107,18 +109,21 @@
   cursor: pointer;
 }
 
-.todo-list .btn:hover {
+.todo-list .btn:hover,
+.task-detail .btn:hover {
   color: #fff;
   background-color: dodgerblue;
   border-color: royalblue;
   transition: 0.5s;
 }
 
-.todo-list .btn:focus {
+.todo-list .btn:focus,
+.task-detail .btn:focus {
   outline: 0;
 }
 
 .todo-list .btn-add,
+.task-detail .btn-back,
 .todo-list .filter-buttons-group input[type="radio"]:checked + label {
   color: #fff;
   background-color: steelblue;
@@ -236,7 +241,6 @@
   padding-right: 10px;
   font-weight: bold;
   text-align: right;
-  outline: 1px solid pink;
 }
 
 .task-detail dd {
@@ -244,7 +248,6 @@
   margin-bottom: 1rem;
   text-align: left;
   word-wrap: break-word;
-  outline: 1px solid green;
 }
 
 .task-detail .edit-buttons-group,
@@ -261,11 +264,11 @@
 .task-detail .btn-save {
   display: inline-block;
   cursor: pointer;
-  outline: 1px solid blue;
 }
 
-.task-detail .btn-cancel {
-  margin-left: 15px;
+.task-detail .btn-edit,
+.task-detail .btn-save {
+  color: midnightblue;
 }
 
 .task-detail .btn-edit:hover,
@@ -273,15 +276,19 @@
   color: royalblue;
 }
 
-.task-detail .btn-cancel:hover {
+.task-detail .btn-cancel {
+  margin-left: 15px;
   color: green;
+}
+
+.task-detail .btn-cancel:hover {
+  color: yellowgreen;
 }
 
 .task-detail .view-text,
 .task-detail .edit-text {
   display: inline-block;
   margin: 0 15px 1rem 0;
-  outline: 2px solid red;
 }
 
 .task-detail .view-text {
@@ -292,13 +299,15 @@
   width: 82%;
 }
 
-.task-detail .edit-text textarea {
-  padding: 0;
+.task-detail textarea {
+  box-sizing: border-box;
   width: 100%;
+  padding: 2px 4px 6px;
+  border: 1px solid deepskyblue;
+  border-radius: 5px;
   resize: none;
 }
 
 .task-detail .clear-bottom {
   margin-bottom: 0;
 }
-

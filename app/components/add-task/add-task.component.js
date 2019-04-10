@@ -25,15 +25,20 @@
     function addTask(taskText) {
       // не добавлять пустые задания
       if ($ctrl.addTaskInputText) {
+        $ctrl.addTaskInputText = '';
         let newTask = {
           text: taskText,
           done: false,
           important: false,
-          date: Date.now(),
+          date: new Date().toISOString(),
           description: ""
         };
-        todoService.addTask(newTask);
-        $ctrl.addTaskInputText = '';
+
+        $ctrl.tasks.push(newTask);
+        todoService.addTask(newTask).then(() => {
+          // reload state to fetch new task _id from restdb
+          todoService.reloadState();
+        });
       } else {
         console.log('Empty input');
       }
