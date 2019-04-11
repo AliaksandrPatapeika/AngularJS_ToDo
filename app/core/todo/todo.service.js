@@ -36,54 +36,32 @@
   // todoService.$inject = ['$resource', '$state'];
   todoService.$inject = ['$resource', '$http', '$q', '$state', 'restdb'];
 
-  /* @ngInject */
-
   // function todoService($resource, $state) {
   function todoService($resource, $http, $q, $state, restdb) {
     // Connection URL
     const taskUrl = `https://${restdb.databaseName}.restdb.io/rest/${restdb.collectionName}`;
 
-    // function getData() {
-    //   return $resource(taskUrl);
-    // }
-
     return {
-      // сокращенно от:
-      // getTaskList: getTaskList,
-      // generateId: generateId
-      reloadState,
       getAllTasks,
       getTaskById,
       addTask,
-      addTaskArray,
       deleteTask,
       deleteTaskArray,
       updateTask,
       navigate
-
     };
-
-    ////////////////
-    function reloadState() {
-      $state.reload();
-      console.log('state is reloaded');
-    }
 
     function printError(error, label) {
       let err = `${label}`;
-      // Если левый аргумент – false, оператор И(&&) возвращает его и заканчивает вычисления. Иначе – вычисляет и возвращает правый аргумент.
       error.name && (err += `\nName: "${error.name}"`);
       error.message && (err += `\nMessage: "${error.message}"`);
-      // оператор && вычисляет операнды слева направо до первого «ложного» и возвращает его, а если все истинные – то последнее значение.
-      error.config.method && (err += `\nMethod: "${error.config.method}"`);
-      error.config.url && (err += `\nURL: "${error.config.url}"`);
+      error.config && error.config.method && (err += `\nMethod: "${error.config.method}"`);
+      error.config && error.config.url && (err += `\nURL: "${error.config.url}"`);
       error.status && (err += `\nStatus: "${error.status}"`);
       error.statusText && (err += `\nStatus text: "${error.statusText}"`);
       console.log(err);
       return err;
     }
-
-    // --------------------------------------------------
 
     function addTask(newTask) {
       console.log(newTask);
@@ -103,48 +81,6 @@
             return $q.reject('Error: can not create data in restdb.')
           });
 
-    }
-
-    // Post array data. Request body is an array of JSON documents.
-    function addTaskArray(taskArray) {
-      console.log(taskArray);
-      return $http({
-        url: taskUrl,
-        method: 'POST',
-        // params: {
-        //   apikey: restdb.apikey
-        // },
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        data: taskArray
-      })
-          .then((response) => {
-            console.log('Response = ', response.data);
-            return response.data;
-          })
-          .catch((response) => {
-            return $q.reject('Error: can not create data in restdb.')
-          });
-
-    }
-
-    function deleteTask(taskToDelete) {
-      console.log(taskToDelete);
-      return $http({
-        url: `${taskUrl}/${getId(taskToDelete)}`,
-        method: 'DELETE'
-        // params: {
-        //   apikey: restdb.apikey
-        // }
-      })
-          .then((response) => {
-            console.log('Response = ', response.data);
-            return response.data;
-          })
-          .catch((response) => {
-            return $q.reject('Error: can not delete data in restdb.')
-          });
     }
 
     // Delete an array of documents in a collection. Request body must be an array of ID's.
@@ -173,7 +109,7 @@
     function updateTask(taskToUpdate) {
       console.log(taskToUpdate);
       return $http({
-        url: `${taskUrl}/${getId(taskToUpdate)}`,
+        url: `${taskUrl}/${taskToUpdate._id}`,
         method: 'PUT',
         // params: {
         //   apikey: restdb.apikey
@@ -197,53 +133,22 @@
 
     function getAllTasks() {
       return $resource(taskUrl).query().$promise
-          .then((tasks) => {
-            console.log('Promise getAllTasks() resolve.');
-            return tasks;
-          })
-          .catch((error) => {
-            console.log(error);
-            return new Error(printError(error, 'Promise getAllTasks() rejected!'));
-          })
-          .finally(() => console.log('Promise getAllTasks() complete.'));
+          .then((response) => response)
+          .catch((error) => new Error(printError(error, 'Сan not fetch all tasks from "restdb"!')));
     }
 
-    // function getTaskById(taskId) {
-    //   console.log(taskId);
-    //   return $http({
-    //     url: `${taskUrl}/${taskId}`,
-    //     method: 'GET'
-    //     // params: {
-    //     //   apikey: restdb.apikey
-    //     // }
-    //   })
-    //       .then((response) => {
-    //         console.log('Response = ', response.data);
-    //         return response.data;
-    //       })
-    //       .catch((response) => {
-    //         return $q.reject('Error: can not retrieve data from restdb.')
-    //       });
-    // }
-
     function getTaskById(taskId) {
-      return $resource(`${taskUrl}/${taskId}`).get().$promise
-          // .then((tasks) => {
-          .then((task) => {
-            // const task = tasks.find((task) => task.id === taskId);
-            // if (task) {
-            //   console.log('Promise getTaskById() resolve.');
-            // TODO TODO TODO
-              console.log('Можно ввести в консоли неправильный id  - TODO надо выдать ошибку что нет такого:', task);
-              return task;
-            // } else {
-            //   throw new Error(`Task with id = "${taskId}" not found.`);
-            // }
-          })
-          .catch((error) => {
-            return new Error(printError(error, 'Promise getTaskById() rejected!'));
-          })
-          .finally(() => console.log('Promise getTaskById() complete.'));
+      let url = `${taskUrl}/${taskId}`;
+      return $resource(url).get().$promise
+          .then((response) => response)
+          .catch((error) => new Error(printError(error, `Сan not fetch task by id = "${taskId}" from "restdb"!`)));
+    }
+
+    function deleteTask(taskToDelete) {
+      let url = `${taskUrl}/ddddddd/${taskToDelete._id}`;
+      return $resource(url).delete().$promise
+          .then((response) => response.result)
+          .catch((error) => new Error(printError(error, `Сan not delete task with id = "${taskToDelete}" from "restdb"!`)));
     }
 
     function navigate(toState, params) {
@@ -252,25 +157,3 @@
   }
 
 })();
-
-// ============== REQUESTS VIA $HTTP BACKUP =====================
-// function getId(data) {
-//   return data._id;
-// }
-
-// function getAllTasks() {
-//   return $http({
-//     url: taskUrl,
-//     method: 'GET'
-//     // params: {
-//     //   apikey: restdb.apikey
-//     // }
-//   })
-//       .then((response) => {
-//         console.log('Response = ', response.data);
-//         return response.data;
-//       })
-//       .catch((response) => {
-//         return $q.reject('Error: can not retrieve data from restdb.')
-//       });
-// }

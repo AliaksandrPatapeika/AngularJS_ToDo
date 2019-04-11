@@ -54,11 +54,25 @@
     function deleteTask(task) {
       $ctrl.loading = task._id;
       todoService.deleteTask(task)
-          .then(() => {
-            $ctrl.loading = false;
-            const index = $ctrl.tasks.indexOf(task);
-            $ctrl.tasks.splice(index, 1);
+          .then((response) => {
+
+            if (response instanceof Error) {
+              console.log('ERROR!!! : ', response);
+              $ctrl.loading = false;
+              // $ctrl.error = $ctrl.tasksPromise.message.split('\n');
+            } else if (angular.isArray(response)) {
+              console.log('SUCCESS!!! : ', response);
+              $ctrl.loading = false;
+              const index = $ctrl.tasks.indexOf(task);
+              $ctrl.tasks.splice(index, 1);
+            }
+
+
+
+
           });
+
+
 
     }
 
