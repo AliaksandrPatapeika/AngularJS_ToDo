@@ -20,6 +20,7 @@
     init();
 
     function init() {
+      $ctrl.loading = false;
       $ctrl.mode = 'viewText';
       $ctrl.edit = edit;
       $ctrl.save = save;
@@ -32,8 +33,10 @@
     }
 
     function save() {
+      $ctrl.loading = true;
       todoService.updateTask($ctrl.task)
           .then(() => {
+            $ctrl.loading = false;
             $ctrl.mode = 'viewText';
           });
     }

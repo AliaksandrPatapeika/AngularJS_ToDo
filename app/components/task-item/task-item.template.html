@@ -6,15 +6,20 @@ track by $index - использовать $index массива для пере
 списке, возвращаемых фильтром-->
 <li class="task-list-item"
     ng-repeat="task in $ctrl.tasks | orderBy: 'date' | filter: $ctrl.searchTask | taskList: $ctrl.filterName">
-  <label>
+  <div class="task-list-item-label">
+    <img class="loading" src="img/Spin-1s-73px.gif" alt="loading..." ng-if="$ctrl.loading === task._id"/>
     <!-- ng-model двунаправленно связывает checkbox в форме со свойством done в объекте задания массива taskList
 в контроллере (связывает форму и модель)-->
-    <input type="checkbox" ng-model="task.done" ng-change="$ctrl.taskDoneChange(task)">
+    <label>
+      <input type="checkbox" ng-model="task.done" ng-change="$ctrl.taskDoneChange(task)">
+    </label>
     <!-- CSS-класс done-true показывает зачеркивание для выполненных задач.
     Когда task.done имеет значение true, результирующий селектор CSS становится done-true, который затем
 применяет зачеркивание-->
-    <span class="done-{{task.done}} important-{{task.important}}">{{task.text}}</span>
-  </label>
+<!--    <span class="done-{{task.done}} important-{{task.important}}">{{task.text}}</span>-->
+    <span ng-class="{done: task.done, important: task.important}">{{task
+      .text}}</span>
+  </div>
   <div class="task-list-item-buttons-group">
     <!--<a href="#!/tasks/{{task.id}}">-->
 <!--    <button class="btn btn-info" type="button" ng-click="$ctrl.goToTaskDetailView(task)">-->
@@ -22,7 +27,7 @@ track by $index - использовать $index массива для пере
       <i class="fas fa-info"></i>
     </button>
     <!--</a>-->
-    <button class="btn btn-important" type="button" ng-click="$ctrl.importantTask(task)">
+    <button class="btn btn-important" type="button" ng-click="$ctrl.taskImportantChange(task)">
       <i class="fas fa-exclamation"></i>
     </button>
     <!-- ng-click - вызов метода контроллера по клику -->

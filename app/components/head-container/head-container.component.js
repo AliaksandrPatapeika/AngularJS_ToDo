@@ -15,9 +15,11 @@
 
   function HeadContainerController(todoService) {
     let $ctrl = this;
+
     init();
 
     function init() {
+      $ctrl.loading = false;
       $ctrl.remainingTasks = remainingTasks;
       $ctrl.archiveCompletedTasks = archiveCompletedTasks;
     }
@@ -41,8 +43,10 @@
       });
 
       if (doneTasksIdList.length) {
+        $ctrl.loading = true;
         todoService.deleteTaskArray(doneTasksIdList)
             .then(() => {
+              $ctrl.loading = false;
               $ctrl.tasks = remainingTasks;
               console.log('Archive tasks: ', archiveTask);
             });

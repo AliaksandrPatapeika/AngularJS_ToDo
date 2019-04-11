@@ -3,21 +3,49 @@
 
   angular
       .module('core.todo')
+      .config(configModule)
       // Название нашего сервиса и фабричная функция
       // Сервис `todoService` объявляет зависимость от сервиса `$resource`, который предоставлят модуль `ngResource`.
       // Сервис `$resource` позволяет легко создать клиент RESTful с помощью всего лишь нескольких строк кода. Этот клиент
       // может затем использоваться в нашем приложении вместо низкоуровневой службы `$http`.
-      .factory('todoService', todoService);
+      .factory('todoService', todoService)
+      .factory('restdbAPIInterceptor', restdbAPIInterceptor);
+
+  restdbAPIInterceptor.$inject = ['restdb'];
+
+  function restdbAPIInterceptor(restdb) {
+    return {
+      request: requestInterceptor
+    };
+
+    function requestInterceptor(config) {
+      // Before the each request is sent out, set request params on the request config
+      config.params = {
+        apikey: restdb.apikey
+      };
+      return config;
+    }
+  }
+
+  configModule.$inject = ['$httpProvider'];
+
+  function configModule($httpProvider) {
+    $httpProvider.interceptors.push('restdbAPIInterceptor');
+  }
 
   // todoService.$inject = ['$resource', '$state'];
-  todoService.$inject = ['$http', '$q', '$state', 'restdb'];
+  todoService.$inject = ['$resource', '$http', '$q', '$state', 'restdb'];
 
   /* @ngInject */
 
   // function todoService($resource, $state) {
-  function todoService($http, $q, $state, restdb) {
+  function todoService($resource, $http, $q, $state, restdb) {
     // Connection URL
     const taskUrl = `https://${restdb.databaseName}.restdb.io/rest/${restdb.collectionName}`;
+
+    // function getData() {
+    //   return $resource(taskUrl);
+    // }
 
     return {
       // сокращенно от:
@@ -36,15 +64,6 @@
     };
 
     ////////////////
-    function getData() {
-      return $resource('data/tasks.json', {}, {
-        query: {
-          method: 'GET',
-          isArray: true
-        }
-      });
-    }
-
     function reloadState() {
       $state.reload();
       console.log('state is reloaded');
@@ -56,8 +75,8 @@
       error.name && (err += `\nName: "${error.name}"`);
       error.message && (err += `\nMessage: "${error.message}"`);
       // оператор && вычисляет операнды слева направо до первого «ложного» и возвращает его, а если все истинные – то последнее значение.
-      error.config && error.config.method && (err += `\nMethod: "${error.config.method}"`);
-      error.config && error.config.url && (err += `\nURL: "${error.config.url}"`);
+      error.config.method && (err += `\nMethod: "${error.config.method}"`);
+      error.config.url && (err += `\nURL: "${error.config.url}"`);
       error.status && (err += `\nStatus: "${error.status}"`);
       error.statusText && (err += `\nStatus text: "${error.statusText}"`);
       console.log(err);
@@ -65,35 +84,15 @@
     }
 
     // --------------------------------------------------
-    function getId(data) {
-      return data._id;
-    }
-
-    function getAllTasks() {
-      return $http({
-        url: taskUrl,
-        method: 'GET',
-        params: {
-          apikey: restdb.apikey
-        }
-      })
-          .then((response) => {
-            console.log('Response = ', response.data);
-            return response.data;
-          })
-          .catch((response) => {
-            return $q.reject('Error: can not retrieve data from restdb.')
-          });
-    }
 
     function addTask(newTask) {
       console.log(newTask);
       return $http({
         url: taskUrl,
         method: 'POST',
-        params: {
-          apikey: restdb.apikey
-        },
+        // params: {
+        //   apikey: restdb.apikey
+        // },
         data: newTask
       })
           .then((response) => {
@@ -112,9 +111,9 @@
       return $http({
         url: taskUrl,
         method: 'POST',
-        params: {
-          apikey: restdb.apikey
-        },
+        // params: {
+        //   apikey: restdb.apikey
+        // },
         headers: {
           'Content-Type': 'application/json'
         },
@@ -134,10 +133,10 @@
       console.log(taskToDelete);
       return $http({
         url: `${taskUrl}/${getId(taskToDelete)}`,
-        method: 'DELETE',
-        params: {
-          apikey: restdb.apikey
-        }
+        method: 'DELETE'
+        // params: {
+        //   apikey: restdb.apikey
+        // }
       })
           .then((response) => {
             console.log('Response = ', response.data);
@@ -154,9 +153,9 @@
       return $http({
         url: `${taskUrl}/*`,
         method: 'DELETE',
-        params: {
-          apikey: restdb.apikey
-        },
+        // params: {
+        //   apikey: restdb.apikey
+        // },
         headers: {
           'Content-Type': 'application/json'
         },
@@ -176,9 +175,9 @@
       return $http({
         url: `${taskUrl}/${getId(taskToUpdate)}`,
         method: 'PUT',
-        params: {
-          apikey: restdb.apikey
-        },
+        // params: {
+        //   apikey: restdb.apikey
+        // },
         data: taskToUpdate
       })
           .then((response) => {
@@ -190,54 +189,62 @@
           });
     }
 
-    function getTaskById(taskId) {
-      console.log(taskId);
-      return $http({
-        url: `${taskUrl}/${taskId}`,
-        method: 'GET',
-        params: {
-          apikey: restdb.apikey
-        }
-      })
-          .then((response) => {
-            console.log('Response = ', response.data);
-            return response.data;
-          })
-          .catch((response) => {
-            return $q.reject('Error: can not retrieve data from restdb.')
-          });
-    }
 
     // --------------------------------------------------
+    // --------------------------------------------------
+    // --------------------------------------------------
+    // --------------------------------------------------
 
-    // function getAllTasks() {
-    //   return getData().query().$promise
-    //       .then((tasks) => {
-    //         console.log('Promise getAllTasks() resolve.');
-    //         return tasks;
-    //       })
-    //       .catch((error) => {
-    //         return new Error(printError(error, 'Promise getAllTasks() rejected!'));
-    //       })
-    //       .finally(() => console.log('Promise getAllTasks() complete.'));
-    // }
+    function getAllTasks() {
+      return $resource(taskUrl).query().$promise
+          .then((tasks) => {
+            console.log('Promise getAllTasks() resolve.');
+            return tasks;
+          })
+          .catch((error) => {
+            console.log(error);
+            return new Error(printError(error, 'Promise getAllTasks() rejected!'));
+          })
+          .finally(() => console.log('Promise getAllTasks() complete.'));
+    }
 
     // function getTaskById(taskId) {
-    //   return getData().query().$promise
-    //       .then((tasks) => {
-    //         const task = tasks.find((task) => task.id === taskId);
-    //         if (task) {
-    //           console.log('Promise getTaskById() resolve.');
-    //           return task;
-    //         } else {
-    //           throw new Error(`Task with id = "${taskId}" not found.`);
-    //         }
+    //   console.log(taskId);
+    //   return $http({
+    //     url: `${taskUrl}/${taskId}`,
+    //     method: 'GET'
+    //     // params: {
+    //     //   apikey: restdb.apikey
+    //     // }
+    //   })
+    //       .then((response) => {
+    //         console.log('Response = ', response.data);
+    //         return response.data;
     //       })
-    //       .catch((error) => {
-    //         return new Error(printError(error, 'Promise getTaskById() rejected!'));
-    //       })
-    //       .finally(() => console.log('Promise getTaskById() complete.'));
+    //       .catch((response) => {
+    //         return $q.reject('Error: can not retrieve data from restdb.')
+    //       });
     // }
+
+    function getTaskById(taskId) {
+      return $resource(`${taskUrl}/${taskId}`).get().$promise
+          // .then((tasks) => {
+          .then((task) => {
+            // const task = tasks.find((task) => task.id === taskId);
+            // if (task) {
+            //   console.log('Promise getTaskById() resolve.');
+            // TODO TODO TODO
+              console.log('Можно ввести в консоли неправильный id  - TODO надо выдать ошибку что нет такого:', task);
+              return task;
+            // } else {
+            //   throw new Error(`Task with id = "${taskId}" not found.`);
+            // }
+          })
+          .catch((error) => {
+            return new Error(printError(error, 'Promise getTaskById() rejected!'));
+          })
+          .finally(() => console.log('Promise getTaskById() complete.'));
+    }
 
     function navigate(toState, params) {
       $state.go(toState, params);
@@ -245,3 +252,25 @@
   }
 
 })();
+
+// ============== REQUESTS VIA $HTTP BACKUP =====================
+// function getId(data) {
+//   return data._id;
+// }
+
+// function getAllTasks() {
+//   return $http({
+//     url: taskUrl,
+//     method: 'GET'
+//     // params: {
+//     //   apikey: restdb.apikey
+//     // }
+//   })
+//       .then((response) => {
+//         console.log('Response = ', response.data);
+//         return response.data;
+//       })
+//       .catch((response) => {
+//         return $q.reject('Error: can not retrieve data from restdb.')
+//       });
+// }

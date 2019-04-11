@@ -1,5 +1,6 @@
 <!--через привязку ng-model="data.mode" значение объекта data.mode.-->
-<div ng-switch="$ctrl.mode">
+<div class="edit-text-container" ng-switch="$ctrl.mode">
+  <img class="loading" src="img/Spin-1s-73px.gif" alt="loading..." ng-if="$ctrl.loading"/>
   <div ng-switch-when="viewText">
     <!--код, если $ctrl.mode = viewText -->
     <div class="view-text" ng-if="$ctrl.text">

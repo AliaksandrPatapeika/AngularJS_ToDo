@@ -21,25 +21,41 @@
     init();
 
     function init() {
-      $ctrl.importantTask = importantTask;
+      $ctrl.loading = false;
+      $ctrl.taskImportantChange = taskImportantChange;
       $ctrl.taskDoneChange = taskDoneChange;
       $ctrl.deleteTask = deleteTask;
       $ctrl.navigate = todoService.navigate;
     }
 
-    function importantTask(task) {
-      // TODO TODO TODO
-      task.important = !task.important;
-      todoService.updateTask(task);
+    function taskImportantChange(task) {
+      $ctrl.loading = task._id;
+      let copyTask = Object.assign({}, task);
+      copyTask.important = !task.important;
+      todoService.updateTask(copyTask)
+          .then(() => {
+            $ctrl.loading = false;
+            task.important = !task.important;
+          });
     }
 
     function taskDoneChange(task) {
-      todoService.updateTask(task);
+      $ctrl.loading = task._id;
+      task.done = !task.done;
+      let copyTask = Object.assign({}, task);
+      copyTask.done = !task.done;
+      todoService.updateTask(copyTask)
+          .then(() => {
+            $ctrl.loading = false;
+            task.done = !task.done;
+          });
     }
 
     function deleteTask(task) {
+      $ctrl.loading = task._id;
       todoService.deleteTask(task)
           .then(() => {
+            $ctrl.loading = false;
             const index = $ctrl.tasks.indexOf(task);
             $ctrl.tasks.splice(index, 1);
           });

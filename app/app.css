@@ -30,6 +30,7 @@
 }
 
 .todo-list .head-container {
+  position: relative;
   text-align: center;
 }
 
@@ -149,6 +150,7 @@
 }
 
 .todo-list .task-list-item {
+  position: relative;
   display: table;
   table-layout: fixed;
   width: 100%;
@@ -157,25 +159,25 @@
   word-wrap: break-word;
 }
 
-.todo-list .task-list-item label {
+.todo-list .task-list-item-label {
   display: table-cell;
   padding: 0 10px;
+}
+
+.todo-list .task-list-item input[type="checkbox"] {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-right: 2px;
   vertical-align: middle;
   cursor: pointer;
 }
 
-.todo-list .task-list-item input[type="checkbox"] {
-  width: 1rem;
-  height: 1rem;
-  cursor: pointer;
-}
-
-.todo-list .done-true {
+.todo-list .done {
   text-decoration: line-through;
   color: lightgray;
 }
 
-.todo-list .important-true {
+.todo-list .important {
   font-weight: bold;
   color: royalblue;
 }
@@ -219,6 +221,10 @@
 
 .todo-list .btn-delete:hover {
   background-color: orangered;
+}
+
+.todo-list form {
+  position: relative;
 }
 
 .task-detail {
@@ -286,6 +292,10 @@
   color: yellowgreen;
 }
 
+.task-detail .edit-text-container {
+  position: relative;
+}
+
 .task-detail .view-text,
 .task-detail .edit-text {
   display: inline-block;
@@ -311,4 +321,13 @@
 
 .task-detail .clear-bottom {
   margin-bottom: 0;
+}
+
+.loading {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin: 0 auto;
+  z-index: 999;
 }

@@ -19,12 +19,14 @@
     init();
 
     function init() {
+      $ctrl.loading = false;
       $ctrl.addTask = addTask;
     }
 
     function addTask(taskText) {
       // не добавлять пустые задания
       if ($ctrl.addTaskInputText) {
+        $ctrl.loading = true;
         let newTask = {
           text: taskText,
           done: false,
@@ -35,6 +37,7 @@
         $ctrl.addTaskInputText = '';
         todoService.addTask(newTask)
             .then((response) => {
+              $ctrl.loading = false;
               $ctrl.tasks.push(response);
             });
       } else {
