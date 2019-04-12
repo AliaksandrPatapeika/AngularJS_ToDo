@@ -2,6 +2,9 @@
   'use strict';
 
   angular
-      .module('taskItem', []);
+      .module('taskItem', [
+        'core.todo',
+        'loading'
+      ]);
 
 })();

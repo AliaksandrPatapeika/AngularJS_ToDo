@@ -3,7 +3,8 @@
 
   angular
       .module('editText', [
-        'core.todo'
+        'core.todo',
+        'loading'
       ]);
 
 })();

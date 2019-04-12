@@ -2,6 +2,8 @@
   'use strict';
 
   angular
-      .module('errorContainer', []);
+      .module('errorContainer', [
+        'core.todo'
+      ]);
 
 })();

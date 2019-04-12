@@ -2,6 +2,7 @@
   box-sizing: border-box;
   max-width: 600px;
   min-width: 400px;
+  min-height: 120px;
   margin: 50px auto;
   padding: 20px;
   font-family: "Segoe UI", sans-serif;
@@ -9,7 +10,13 @@
   border-radius: 20px;
 }
 
+.error-container {
+  text-align: center;
+}
+
 .error-container ul {
+  margin-top: 0;
+  text-align: left;
   padding-left: 20px;
 }
 
@@ -22,15 +29,18 @@
 }
 
 .error-container li:first-child {
-  margin: 10px 0 20px -20px;
+  margin: 0 0 20px -20px;
   list-style-type: none;
   font-size: 1.3rem;
   font-style: italic;
   text-align: center;
 }
 
+.error-container .btn-home {
+  margin-right: 15px;
+}
+
 .todo-list .head-container {
-  position: relative;
   text-align: center;
 }
 
@@ -98,7 +108,8 @@
 }
 
 .todo-list .btn,
-.task-detail .btn {
+.task-detail .btn,
+.error-container .btn{
   width: 62px;
   height: 35px;
   font-family: inherit;
@@ -111,7 +122,8 @@
 }
 
 .todo-list .btn:hover,
-.task-detail .btn:hover {
+.task-detail .btn:hover,
+.error-container .btn:hover{
   color: #fff;
   background-color: dodgerblue;
   border-color: royalblue;
@@ -119,12 +131,15 @@
 }
 
 .todo-list .btn:focus,
-.task-detail .btn:focus {
+.task-detail .btn:focus,
+.error-container .btn:focus{
   outline: 0;
 }
 
 .todo-list .btn-add,
 .task-detail .btn-back,
+.error-container .btn-back,
+.error-container .btn-home,
 .todo-list .filter-buttons-group input[type="radio"]:checked + label {
   color: #fff;
   background-color: steelblue;
@@ -150,7 +165,6 @@
 }
 
 .todo-list .task-list-item {
-  position: relative;
   display: table;
   table-layout: fixed;
   width: 100%;
@@ -223,8 +237,8 @@
   background-color: orangered;
 }
 
-.todo-list form {
-  position: relative;
+.add-task-container {
+  display: inline-block;
 }
 
 .task-detail {
@@ -292,10 +306,6 @@
   color: yellowgreen;
 }
 
-.task-detail .edit-text-container {
-  position: relative;
-}
-
 .task-detail .view-text,
 .task-detail .edit-text {
   display: inline-block;
@@ -321,6 +331,10 @@
 
 .task-detail .clear-bottom {
   margin-bottom: 0;
+}
+
+.loading-container {
+  position: relative;
 }
 
 .loading {

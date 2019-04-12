@@ -1,7 +1,7 @@
 <!--через привязку ng-model="data.mode" значение объекта data.mode.-->
 <div class="edit-text-container" ng-switch="$ctrl.mode">
-  <img class="loading" src="img/Spin-1s-73px.gif" alt="loading..." ng-if="$ctrl.loading"/>
-  <div ng-switch-when="viewText">
+  <loading loading="$ctrl.loading"></loading>
+  <div class="animate-switch" ng-switch-when="viewText">
     <!--код, если $ctrl.mode = viewText -->
     <div class="view-text" ng-if="$ctrl.text">
       {{$ctrl.text}}
@@ -10,7 +10,7 @@
       <i class="fas fa-edit" ng-click="$ctrl.edit($ctrl.text)"></i>
     </div>
   </div>
-  <div ng-switch-when="editText">
+  <div class="animate-switch" ng-switch-when="editText">
     <!--код, если $ctrl.mode = editText -->
     <div class="edit-text">
       <label>

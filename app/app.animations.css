@@ -5,7 +5,8 @@
 .task-list-item.ng-leave,
   /*Класс ng-move применяется к элементу, когда изменяется относительная позиция задания в списке.*/
 .task-list-item.ng-move {
-  transition: 0.2s linear all;
+  -webkit-transition: all linear 0.2s;
+  transition: all linear 0.2s;
 }
 
 .task-list-item.ng-enter,
@@ -22,6 +23,25 @@
 .task-list-item.ng-move.ng-move-active {
   margin-top: 10px;
   font-size: 1.25rem;
+  opacity: 1;
+}
+
+/* Animate ngSwitch in edit text component */
+.animate-switch.ng-animate {
+  -webkit-transition: all linear 0.4s;
+  transition: all linear 0.4s;
+}
+
+.animate-switch.ng-leave,
+.animate-switch.ng-leave.ng-leave-active {
+  display: none;
+}
+
+.animate-switch.ng-enter {
+  opacity: 0;
+}
+
+.animate-switch.ng-enter.ng-enter-active {
   opacity: 1;
 }
 

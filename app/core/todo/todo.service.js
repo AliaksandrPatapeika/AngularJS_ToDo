@@ -48,8 +48,16 @@
       deleteTask,
       deleteTaskArray,
       updateTask,
-      navigate
+      navigate,
+      reloadState
     };
+
+    function reloadState() {
+      // A method that force reloads the current state, or a partial state hierarchy. All resolves are re-resolved,
+      // and components reinstantiated.
+      $state.reload();
+      console.log('state is reloaded');
+    }
 
     function printError(error, label) {
       let err = `${label}`;
@@ -133,25 +141,32 @@
 
     function getAllTasks() {
       return $resource(taskUrl).query().$promise
-          .then((response) => response)
-          .catch((error) => new Error(printError(error, 'Сan not fetch all tasks from "restdb"!')));
+          .then((response) => response) // array of tasks
+          .catch((error) => {
+            throw new Error(printError(error, 'Сan not fetch all tasks from "restdb"!'))
+          });
     }
 
     function getTaskById(taskId) {
       let url = `${taskUrl}/${taskId}`;
       return $resource(url).get().$promise
-          .then((response) => response)
-          .catch((error) => new Error(printError(error, `Сan not fetch task by id = "${taskId}" from "restdb"!`)));
+          .then((response) => response) // task object
+          .catch((error) => {
+            throw new Error(printError(error, `Сan not fetch task by id = "${taskId}" from "restdb"!`))
+          });
     }
 
     function deleteTask(taskToDelete) {
-      let url = `${taskUrl}/ddddddd/${taskToDelete._id}`;
+      let url = `${taskUrl}/${taskToDelete._id}`;
       return $resource(url).delete().$promise
-          .then((response) => response.result)
-          .catch((error) => new Error(printError(error, `Сan not delete task with id = "${taskToDelete}" from "restdb"!`)));
+          .then((response) => response.result[0]) // deleted task id
+          .catch((error) => {
+            throw new Error(printError(error, `Сan not delete task with id = "${taskToDelete._id}" from "restdb"!`))
+          });
     }
 
     function navigate(toState, params) {
+      console.log('Navigate to: ', toState);
       $state.go(toState, params);
     }
   }

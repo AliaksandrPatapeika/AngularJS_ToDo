@@ -6,15 +6,12 @@
       .module('taskDetail')
       .component('taskDetail', {
         templateUrl: 'components/task-detail/task-detail.template.html',
-        controller: TaskDetailController,
-        bindings: {
-          taskPromise: '<'
-        }
+        controller: TaskDetailController
       });
 
-  TaskDetailController.$inject = ['todoService'];
+  TaskDetailController.$inject = ['$stateParams', 'todoService'];
 
-  function TaskDetailController(todoService) {
+  function TaskDetailController($stateParams, todoService) {
     // Синхронно возвращается «будущее» - объект promise, который будет заполнен данными, когда будет получен ответ XHR.
     // Из-за привязки данных в Angular мы можем использовать это будущее и связать его с нашим шаблоном. Затем, когда данные поступят, представление будет автоматически обновлено.
 
@@ -26,19 +23,28 @@
     init();
 
     function init() {
-      // $ctrl.taskPromise здесь получается из метода resolve в app.config.js в $routeProvider
-      if ($ctrl.taskPromise instanceof Error) {
-        $ctrl.error = $ctrl.taskPromise.message.split('\n');
-      } else if (angular.isObject($ctrl.taskPromise)) {
-        $ctrl.task = $ctrl.taskPromise;
-      }
-
-      $ctrl.navigate = todoService.navigate;
-
+      $ctrl.loading = false;
+      $ctrl.navigate = navigate;
+      loadData()
     }
 
-    // console.log('$ctrl.task = ', $ctrl.task);
-    // console.log('$ctrl.error = ', $ctrl.error);
+    function navigate(toState, params) {
+      todoService.navigate(toState, params);
+    }
+
+    function loadData() {
+      $ctrl.loading = true;
+      // После загрузки данных, получаем текущее задание для task detail view, полученное по id текущего задания из $stateParams
+      todoService.getTaskById($stateParams.taskId)
+          .then((task) => {
+            $ctrl.loading = false;
+            $ctrl.task = task;
+          })
+          .catch((error) => {
+            $ctrl.loading = false;
+            $ctrl.error = error.message.split('\n');
+          });
+    }
 
   }
 

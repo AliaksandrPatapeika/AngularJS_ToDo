@@ -8,10 +8,11 @@
 // Объявление одной и той же зависимости в нескольких модулях не приводит к дополнительным «затратам», поскольку Angular все равно будет загружать каждую зависимость один раз.
   angular
       .module('taskDetail', [
-        // 'ngRoute',
+        'ui.router', // для $stateParams
         'core.todo',
         'errorContainer',
-        'editText'
+        'editText',
+        'loading'
       ]);
 
 })();

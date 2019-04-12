@@ -3,7 +3,8 @@
 
   angular
       .module('addTask', [
-        'core.todo'
+        'core.todo',
+        'loading'
       ]);
 
 })();

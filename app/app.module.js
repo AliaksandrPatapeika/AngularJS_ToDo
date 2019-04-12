@@ -15,7 +15,6 @@
   angular
       .module('todoListApp', [
         'ngAnimate',
-        // 'ngRoute',
         'ui.router',
         'core',
         'taskDetail',

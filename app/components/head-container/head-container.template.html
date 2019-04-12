@@ -1,7 +1,7 @@
 <div class="head-container">
   <h1>Todo List</h1>
   <div class="info-panel" ng-if="$ctrl.tasks.length">
-    <img class="loading" src="img/Spin-1s-73px.gif" alt="loading..." ng-if="$ctrl.loading"/>
+    <loading loading="$ctrl.loading"></loading>
     <h3>
       {{$ctrl.remainingTasks()}} of {{$ctrl.tasks.length}} remaining,
       {{$ctrl.tasks.length - $ctrl.remainingTasks()}} done

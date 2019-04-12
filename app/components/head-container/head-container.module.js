@@ -3,7 +3,8 @@
 
   angular
       .module('headContainer', [
-        'core.todo'
+        'core.todo',
+        'loading'
       ]);
 
 })();
