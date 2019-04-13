@@ -4,10 +4,12 @@
       ng-if="$ctrl.error"
       error="$ctrl.error">
   </error-container>
-  <div class="todo-list">
+  <div class="todo-list"
+       ng-if="!$ctrl.error">
     <head-container
         ng-if="$ctrl.tasks"
-        tasks="$ctrl.tasks">
+        tasks="$ctrl.tasks"
+        error="$ctrl.error">
     </head-container>
     <search
         ng-if="$ctrl.tasks.length"
@@ -25,7 +27,8 @@
     </task-item-list>
     <add-task
         ng-if="$ctrl.tasks"
-        tasks="$ctrl.tasks">
+        tasks="$ctrl.tasks"
+        error="$ctrl.error">
     </add-task>
   </div>
 </div>

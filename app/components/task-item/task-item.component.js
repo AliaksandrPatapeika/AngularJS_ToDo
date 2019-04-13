@@ -37,37 +37,43 @@
 
     function taskImportantChange(task) {
       $ctrl.loading = task._id;
-      let copyTask = Object.assign({}, task);
-      copyTask.important = !task.important;
-      todoService.updateTask(copyTask)
-          .then(() => {
+      let updatedTask = Object.assign({}, task);
+      updatedTask.important = !task.important;
+      todoService.updateTask(updatedTask)
+          .then((responseUpdatedTask) => {
             $ctrl.loading = false;
             task.important = !task.important;
+          })
+          .catch((error) => {
+            $ctrl.loading = false;
+            $ctrl.todoList.setError(error.message.split('\n'));
           });
     }
 
     function taskDoneChange(task) {
       $ctrl.loading = task._id;
+      // Не показывать изменения пока не придет ответ от сервера
       task.done = !task.done;
-      let copyTask = Object.assign({}, task);
-      copyTask.done = !task.done;
-      todoService.updateTask(copyTask)
-          .then(() => {
+      let updatedTask = Object.assign({}, task);
+      updatedTask.done = !task.done;
+      todoService.updateTask(updatedTask)
+          .then((responseUpdatedTask) => {
             $ctrl.loading = false;
             task.done = !task.done;
+          })
+          .catch((error) => {
+            $ctrl.loading = false;
+            $ctrl.todoList.setError(error.message.split('\n'));
           });
     }
 
     function deleteTask(task) {
       $ctrl.loading = task._id;
-      todoService.deleteTask(task)
+      todoService.deleteTask(task._id)
           .then((deletedTaskId) => {
             $ctrl.loading = false;
             const index = $ctrl.tasks.indexOf(task);
             $ctrl.tasks.splice(index, 1);
-            // $ctrl.tasks = $ctrl.tasks.filter((task) => {
-            //   return task._id !== deletedTaskId;
-            // });
           })
           .catch((error) => {
             $ctrl.loading = false;

@@ -3,12 +3,14 @@
 
   angular
       .module('core.todo')
+      // Настроить httpInterceptor в приложении:
       .config(configModule)
       // Название нашего сервиса и фабричная функция
       // Сервис `todoService` объявляет зависимость от сервиса `$resource`, который предоставлят модуль `ngResource`.
       // Сервис `$resource` позволяет легко создать клиент RESTful с помощью всего лишь нескольких строк кода. Этот клиент
       // может затем использоваться в нашем приложении вместо низкоуровневой службы `$http`.
       .factory('todoService', todoService)
+      // Создать httpInterceptor с вашим запросом (request)
       .factory('restdbAPIInterceptor', restdbAPIInterceptor);
 
   restdbAPIInterceptor.$inject = ['restdb'];
@@ -29,15 +31,19 @@
 
   configModule.$inject = ['$httpProvider'];
 
+  // Настроить httpInterceptor в приложении:
   function configModule($httpProvider) {
+    // Прямо сейчас, когда у вас настроен ваш httpProvider, на котором есть перехватчик, куда бы вы ни вводили $ http, вы будете использовать этого провайдера, чтобы ... вы выполняли свои функции request, response и responseError.
+
+    // Поскольку $ resource использует $ http, и у вас настроен глобальный httpProvider, вы будете вызывать функцию ваших перехватчиков, когда будете использовать свой ресурс
+
+    // (перехватчики) установлены глобально
     $httpProvider.interceptors.push('restdbAPIInterceptor');
   }
 
-  // todoService.$inject = ['$resource', '$state'];
-  todoService.$inject = ['$resource', '$http', '$q', '$state', 'restdb'];
+  todoService.$inject = ['$resource', '$state', 'restdb'];
 
-  // function todoService($resource, $state) {
-  function todoService($resource, $http, $q, $state, restdb) {
+  function todoService($resource, $state, restdb) {
     // Connection URL
     const taskUrl = `https://${restdb.databaseName}.restdb.io/rest/${restdb.collectionName}`;
 
@@ -52,11 +58,86 @@
       reloadState
     };
 
-    function reloadState() {
-      // A method that force reloads the current state, or a partial state hierarchy. All resolves are re-resolved,
-      // and components reinstantiated.
-      $state.reload();
+    function Tasks() {
+      return $resource(`${taskUrl}/:taskId`, {}, {
+        update: {
+          method: 'PUT'
+        },
+        // DELETE requests can have a body since angular-resource v.1.6.4
+        deleteArray: {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json;charset=UTF-8'
+          },
+          hasBody: true
+        }
+      });
+    }
+
+    function getAllTasks() {
+      return Tasks().query().$promise
+          .then((response) => response) // array of tasks
+          .catch((error) => {
+            throw new Error(printError(error, 'Сan not fetch all tasks from "restdb"!'))
+          });
+    }
+
+    function getTaskById(taskId) {
+      return Tasks().get({taskId: taskId}).$promise
+          .then((response) => sendResponseToJson(response)) // task object
+          .catch((error) => {
+            throw new Error(printError(error, `Сan not fetch task by id = "${taskId}" from "restdb"!`))
+          });
+    }
+
+    function addTask(newTask) {
+      return Tasks().save(newTask).$promise
+          .then((response) => sendResponseToJson(response)) // new task object
+          .catch((error) => {
+            throw new Error(printError(error, `Сan not create data in "restdb"!`))
+          });
+    }
+
+    function deleteTask(taskToDeleteId) {
+      return Tasks().delete({taskId: taskToDeleteId}).$promise
+          .then((response) => response.result[0]) // deleted task id
+          .catch((error) => {
+            throw new Error(printError(error, `Сan not delete task with id = "${taskToDeleteId}" from "restdb"!`))
+          });
+    }
+
+    // Delete an array of documents in a collection. Request body must be an array of id's.
+    function deleteTaskArray(taskIdArrayToDelete) {
+      return Tasks().deleteArray({taskId: '*'}, taskIdArrayToDelete).$promise
+          .then((response) => response.result) // deleted tasks id's array
+          .catch((error) => {
+            throw new Error(printError(error, `Сan not delete data from "restdb"!`))
+          });
+    }
+
+    function updateTask(taskToUpdate) {
+      // вызываем update, передавая сначала ID, затем объект, который мы обновляем
+      return Tasks().update({taskId: taskToUpdate._id}, taskToUpdate).$promise
+          .then((response) => sendResponseToJson(response)) // updated task object
+          .catch((error) => {
+            throw new Error(printError(error, `Сan not update data in "restdb"!`))
+          });
+    }
+
+    function sendResponseToJson(response) {
+      // toJSON() удаляет из response поля $promise и $resolved
+      return response.toJSON();
+    }
+
+    function navigate(toState, params) {
+      console.log('Navigate to: ', toState);
+      $state.go(toState, params);
+    }
+
+    function reloadState(toState) {
+      // A method that force reloads the current state and reinstantiates components. Second parameter is for $stateParams
       console.log('state is reloaded');
+      $state.go(toState, {}, {reload: true});
     }
 
     function printError(error, label) {
@@ -67,108 +148,9 @@
       error.config && error.config.url && (err += `\nURL: "${error.config.url}"`);
       error.status && (err += `\nStatus: "${error.status}"`);
       error.statusText && (err += `\nStatus text: "${error.statusText}"`);
-      console.log(err);
       return err;
     }
 
-    function addTask(newTask) {
-      console.log(newTask);
-      return $http({
-        url: taskUrl,
-        method: 'POST',
-        // params: {
-        //   apikey: restdb.apikey
-        // },
-        data: newTask
-      })
-          .then((response) => {
-            console.log('Response = ', response.data);
-            return response.data;
-          })
-          .catch((response) => {
-            return $q.reject('Error: can not create data in restdb.')
-          });
-
-    }
-
-    // Delete an array of documents in a collection. Request body must be an array of ID's.
-    function deleteTaskArray(taskIdArrayToDelete) {
-      console.log('taskIdArrayToDelete: ', taskIdArrayToDelete);
-      return $http({
-        url: `${taskUrl}/*`,
-        method: 'DELETE',
-        // params: {
-        //   apikey: restdb.apikey
-        // },
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        data: taskIdArrayToDelete
-      })
-          .then((response) => {
-            console.log('Response = ', response.data.result);
-            return response.data.result;
-          })
-          .catch((response) => {
-            return $q.reject('Error: can not delete data in restdb.')
-          });
-    }
-
-    function updateTask(taskToUpdate) {
-      console.log(taskToUpdate);
-      return $http({
-        url: `${taskUrl}/${taskToUpdate._id}`,
-        method: 'PUT',
-        // params: {
-        //   apikey: restdb.apikey
-        // },
-        data: taskToUpdate
-      })
-          .then((response) => {
-            console.log('Response = ', response.data);
-            return response.data;
-          })
-          .catch((response) => {
-            return $q.reject('Error: can not update data in restdb.')
-          });
-    }
-
-
-    // --------------------------------------------------
-    // --------------------------------------------------
-    // --------------------------------------------------
-    // --------------------------------------------------
-
-    function getAllTasks() {
-      return $resource(taskUrl).query().$promise
-          .then((response) => response) // array of tasks
-          .catch((error) => {
-            throw new Error(printError(error, 'Сan not fetch all tasks from "restdb"!'))
-          });
-    }
-
-    function getTaskById(taskId) {
-      let url = `${taskUrl}/${taskId}`;
-      return $resource(url).get().$promise
-          .then((response) => response) // task object
-          .catch((error) => {
-            throw new Error(printError(error, `Сan not fetch task by id = "${taskId}" from "restdb"!`))
-          });
-    }
-
-    function deleteTask(taskToDelete) {
-      let url = `${taskUrl}/${taskToDelete._id}`;
-      return $resource(url).delete().$promise
-          .then((response) => response.result[0]) // deleted task id
-          .catch((error) => {
-            throw new Error(printError(error, `Сan not delete task with id = "${taskToDelete._id}" from "restdb"!`))
-          });
-    }
-
-    function navigate(toState, params) {
-      console.log('Navigate to: ', toState);
-      $state.go(toState, params);
-    }
   }
 
 })();

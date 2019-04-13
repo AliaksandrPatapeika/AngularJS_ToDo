@@ -8,7 +8,8 @@
         controller: EditTextController,
         bindings: {
           task: '<',
-          text: '='
+          text: '=',
+          error: '='
         }
       });
 
@@ -35,9 +36,13 @@
     function save() {
       $ctrl.loading = true;
       todoService.updateTask($ctrl.task)
-          .then(() => {
+          .then((responseUpdatedTask) => {
             $ctrl.loading = false;
             $ctrl.mode = 'viewText';
+          })
+          .catch((error) => {
+            $ctrl.loading = false;
+            $ctrl.error = error.message.split('\n');
           });
     }
 

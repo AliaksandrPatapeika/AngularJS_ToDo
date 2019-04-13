@@ -19,16 +19,11 @@
     init();
 
     function init() {
-      $ctrl.navigate = navigate;
       $ctrl.reloadState = reloadState;
     }
 
-    function navigate(toState, params) {
-      todoService.navigate(toState, params);
-    }
-
-    function reloadState() {
-      todoService.reloadState();
+    function reloadState(toState) {
+      todoService.reloadState(toState);
     }
 
   }

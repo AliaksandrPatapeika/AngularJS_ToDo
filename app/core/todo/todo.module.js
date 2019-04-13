@@ -6,8 +6,8 @@
   // создание модуля, который зависит от модуля `ngResource` и `ui.router`
   angular
       .module('core.todo', [
-        'ngResource',
-        'ui.router'
+        'ngResource', // для сервиса $resource
+        'ui.router' // для сервиса $state
       ]);
 
 })();

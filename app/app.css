@@ -36,10 +36,6 @@
   text-align: center;
 }
 
-.error-container .btn-home {
-  margin-right: 15px;
-}
-
 .todo-list .head-container {
   text-align: center;
 }
@@ -139,7 +135,6 @@
 .todo-list .btn-add,
 .task-detail .btn-back,
 .error-container .btn-back,
-.error-container .btn-home,
 .todo-list .filter-buttons-group input[type="radio"]:checked + label {
   color: #fff;
   background-color: steelblue;

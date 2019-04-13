@@ -14,7 +14,6 @@
     };
 
     function autoResizeLink(scope, element) {
-      console.log('DIRECTIVE');
       // on init data
       element.css({'height': '0', 'overflow-y': 'hidden'});
       $timeout(function () {

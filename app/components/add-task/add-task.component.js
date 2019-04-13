@@ -7,7 +7,8 @@
         templateUrl: 'components/add-task/add-task.template.html',
         controller: AddTaskController,
         bindings: {
-          tasks: '<'
+          tasks: '<',
+          error: '='
         }
       });
 
@@ -36,9 +37,13 @@
         };
         $ctrl.addTaskInputText = '';
         todoService.addTask(newTask)
-            .then((response) => {
+            .then((responseNewTask) => {
               $ctrl.loading = false;
-              $ctrl.tasks.push(response);
+              $ctrl.tasks.push(responseNewTask);
+            })
+            .catch((error) => {
+              $ctrl.loading = false;
+              $ctrl.error = error.message.split('\n');
             });
       } else {
         console.log('Empty input');

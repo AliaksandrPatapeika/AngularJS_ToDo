@@ -7,7 +7,8 @@
         templateUrl: 'components/head-container/head-container.template.html',
         controller: HeadContainerController,
         bindings: {
-          tasks: '='
+          tasks: '=',
+          error: '='
         }
       });
 
@@ -30,12 +31,12 @@
 
     function archiveCompletedTasks() {
       let doneTasksIdList = [];
-      let archiveTask = [];
+      let archivedTask = [];
       let remainingTasks = [];
 
       $ctrl.tasks.forEach((task) => {
         if (task.done) {
-          archiveTask.push(task);
+          archivedTask.push(task);
           doneTasksIdList.push(task._id);
         } else {
           remainingTasks.push(task);
@@ -45,10 +46,14 @@
       if (doneTasksIdList.length) {
         $ctrl.loading = true;
         todoService.deleteTaskArray(doneTasksIdList)
-            .then(() => {
+            .then((deletedTasksIdArray) => {
               $ctrl.loading = false;
               $ctrl.tasks = remainingTasks;
-              console.log('Archive tasks: ', archiveTask);
+              console.log('Archive tasks: ', archivedTask);
+            })
+            .catch((error) => {
+              $ctrl.loading = false;
+              $ctrl.error = error.message.split('\n');
             });
       } else {
         console.log('Nothing to archive');
