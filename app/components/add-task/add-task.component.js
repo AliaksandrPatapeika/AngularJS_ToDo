@@ -38,6 +38,7 @@
         $ctrl.addTaskInputText = '';
         todoService.addTask(newTask)
             .then((responseNewTask) => {
+              console.log('responseNewTask', responseNewTask);
               $ctrl.loading = false;
               $ctrl.tasks.push(responseNewTask);
             })
@@ -48,6 +49,7 @@
       } else {
         console.log('Empty input');
       }
+      // return todoService.addTask({test: 123});
     }
 
   }

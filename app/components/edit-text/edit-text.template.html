@@ -7,7 +7,7 @@
       {{$ctrl.text}}
     </div>
     <div class="btn-edit">
-      <i class="fas fa-edit" ng-click="$ctrl.edit($ctrl.text)"></i>
+      <i class="fas fa-edit" title="Edit" ng-click="$ctrl.edit($ctrl.text)"></i>
     </div>
   </div>
   <div class="animate-switch" ng-switch-when="editText">
@@ -19,10 +19,10 @@
     </div>
     <div class="edit-buttons-group">
       <div class="btn-save">
-        <i class="fas fa-save" ng-click="$ctrl.save()"></i>
+        <i class="fas fa-save" title="Save" ng-click="$ctrl.save()"></i>
       </div>
       <div class="btn-cancel">
-        <i class="fas fa-undo" ng-click="$ctrl.cancel()"></i>
+        <i class="fas fa-undo" title="Cancel" ng-click="$ctrl.cancel()"></i>
       </div>
     </div>
   </div>

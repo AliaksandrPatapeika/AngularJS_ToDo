@@ -30,22 +30,22 @@
     }
 
     function archiveCompletedTasks() {
-      let doneTasksIdList = [];
+      let completedTasksIdList = [];
       let archivedTask = [];
       let remainingTasks = [];
 
       $ctrl.tasks.forEach((task) => {
         if (task.done) {
           archivedTask.push(task);
-          doneTasksIdList.push(task._id);
+          completedTasksIdList.push(task._id);
         } else {
           remainingTasks.push(task);
         }
       });
 
-      if (doneTasksIdList.length) {
+      if (completedTasksIdList.length) {
         $ctrl.loading = true;
-        todoService.deleteTaskArray(doneTasksIdList)
+        todoService.deleteTaskArray(completedTasksIdList)
             .then((deletedTasksIdArray) => {
               $ctrl.loading = false;
               $ctrl.tasks = remainingTasks;

@@ -14,7 +14,7 @@ describe('TodoList Application', function () {
 
     beforeEach(function () {
       browser.get('index.html#!/tasks');
-      // Turns off ng-animate animations for all elements in the
+      // Turns off ng-animate animations for all elements in the app
       element(by.css('body')).allowAnimations(false);
     });
 
@@ -49,7 +49,7 @@ describe('TodoList Application', function () {
       // Получить массив из текстовых значений элементов span из массива элементов списка заданий
       function getTaskTextList() {
         return taskList.map(function (task) {
-          return task.element(by.css('label span')).getText();
+          return task.element(by.css('.task-list-item-label span')).getText();
         });
       }
 
@@ -83,7 +83,7 @@ describe('TodoList Application', function () {
       search.sendKeys('angular');
 
       element.all(by.css('.task-list .task-list-item .btn-info')).last().click();
-      expect(browser.getCurrentUrl()).toContain('index.html#!/tasks/_x0h29fnbi');
+      expect(browser.getCurrentUrl()).toContain('index.html#!/tasks/5cb2dd414a61e21000017989');
     });
 
   });
@@ -91,12 +91,12 @@ describe('TodoList Application', function () {
   describe('View: Task detail', function() {
 
     beforeEach(function() {
-      browser.get('index.html#!/tasks/_0yjrvtjof');
+      browser.get('index.html#!/tasks/5cb207174a61e2100001660c');
     });
 
     it('should display the `learn AngularJS` task detail page', function() {
-      // найти элемент по текстовой привязке (<dd>{{$ctrl.task.text}}</dd>) и получить текст элемента
-      expect(element(by.binding('$ctrl.task.text')).getText()).toBe('learn AngularJS');
+      // найти элемент по текстовой привязке (<dd>{{$ctrl.text}}</dd>) и получить текст элемента
+      expect(element(by.binding('$ctrl.text')).getText()).toBe('learn AngularJS');
     });
 
   });

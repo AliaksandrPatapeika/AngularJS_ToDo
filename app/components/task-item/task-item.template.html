@@ -12,7 +12,7 @@
       <!-- ng-model двунаправленно связывает checkbox в форме со свойством done в объекте задания массива taskList
   в контроллере (связывает форму и модель)-->
       <label>
-        <input type="checkbox" ng-model="task.done" ng-change="$ctrl.taskDoneChange(task)">
+        <input type="checkbox" title="Complete task" ng-model="task.done" ng-change="$ctrl.taskDoneChange(task)">
       </label>
       <!-- CSS-класс done-true показывает зачеркивание для выполненных задач.
       Когда task.done имеет значение true, результирующий селектор CSS становится done-true, который затем
@@ -24,15 +24,16 @@
     <div class="task-list-item-buttons-group">
       <!--<a href="#!/tasks/{{task.id}}">-->
       <!--    <button class="btn btn-info" type="button" ng-click="$ctrl.goToTaskDetailView(task)">-->
-      <button class="btn btn-info" type="button" ng-click="$ctrl.navigate('taskDetail', {taskId: task._id})">
+      <button class="btn btn-info" type="button" title="Task details"
+              ng-click="$ctrl.navigate('taskDetail', {taskId: task._id})">
         <i class="fas fa-info"></i>
       </button>
       <!--</a>-->
-      <button class="btn btn-important" type="button" ng-click="$ctrl.taskImportantChange(task)">
+      <button class="btn btn-important" type="button" title="Important task" ng-click="$ctrl.taskImportantChange(task)">
         <i class="fas fa-exclamation"></i>
       </button>
       <!-- ng-click - вызов метода контроллера по клику -->
-      <button class="btn btn-delete" type="button" ng-click="$ctrl.deleteTask(task)">
+      <button class="btn btn-delete" type="button" title="Delete task" ng-click="$ctrl.deleteTask(task)">
         <i class="fas fa-trash-alt"></i>
       </button>
     </div>
