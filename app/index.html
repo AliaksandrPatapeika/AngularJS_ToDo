@@ -1,39 +1,26 @@
 <!DOCTYPE html>
-<!-- ng-app  указывает с каким модулем работает блок -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- для мобильной адаптивности (ширина просмотра = ширине девайса, при первой загрузке масштаб = 1,
-   последнее - для масштаба на iOS_9.1) -->
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>AngularJS ToDo</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-  <!-- подключать перед основными стилями, чтобы основные стили перезаписывали стили fontawesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
   <link rel="stylesheet" href="app.css">
-  <!-- Определяет CSS, необходимый для анимации -->
   <link rel="stylesheet" href="app.animations.css"/>
 </head>
 <body>
 <div class="view-container">
-  <!--  <div class="view-frame" ng-view></div>-->
   <div class="view-frame" ui-view></div>
 </div>
 <!-- libs and frameworks -->
 <script src="lib/angular/angular.js"></script>
-<!-- Добавляет поддержку анимации в AngularJS -->
 <script src="lib/angular-animate/angular-animate.js"></script>
-<!-- нам также нужно загрузить файл angular-resource.js, который содержит модуль ngResource -->
 <script src="lib/angular-resource/angular-resource.js"></script>
-<!-- определяет модуль angular-ui-router, который предоставляет маршрутизацию -->
 <script src="lib/angular-ui-router/release/angular-ui-router.min.js"></script>
-<!-- файлы, определяющие модуль (*.module.js), должны быть включены до других файлов, которые добавляют функционал (например, компоненты, контроллеры, сервисы, фильтры) к этому модулю.-->
-<!-- основной модуль -->
 <!-- app -->
 <script src="app.module.js"></script>
-<!-- настраивает провайдеров, доступных для основного модуля -->
 <script src="app.config.js"></script>
-<!-- Запуск приложения в ручную без дерективы ngApp-->
 <script src="app.run.js"></script>
 <script src="core/core.module.js"></script>
 <script src="core/todo/todo.module.js"></script>
@@ -43,38 +30,26 @@
 <!-- components -->
 <script src="components/todo-list/todo-list.module.js"></script>
 <script src="components/todo-list/todo-list.component.js"></script>
-
 <script src="components/loading/loading.module.js"></script>
 <script src="components/loading/loading.component.js"></script>
-
 <script src="components/error-container/error-container.module.js"></script>
 <script src="components/error-container/error-container.component.js"></script>
-
 <script src="components/head-container/head-container.module.js"></script>
 <script src="components/head-container/head-container.component.js"></script>
-
 <script src="components/search/search.module.js"></script>
 <script src="components/search/search.component.js"></script>
-
 <script src="components/filter-buttons-group/filter-buttons-group.module.js"></script>
 <script src="components/filter-buttons-group/filter-buttons-group.component.js"></script>
-
 <script src="components/task-item-list/task-item-list.module.js"></script>
 <script src="components/task-item-list/task-item-list.component.js"></script>
-
 <script src="components/task-item/task-item.module.js"></script>
 <script src="components/task-item/task-item.component.js"></script>
 <script src="components/task-item/task-item.filter.js"></script>
-
 <script src="components/add-task/add-task.module.js"></script>
 <script src="components/add-task/add-task.component.js"></script>
-
 <script src="components/edit-text/edit-text.module.js"></script>
 <script src="components/edit-text/edit-text.component.js"></script>
-
-<!-- определяет новый модуль, содержащий компонент taskDetail -->
 <script src="components/task-detail/task-detail.module.js"></script>
-<!-- определяет компонент taskDetail -->
 <script src="components/task-detail/task-detail.component.js"></script>
 </body>
 </html>

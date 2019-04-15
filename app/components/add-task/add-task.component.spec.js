@@ -4,13 +4,11 @@ describe('addTask component', function () {
 
   beforeEach(module('addTask'));
 
-  // Тестирование контроллера
   describe('AddTaskController', function () {
     let controllerInstance;
     let todoService;
 
     beforeEach(inject(function ($componentController, _todoService_) {
-      // Создаем сервис
       todoService = _todoService_;
       let bindings = {
         tasks:
@@ -33,7 +31,7 @@ describe('addTask component', function () {
       controllerInstance.addTaskInputText = 'task2';
       controllerInstance.addTask('task2');
 
-      setTimeout(function() {
+      setTimeout(function () {
         expect(controllerInstance.tasks).toBeDefined();
         expect(controllerInstance.error).toBeUndefined();
         expect(angular.isArray(controllerInstance.tasks)).toBe(true);
@@ -52,12 +50,10 @@ describe('addTask component', function () {
       controllerInstance.addTaskInputText = 'task1';
       controllerInstance.addTask('task1');
 
-      setTimeout(function() {
+      setTimeout(function () {
         expect(controllerInstance.tasks).toBeDefined();
         expect(controllerInstance.error).toBeDefined();
-        // Проверяем, что свойство `error` это массив
         expect(angular.isArray(controllerInstance.error)).toBe(true);
-        // Проверяем, что свойство `error` это массив из строки сообщения объекта ошибки
         expect(controllerInstance.error).toEqual(mockError.message.split('\n'));
         done();
       }, 100);

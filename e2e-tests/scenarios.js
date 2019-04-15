@@ -5,12 +5,12 @@
 
 describe('TodoList Application', function () {
 
-  it('should redirect `index.html` to `index.html#!/tasks', function() {
+  it('should redirect `index.html` to `index.html#!/tasks', function () {
     browser.get('index.html');
     expect(browser.getCurrentUrl()).toContain('index.html#!/tasks');
   });
 
-  describe('View: Todo list', function() {
+  describe('View: Todo list', function () {
 
     beforeEach(function () {
       browser.get('index.html#!/tasks');
@@ -19,15 +19,11 @@ describe('TodoList Application', function () {
     });
 
     it('should filter the task list as a user types into the search box', function () {
-      // Получить массив из элементов `li` внутри ng-repeat
       const taskList = element.all(by.repeater('task in $ctrl.tasks'));
-      // Получить элемент (input) с ng-model="$ctrl.searchTask.text"
       const search = element(by.model('$ctrl.searchTask.text'));
 
-      // Проверяем, что в списке задач есть только 3 элемента
       expect(taskList.count()).toBe(3);
 
-      // Ввод текста в элемент `search`
       search.sendKeys('task');
       expect(taskList.count()).toBe(1);
 
@@ -37,16 +33,11 @@ describe('TodoList Application', function () {
     });
 
     it('should be possible to filter task list via the filter buttons group', function () {
-      // кнопка `All`
       const filterButtonAll = element(by.css('label[for="radioAll"]'));
-      // кнопка `Active`
       const filterButtonActive = element(by.css('label[for="radioActive"]'));
-      // кнопка `Done`
       const filterButtonDone = element(by.css('label[for="radioDone"]'));
-      // Получить массив из элементов `li` внутри ng-repeat
       const taskList = element.all(by.repeater('task in $ctrl.tasks'));
 
-      // Получить массив из текстовых значений элементов span из массива элементов списка заданий
       function getTaskTextList() {
         return taskList.map(function (task) {
           return task.element(by.css('.task-list-item-label span')).getText();
@@ -76,26 +67,23 @@ describe('TodoList Application', function () {
 
     });
 
-    it('should render task specific links', function() {
-      // Получить элемент (input) с ng-model="$ctrl.searchTask.text"
+    it('should render task specific links', function () {
       const search = element(by.model('$ctrl.searchTask.text'));
-      // Ввод текста в элемент `search`
       search.sendKeys('angular');
 
       element.all(by.css('.task-list .task-list-item .btn-info')).last().click();
-      expect(browser.getCurrentUrl()).toContain('index.html#!/tasks/5cb42d8f4a61e21000019c52');
+      expect(browser.getCurrentUrl()).toContain('index.html#!/tasks/5cb4702a4a61e2100001a65f');
     });
 
   });
 
-  describe('View: Task detail', function() {
+  describe('View: Task detail', function () {
 
-    beforeEach(function() {
-      browser.get('index.html#!/tasks/5cb42cf04a61e21000019c45');
+    beforeEach(function () {
+      browser.get('index.html#!/tasks/5cb46ecb4a61e2100001a63d');
     });
 
-    it('should display the `learn AngularJS` task detail page', function() {
-      // найти элемент по текстовой привязке (<dd>{{$ctrl.text}}</dd>) и получить текст элемента
+    it('should display the `learn AngularJS` task detail page', function () {
       expect(element(by.binding('$ctrl.text')).getText()).toBe('learn AngularJS');
     });
 

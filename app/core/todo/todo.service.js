@@ -3,14 +3,8 @@
 
   angular
       .module('core.todo')
-      // Настроить httpInterceptor в приложении:
       .config(configModule)
-      // Название нашего сервиса и фабричная функция
-      // Сервис `todoService` объявляет зависимость от сервиса `$resource`, который предоставлят модуль `ngResource`.
-      // Сервис `$resource` позволяет легко создать клиент RESTful с помощью всего лишь нескольких строк кода. Этот клиент
-      // может затем использоваться в нашем приложении вместо низкоуровневой службы `$http`.
       .factory('todoService', todoService)
-      // Создать httpInterceptor с вашим запросом (request)
       .factory('restdbAPIInterceptor', restdbAPIInterceptor);
 
   restdbAPIInterceptor.$inject = ['restdb'];
@@ -21,7 +15,6 @@
     };
 
     function requestInterceptor(config) {
-      // Before the each request is sent out, set request params on the request config
       config.params = {
         apikey: restdb.apikey
       };
@@ -31,20 +24,13 @@
 
   configModule.$inject = ['$httpProvider'];
 
-  // Настроить httpInterceptor в приложении:
   function configModule($httpProvider) {
-    // Прямо сейчас, когда у вас настроен ваш httpProvider, на котором есть перехватчик, куда бы вы ни вводили $ http, вы будете использовать этого провайдера, чтобы ... вы выполняли свои функции request, response и responseError.
-
-    // Поскольку $ resource использует $ http, и у вас настроен глобальный httpProvider, вы будете вызывать функцию ваших перехватчиков, когда будете использовать свой ресурс
-
-    // (перехватчики) установлены глобально
     $httpProvider.interceptors.push('restdbAPIInterceptor');
   }
 
   todoService.$inject = ['$resource', '$state', 'restdb'];
 
   function todoService($resource, $state, restdb) {
-    // Connection URL
     const taskUrl = `https://${restdb.databaseName}.restdb.io/rest/${restdb.collectionName}`;
 
     return {
@@ -116,7 +102,6 @@
     }
 
     function updateTask(taskToUpdate) {
-      // вызываем update, передавая сначала ID, затем объект, который мы обновляем
       return Tasks().update({taskId: taskToUpdate._id}, taskToUpdate).$promise
           .then((response) => sendResponseToJson(response)) // updated task object
           .catch((error) => {
@@ -125,18 +110,16 @@
     }
 
     function sendResponseToJson(response) {
-      // toJSON() удаляет из response поля $promise и $resolved
+      // toJSON() removes from response fields $promise and $resolved
       return response.toJSON();
     }
 
     function navigate(toState, params) {
-      console.log('Navigate to: ', toState);
       $state.go(toState, params);
     }
 
     function reloadState(toState) {
       // A method that force reloads the current state and reinstantiates components. Second parameter is for $stateParams
-      console.log('state is reloaded');
       $state.go(toState, {}, {reload: true});
     }
 

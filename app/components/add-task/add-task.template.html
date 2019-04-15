@@ -1,10 +1,6 @@
 <div class="add-task-container">
   <loading loading="$ctrl.loading"></loading>
-  <!-- директива ng-submit вызывает метод addTask() по нажатию Enter или по клику на кнопку (перехватывает отправку формы).
-   Внутри этого метода мы читаем свойство taskText и вставляем его в коллекцию taskArray-->
   <form ng-submit="$ctrl.addTask($ctrl.addTaskInputText)">
-    <!-- ng-model двунаправленно связывает значение input в форме со свойством text в объекте задания массива taskList
-  в контроллере (связывает форму и модель)-->
     <label>
       <input type="text" placeholder="add new task" ng-model="$ctrl.addTaskInputText">
     </label>

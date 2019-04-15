@@ -1,8 +1,6 @@
-<!--через привязку ng-model="data.mode" значение объекта data.mode.-->
 <div class="edit-text-container" ng-switch="$ctrl.mode">
   <loading loading="$ctrl.loading"></loading>
   <div class="animate-switch" ng-switch-when="viewText">
-    <!--код, если $ctrl.mode = viewText -->
     <div class="view-text" ng-if="$ctrl.text">
       {{$ctrl.text}}
     </div>
@@ -11,7 +9,6 @@
     </div>
   </div>
   <div class="animate-switch" ng-switch-when="editText">
-    <!--код, если $ctrl.mode = editText -->
     <div class="edit-text">
       <label>
         <textarea auto-resize ng-model="$ctrl.text"></textarea>

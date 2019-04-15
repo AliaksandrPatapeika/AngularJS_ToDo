@@ -20,7 +20,6 @@
       {name: 'done', label: 'Done'}
     ];
 
-    $ctrl.filterName = 'all';
   }
 
 })();

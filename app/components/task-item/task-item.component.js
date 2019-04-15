@@ -52,7 +52,7 @@
 
     function taskDoneChange(task) {
       $ctrl.loading = task._id;
-      // Не показывать изменения пока не придет ответ от сервера
+      // Do not show changes until a response gets from server.
       task.done = !task.done;
       let updatedTask = Object.assign({}, task);
       updatedTask.done = !task.done;

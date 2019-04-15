@@ -1,16 +1,12 @@
 /* Animate `ngRepeat` in `todoList` component */
-/*Класс ng-enter применяется к элементу, когда новое задание добавляется в список и отображается на странице.*/
 .task-list-item.ng-enter,
-  /*Класс ng-leave применяется к элементу, когда задание удаляется из списка.*/
 .task-list-item.ng-leave,
-  /*Класс ng-move применяется к элементу, когда изменяется относительная позиция задания в списке.*/
 .task-list-item.ng-move {
   -webkit-transition: all linear 0.2s;
   transition: all linear 0.2s;
 }
 
 .task-list-item.ng-enter,
-  /* класс `active` представляет стиль в конце анимации.*/
 .task-list-item.ng-leave.ng-leave-active,
 .task-list-item.ng-move {
   margin-top: 0;
