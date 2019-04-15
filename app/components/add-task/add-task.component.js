@@ -25,7 +25,7 @@
     }
 
     function addTask(taskText) {
-      // не добавлять пустые задания
+      // do not add empty tasks
       if ($ctrl.addTaskInputText) {
         $ctrl.loading = true;
         let newTask = {
@@ -38,7 +38,6 @@
         $ctrl.addTaskInputText = '';
         todoService.addTask(newTask)
             .then((responseNewTask) => {
-              console.log('responseNewTask', responseNewTask);
               $ctrl.loading = false;
               $ctrl.tasks.push(responseNewTask);
             })
@@ -49,7 +48,7 @@
       } else {
         console.log('Empty input');
       }
-      // return todoService.addTask({test: 123});
+
     }
 
   }

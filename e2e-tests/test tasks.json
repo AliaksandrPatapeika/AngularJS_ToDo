@@ -1,26 +1,23 @@
 [
   {
-    "id": "_0yjrvtjof",
+    "id": "5cb42cf04a61e21000019c45",
     "text": "learn AngularJS",
     "done": true,
     "important": false,
-    "date": 1553164915000,
     "description": "learn AngularJS description..."
   },
   {
-    "id": "_x0h29fnbi",
+    "id": "5cb42d8f4a61e21000019c52",
     "text": "build an AngularJS app",
     "done": false,
     "important": false,
-    "date": 1553324708000,
     "description": "build an AngularJS app description..."
   },
   {
-    "id": "_4v27mqm1y",
+    "id": "5cb42da74a61e21000019c57",
     "text": "Other task",
     "done": false,
     "important": true,
-    "date": 1553520895000,
     "description": "Other task description..."
   }
 ]

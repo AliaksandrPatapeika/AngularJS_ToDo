@@ -5,56 +5,77 @@ describe('todoList component', function () {
   beforeEach(module('todoList'));
 
   // Тестирование контроллера
-  describe('TodoListController test', function () {
-    let controllerInstanceResolve;
-    let controllerInstanceReject;
-    const mockTasksDataResolve = [
-      {text: 'learn AngularJS', done: true, important: false},
-      {text: 'build an AngularJS app', done: false, important: false},
-      {text: 'Other todo', done: false, important: true}
-    ];
-    const mockTasksDataReject = new Error('Error \nPromise rejected!');
+  describe('TodoListController', function () {
+    let controllerInstance;
+    let todoService;
 
-    // `inject` предоставляет возможность использования внедрения зависимостей в тестах и выполнить функцию с
-    // внедренными экземплярами сервисов ($componentController, $filter, $httpBackend и др.) в функцию beforeEach().
-    // Это гарантирует, что каждый тест изолирован от работы, выполненной в других тестах.
-    // Инжектим сервис $componentController для извлечения и создания экземпляра контроллера компонента `todoList`.
-    // Инжектор игнорирует начальные и конечные подчеркивания в `_$httpBackend_`.
-    // Это позволяет внедрить сервис и назначить его переменной с тем же именем
-    // как сервис, избегая конфликта имен.
-    // beforeEach(inject(function ($componentController, _$httpBackend_, _todoService_) {
-    beforeEach(inject(function ($componentController) {
-      // создания экземпляр контроллера компонента `todoList`
-      controllerInstanceResolve = $componentController('todoList', null, {tasksPromise: mockTasksDataResolve});
-      controllerInstanceReject = $componentController('todoList', null, {tasksPromise: mockTasksDataReject});
-    }));
+    describe('Load data if getAllTasks promise resolve', function () {
+      const mockTasks = [
+        {text: 'learn AngularJS'},
+        {text: 'build an AngularJS app'},
+        {text: 'Other todo'}
+      ];
 
-    it('should create a `tasks` property with 3 tasks when tasks data resolved from $resource promise', function () {
-      // Проверяем, что свойство `tasks` существует в контроллере после получения контроллером привязки к
-      // свойству `tasksPromise` от сервиса $routeProvider в resolve в app.config.js
-      expect(controllerInstanceResolve.tasksPromise).toBeDefined();
-      expect(controllerInstanceResolve.tasks).toBeDefined();
-      expect(controllerInstanceResolve.error).toBeUndefined();
+      // `inject` предоставляет возможность использования внедрения зависимостей в тестах и выполнить функцию с
+      // внедренными экземплярами сервисов ($componentController, $filter, $httpBackend и др.) в функцию beforeEach().
+      // Это гарантирует, что каждый тест изолирован от работы, выполненной в других тестах.
+      // Инжектим сервис $componentController для извлечения и создания экземпляра контроллера компонента `todoList`.
+      // Инжектор игнорирует начальные и конечные подчеркивания в `_$httpBackend_`.
+      // Это позволяет внедрить сервис и назначить его переменной с тем же именем
+      // как сервис, избегая конфликта имен.
+      beforeEach(inject(function ($componentController, _todoService_) {
+        // Создаем сервис
+        todoService = _todoService_;
+        spyOn(todoService, 'getAllTasks').and.returnValue(Promise.resolve(mockTasks));
+        controllerInstance = $componentController('todoList');
+      }));
 
-      // Проверяем, что свойство `tasksPromise` это не ошибка
-      expect(controllerInstanceResolve.tasksPromise instanceof Error).toBe(false);
-      // Проверяем, что свойство `tasks` это массив с тремя значениями
-      expect(angular.isArray(controllerInstanceResolve.tasks)).toBe(true);
-      expect(controllerInstanceResolve.tasks).toBe(mockTasksDataResolve);
-      expect(controllerInstanceResolve.tasks.length).toBe(3);
+      it('should create a `tasks` property with 3 tasks when tasks data resolved from $resource promise', function (done) {
+        // Проверяем, что свойства `tasks` и `error` не существуют в контроллере
+        expect(controllerInstance.tasks).toBeUndefined();
+        expect(controllerInstance.error).toBeUndefined();
+
+        setTimeout(function () {
+          expect(controllerInstance.tasks).toBeDefined();
+          expect(controllerInstance.error).toBeUndefined();
+          // Проверяем, что свойство `tasks` это массив с тремя значениями
+          expect(angular.isArray(controllerInstance.tasks)).toBe(true);
+          expect(controllerInstance.tasks).toEqual(mockTasks);
+          expect(controllerInstance.tasks.length).toBe(3);
+          done();
+        }, 100);
+
+      });
+
     });
 
-    it('should create a `error` property when tasks data rejected from $resource promise', function () {
-      // Проверяем, что свойство `error` существует в контроллере после получения ошибки контроллером при
-      // выполнении привязки к свойству `tasksPromise` от сервиса $routeProvider в resolve в app.config.js
-      expect(controllerInstanceReject.tasksPromise).toBeDefined();
-      expect(controllerInstanceReject.tasks).toBeUndefined();
-      expect(controllerInstanceReject.error).toBeDefined();
+    describe('Load data if getAllTasks promise reject', function () {
+      const mockError = new Error('Error!\nCode: 404\nStatus: not found');
 
-      // Проверяем, что свойство `tasksPromise` это ошибка
-      expect(controllerInstanceReject.tasksPromise instanceof Error).toBe(true);
-      // Проверяем, что свойство `error` это массив из строки сообщения объекта ошибки
-      expect(controllerInstanceReject.error).toEqual(controllerInstanceReject.tasksPromise.message.split('\n'));
+      beforeEach(inject(function ($componentController, _todoService_) {
+        // Создаем сервис
+        todoService = _todoService_;
+        spyOn(todoService, 'getAllTasks').and.returnValue(Promise.reject(mockError));
+        controllerInstance = $componentController('todoList');
+      }));
+
+      it('should create a `error` property when task data rejected from $resource promise', function (done) {
+        // Проверяем, что свойства `tasks` и `error` не существуют в контроллере
+        expect(controllerInstance.tasks).toBeUndefined();
+        expect(controllerInstance.error).toBeUndefined();
+
+        setTimeout(function () {
+          expect(controllerInstance.tasks).toBeUndefined();
+          expect(controllerInstance.error).toBeDefined();
+          // Проверяем, что свойство `error` это массив
+          expect(angular.isArray(controllerInstance.error)).toBe(true);
+          // Проверяем, что свойство `error` это массив из строки сообщения объекта ошибки
+          expect(controllerInstance.error).toEqual(mockError.message.split('\n'));
+          done();
+        }, 100);
+
+      });
+
     });
 
   });

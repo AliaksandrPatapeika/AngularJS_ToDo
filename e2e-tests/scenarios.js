@@ -83,7 +83,7 @@ describe('TodoList Application', function () {
       search.sendKeys('angular');
 
       element.all(by.css('.task-list .task-list-item .btn-info')).last().click();
-      expect(browser.getCurrentUrl()).toContain('index.html#!/tasks/5cb2dd414a61e21000017989');
+      expect(browser.getCurrentUrl()).toContain('index.html#!/tasks/5cb42d8f4a61e21000019c52');
     });
 
   });
@@ -91,7 +91,7 @@ describe('TodoList Application', function () {
   describe('View: Task detail', function() {
 
     beforeEach(function() {
-      browser.get('index.html#!/tasks/5cb207174a61e2100001660c');
+      browser.get('index.html#!/tasks/5cb42cf04a61e21000019c45');
     });
 
     it('should display the `learn AngularJS` task detail page', function() {

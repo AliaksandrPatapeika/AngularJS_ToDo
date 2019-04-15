@@ -8,7 +8,7 @@ describe('taskItem component', function () {
   beforeEach(module('taskItem'));
 
    // Тестирование фильтра
-  describe('taskList filter test', function () {
+  describe('taskList filter', function () {
     let filterInstance;
     let tasks = [];
 
